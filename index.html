@@ -328,7 +328,7 @@ const Footer = ({ navigate }) => (
           <span className="text-xs text-gray">Согласие на обработку ПД</span>
         </div>
       </div>
-      <div className="footer-bottom">© 2025 ООО «Лидтендер». Все права защищены.</div>
+      <div className="footer-bottom">© 2026 ООО «Лидтендер». Все права защищены.</div>
     </div>
   </footer>
 );
@@ -676,7 +676,7 @@ const PageArticle = ({ navigate }) => (
   <div className="stack" style={{ maxWidth: 768 }}>
     <button onClick={() => navigate("info")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#9ca3af", textAlign: "left" }}>← Назад к статьям</button>
     <div className="text-xl font-bold text-dark">Расшифровка маркировки отрезных дисков</div>
-    <div className="text-xs text-gray">Обновлено: 15.05.2025</div>
+    <div className="text-xs text-gray">Обновлено: 15.05.2026</div>
     <WireBlock label="Содержание статьи">
       <PhImg h={200} label="ИЗОБРАЖЕНИЕ / ИЛЛЮСТРАЦИЯ" />
       <div className="mt-3">{[1,2,3,4,5,6,7,8,9,10].map(i => <Skel key={i} w={`${70 + Math.random() * 30}%`} />)}</div>
@@ -690,10 +690,10 @@ const PageNews = ({ navigate }) => (
   <div className="stack">
     <div><div className="text-xl font-bold text-dark">Новости компании</div><div className="text-sm text-gray">Участие в тендерах, партнёрства, расширение ассортимента</div></div>
     {[
-      { date: "10.05.2025", title: "Расширение ассортимента шлифовальных дисков" },
-      { date: "28.04.2025", title: "Новое партнёрство с заводом ВКН" },
-      { date: "15.04.2025", title: "Успешное участие в тендере на поставку абразивов" },
-      { date: "01.04.2025", title: "Запуск нового сайта компании Лидтендер" },
+      { date: "10.05.2026", title: "Расширение ассортимента шлифовальных дисков" },
+      { date: "28.04.2026", title: "Новое партнёрство с заводом ВКН" },
+      { date: "15.04.2026", title: "Успешное участие в тендере на поставку абразивов" },
+      { date: "01.04.2026", title: "Запуск нового сайта компании Лидтендер" },
     ].map((item, i) => (
       <WireBlock key={i} onClick={() => navigate("news-detail")}>
         <div className="news-item">
@@ -713,7 +713,7 @@ const PageNews = ({ navigate }) => (
 const PageNewsDetail = ({ navigate }) => (
   <div className="stack" style={{ maxWidth: 768 }}>
     <button onClick={() => navigate("news")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#9ca3af", textAlign: "left" }}>← Назад к новостям</button>
-    <div className="text-xs text-gray">28.04.2025</div>
+    <div className="text-xs text-gray">28.04.2026</div>
     <div className="text-xl font-bold text-dark">Новое партнёрство с заводом ВКН</div>
     <PhImg h={250} label="ФОТО НОВОСТИ" />
     <WireBlock label="Текст новости">
