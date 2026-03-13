@@ -30,8 +30,10 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 .header-contacts .label { font-size: 11px; color: #9ca3af; }
 .header-contacts .value { font-weight: 500; color: #4b5563; }
 .burger { display: none; padding: 8px; border: none; background: none; cursor: pointer; }
+.mobile-actions { display: none; align-items: center; gap: 8px; }
+.mobile-cart { display: none; }
 .burger span { display: block; width: 24px; height: 2px; background: #6b7280; margin: 5px 0; transition: all .3s; }
-.mobile-menu { display: none; border-top: 1px solid #e5e7eb; background: #fff; padding: 8px 16px; }
+.mobile-menu { display: none; border-top: 1px solid #e5e7eb; background: #fff; padding: 8px 16px; position: absolute; top: 100%; left: 0; right: 0; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,.12); max-height: 80vh; overflow-y: auto; }
 .mobile-menu button { display: block; width: 100%; text-align: left; padding: 10px 0; font-size: 14px; color: #6b7280; border: none; background: none; cursor: pointer; font-weight: 500; }
 .mobile-menu .sub { padding-left: 24px; color: #9ca3af; font-weight: 400; }
 
@@ -151,6 +153,8 @@ input[type=number] { -moz-appearance: textfield; }
 @media (max-width: 768px) {
   .nav, .header-contacts { display: none; }
   .burger { display: block; }
+  .mobile-actions { display: flex; }
+  .mobile-cart { display: block; }
   .mobile-menu.open { display: block; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
   .grid-2.md-only { grid-template-columns: 1fr; }
@@ -195,6 +199,8 @@ input[type=number] { -moz-appearance: textfield; }
 .cat-card { cursor: pointer; }
 .cat-card:hover .cat-name { color: #374151; }
 .cat-name { font-size: 14px; font-weight: 500; color: #6b7280; margin-top: 8px; transition: color .2s; }
+.info-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 768px) { .info-list { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -285,9 +291,14 @@ const Header = ({ navigate, page, menuOpen, setMenuOpen, cart }) => {
             🛒{cartCount > 0 && <span style={{ position: "absolute", top: -6, right: -6, background: "#374151", color: "#fff", fontSize: 10, fontWeight: 700, borderRadius: 99, minWidth: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 4px" }}>{cartCount}</span>}
           </button>
         </div>
-        <button className="burger" onClick={() => setMenuOpen(!menuOpen)}>
+        <div className="mobile-actions">
+          <button onClick={() => navigate("cart")} className="mobile-cart" style={{ position: "relative", background: "none", border: "2px solid #e5e7eb", borderRadius: 8, padding: "6px 10px", cursor: "pointer", fontSize: 16, lineHeight: 1 }}>
+            🛒{cartCount > 0 && <span style={{ position: "absolute", top: -6, right: -6, background: "#374151", color: "#fff", fontSize: 10, fontWeight: 700, borderRadius: 99, minWidth: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 4px" }}>{cartCount}</span>}
+          </button>
+          <button className="burger" onClick={() => setMenuOpen(!menuOpen)}>
           <span /><span /><span />
         </button>
+        </div>
       </div>
       <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
         {items.map(item => (
@@ -652,7 +663,7 @@ const PageCart = ({ navigate, cart, setCart }) => {
 const PageInfo = ({ navigate }) => (
   <div className="stack">
     <div><div className="text-xl font-bold text-dark">Полезная информация</div><div className="text-sm text-gray">Статьи и справочные материалы об абразивной продукции</div></div>
-    <div className="grid-2">
+    <div className="info-list">
       {[
         "Расшифровка маркировки отрезных дисков",
         "Расшифровка маркировки шлифовальных дисков",
