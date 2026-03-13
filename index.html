@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Лидтендер — Wireframe-прототип сайта</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #fff; color: #374151; line-height: 1.5; }
+.max-w { max-width: 1152px; margin: 0 auto; padding: 0 16px; }
+
+/* Header */
+.header { border-bottom: 2px solid #e5e7eb; background: #fff; position: sticky; top: 0; z-index: 50; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; max-width: 1152px; margin: 0 auto; }
+.logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.logo-icon { width: 40px; height: 40px; background: #d1d5db; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #6b7280; font-weight: 700; }
+.logo-text { font-weight: 700; color: #374151; font-size: 14px; line-height: 1.2; }
+.logo-sub { font-size: 12px; color: #9ca3af; }
+.nav { display: flex; align-items: center; gap: 4px; }
+.nav-btn { padding: 8px 12px; font-size: 14px; border-radius: 6px; border: none; background: none; cursor: pointer; color: #6b7280; transition: all .2s; }
+.nav-btn:hover { background: #f9fafb; color: #374151; }
+.nav-btn.active { background: #f3f4f6; color: #1f2937; font-weight: 600; }
+.nav-dropdown { position: absolute; top: 100%; left: 0; background: #fff; border: 2px solid #e5e7eb; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.1); padding: 4px 0; min-width: 160px; z-index: 50; }
+.nav-dropdown button { display: block; width: 100%; text-align: left; padding: 8px 16px; font-size: 14px; color: #6b7280; border: none; background: none; cursor: pointer; }
+.nav-dropdown button:hover { background: #f9fafb; color: #1f2937; }
+.header-contacts { display: flex; align-items: center; gap: 16px; font-size: 14px; color: #6b7280; }
+.header-contacts .label { font-size: 11px; color: #9ca3af; }
+.header-contacts .value { font-weight: 500; color: #4b5563; }
+.burger { display: none; padding: 8px; border: none; background: none; cursor: pointer; }
+.burger span { display: block; width: 24px; height: 2px; background: #6b7280; margin: 5px 0; transition: all .3s; }
+.mobile-menu { display: none; border-top: 1px solid #e5e7eb; background: #fff; padding: 8px 16px; }
+.mobile-menu button { display: block; width: 100%; text-align: left; padding: 10px 0; font-size: 14px; color: #6b7280; border: none; background: none; cursor: pointer; font-weight: 500; }
+.mobile-menu .sub { padding-left: 24px; color: #9ca3af; font-weight: 400; }
+
+/* Page map */
+.pagemap { background: #f9fafb; border-bottom: 1px solid #e5e7eb; overflow-x: auto; }
+.pagemap-inner { display: flex; align-items: center; gap: 4px; padding: 8px 16px; max-width: 1152px; margin: 0 auto; flex-wrap: nowrap; }
+.pagemap-label { font-size: 12px; color: #9ca3af; font-weight: 500; white-space: nowrap; margin-right: 4px; }
+.pagemap-btn { padding: 4px 8px; font-size: 11px; border-radius: 4px; border: none; background: none; cursor: pointer; white-space: nowrap; color: #9ca3af; transition: all .2s; }
+.pagemap-btn:hover { background: #e5e7eb; color: #4b5563; }
+.pagemap-btn.active { background: #374151; color: #fff; }
+
+/* Breadcrumb */
+.breadcrumb { font-size: 12px; color: #9ca3af; padding: 12px 0; }
+.breadcrumb span { cursor: pointer; }
+.breadcrumb span:hover { color: #4b5563; }
+
+/* Wire blocks */
+.wire { border: 2px solid #d1d5db; background: #f9fafb; border-radius: 8px; padding: 16px; margin-bottom: 0; }
+.wire.dashed { border-style: dashed; border-color: #d1d5db; }
+.wire.clickable { cursor: pointer; transition: all .2s; }
+.wire.clickable:hover { background: #f3f4f6; border-color: #9ca3af; }
+.wire-label { font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+
+/* Placeholder image */
+.ph-img { background: #e5e7eb; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 11px; }
+
+/* Buttons */
+.btn { padding: 10px 20px; font-size: 14px; border-radius: 6px; font-weight: 500; cursor: pointer; transition: all .2s; border: none; }
+.btn.sm { padding: 6px 12px; font-size: 12px; }
+.btn.primary { background: #374151; color: #fff; }
+.btn.primary:hover { background: #1f2937; }
+.btn.secondary { background: #fff; border: 2px solid #d1d5db; color: #6b7280; }
+.btn.secondary:hover { border-color: #9ca3af; }
+
+/* Form fields */
+.form-field label { font-size: 12px; color: #6b7280; display: block; margin-bottom: 4px; }
+.form-field input, .form-field textarea { width: 100%; border: 2px solid #e5e7eb; border-radius: 6px; padding: 8px; font-size: 14px; background: #fff; }
+.form-field textarea { height: 80px; resize: vertical; }
+
+/* Badge */
+.badge { display: inline-block; background: #e5e7eb; color: #6b7280; font-size: 11px; padding: 2px 8px; border-radius: 99px; }
+
+/* Grid helpers */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.gap-sm { gap: 12px; }
+.gap-lg { gap: 24px; }
+.stack { display: flex; flex-direction: column; gap: 24px; }
+.row { display: flex; gap: 12px; align-items: center; }
+.text-center { text-align: center; }
+.text-xs { font-size: 12px; }
+.text-sm { font-size: 14px; }
+.text-lg { font-size: 18px; }
+.text-xl { font-size: 20px; }
+.text-2xl { font-size: 24px; }
+.text-gray { color: #9ca3af; }
+.text-dark { color: #4b5563; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.italic { font-style: italic; }
+.mt-1 { margin-top: 4px; }
+.mt-2 { margin-top: 8px; }
+.mt-3 { margin-top: 12px; }
+.mb-1 { margin-bottom: 4px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-4 { margin-bottom: 16px; }
+
+/* Skeleton lines */
+.skel { height: 8px; background: #e5e7eb; border-radius: 4px; margin-bottom: 6px; }
+.skel.title { height: 12px; background: #d1d5db; }
+.skel.thin { height: 6px; background: #f3f4f6; }
+
+/* Footer */
+.footer { border-top: 2px solid #e5e7eb; background: #f9fafb; margin-top: 48px; padding: 32px 0; }
+.footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; font-size: 14px; }
+.footer-title { font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+.footer a, .footer button { color: #9ca3af; font-size: 12px; text-decoration: none; display: block; margin-bottom: 4px; border: none; background: none; cursor: pointer; padding: 0; text-align: left; }
+.footer a:hover, .footer button:hover { color: #4b5563; }
+.footer-bottom { border-top: 1px solid #e5e7eb; margin-top: 24px; padding-top: 16px; text-align: center; font-size: 12px; color: #9ca3af; }
+
+/* Filter pills */
+.pill { padding: 6px 12px; font-size: 12px; border-radius: 99px; border: 2px solid #e5e7eb; background: none; cursor: pointer; color: #9ca3af; transition: all .2s; }
+.pill.active { border-color: #6b7280; background: #f3f4f6; color: #374151; font-weight: 600; }
+.pill:hover { border-color: #d1d5db; }
+
+/* Checkbox placeholder */
+.checkbox { display: flex; align-items: center; gap: 8px; }
+.checkbox-box { width: 16px; height: 16px; border: 2px solid #d1d5db; border-radius: 4px; flex-shrink: 0; }
+
+/* Table */
+.spec-table { width: 100%; font-size: 14px; border-collapse: collapse; }
+.spec-table tr:nth-child(even) { background: #f9fafb; }
+.spec-table td { padding: 6px 8px; }
+.spec-table td:first-child { color: #6b7280; }
+.spec-table td:last-child { font-weight: 500; color: #4b5563; }
+
+/* Quantity control */
+.qty { display: inline-flex; align-items: center; border: 2px solid #e5e7eb; border-radius: 6px; overflow: hidden; }
+.qty button { width: 32px; height: 32px; border: none; background: none; cursor: pointer; font-size: 16px; color: #9ca3af; }
+.qty span { width: 32px; text-align: center; font-size: 14px; }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; }
+
+/* Cart item */
+.cart-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f3f4f6; }
+.cart-item:last-child { border-bottom: none; }
+.cart-remove { background: none; border: none; cursor: pointer; font-size: 18px; color: #d1d5db; padding: 4px 8px; }
+.cart-remove:hover { color: #ef4444; }
+
+/* Product card in catalog */
+.product-card .product-info { cursor: pointer; }
+.product-card .product-info:hover .product-name { color: #374151; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav, .header-contacts { display: none; }
+  .burger { display: block; }
+  .mobile-menu.open { display: block; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+  .grid-2.md-only { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+}
+
+/* Scrollbar for pagemap */
+.pagemap::-webkit-scrollbar { height: 4px; }
+.pagemap::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 2px; }
+
+/* Hero */
+.hero { text-align: center; padding: 32px 16px; }
+
+/* Partner card */
+.partner-card { border: 2px solid #e5e7eb; border-radius: 8px; padding: 16px; text-align: center; transition: all .2s; }
+.partner-card.clickable { cursor: pointer; }
+.partner-card.clickable:hover { border-color: #9ca3af; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+
+/* Review card */
+.review-card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; }
+.review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+
+/* News item */
+.news-item { display: flex; gap: 16px; }
+
+/* Contact grid */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+
+/* Play button overlay */
+.video-thumb { position: relative; }
+.play-btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 32px; color: #9ca3af; }
+
+/* Advantage item */
+.advantage { text-align: center; padding: 12px; }
+.advantage-icon { width: 56px; height: 56px; background: #e5e7eb; border-radius: 50%; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #9ca3af; }
+
+/* Category card */
+.cat-card { cursor: pointer; }
+.cat-card:hover .cat-name { color: #374151; }
+.cat-name { font-size: 14px; font-weight: 500; color: #6b7280; margin-top: 8px; transition: color .2s; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+// ── Helpers ──
+const PhImg = ({ w = "100%", h = 120, label = "IMG", style = {} }) => (
+  <div className="ph-img" style={{ width: w, height: h, ...style }}>{label}</div>
+);
+
+const WireBlock = ({ label, dashed, clickable, onClick, children }) => (
+  <div className={`wire${dashed ? " dashed" : ""}${clickable || onClick ? " clickable" : ""}`} onClick={onClick}>
+    {label && <div className="wire-label">{label}</div>}
+    {children}
+  </div>
+);
+
+const Skel = ({ w = "100%", title, thin }) => (
+  <div className={`skel${title ? " title" : ""}${thin ? " thin" : ""}`} style={{ width: w }} />
+);
+
+const ContactForm = () => (
+  <WireBlock label="Форма обратной связи">
+    <div className="grid-2 gap-sm" style={{ maxWidth: 500 }}>
+      <div className="form-field"><label>Имя</label><input disabled /></div>
+      <div className="form-field"><label>Телефон</label><input disabled /></div>
+      <div className="form-field"><label>Email</label><input disabled /></div>
+      <div className="form-field"><label>Компания</label><input disabled /></div>
+      <div className="form-field" style={{ gridColumn: "1 / -1" }}><label>Сообщение</label><textarea disabled /></div>
+    </div>
+    <div className="checkbox mt-2">
+      <div className="checkbox-box" />
+      <span className="text-xs text-gray">Согласие на обработку персональных данных</span>
+    </div>
+    <div className="mt-3"><button className="btn primary">Отправить заявку</button></div>
+    <div className="text-xs text-gray italic mt-2">→ Письмо на email менеджера + автоответ «Заявка принята»</div>
+  </WireBlock>
+);
+
+// ── Header ──
+const Header = ({ navigate, page, menuOpen, setMenuOpen, cart }) => {
+  const [openSub, setOpenSub] = useState(null);
+  const cartCount = cart ? Object.values(cart).reduce((a, b) => a + b, 0) : 0;
+  const items = [
+    { id: "home", label: "Главная", sub: [
+      { id: "about", label: "О компании" },
+      { id: "partners", label: "Партнёры" },
+      { id: "reviews", label: "Отзывы" },
+    ]},
+    { id: "catalog", label: "Продукция" },
+    { id: "info", label: "Информация" },
+    { id: "news", label: "Новости" },
+    { id: "contacts", label: "Контакты" },
+  ];
+
+  return (
+    <header className="header">
+      <div className="header-inner">
+        <div className="logo" onClick={() => navigate("home")}>
+          <div className="logo-icon">LT</div>
+          <div><div className="logo-text">ЛИДТЕНДЕР</div><div className="logo-sub">leadtender.ru</div></div>
+        </div>
+        <nav className="nav">
+          {items.map(item => (
+            <div key={item.id} style={{ position: "relative" }}
+              onMouseEnter={() => item.sub && setOpenSub(item.id)}
+              onMouseLeave={() => setOpenSub(null)}>
+              <button className={`nav-btn${page === item.id || (item.sub && item.sub.some(s => s.id === page)) ? " active" : ""}`}
+                onClick={() => navigate(item.id)}>
+                {item.label}{item.sub ? " ▾" : ""}
+              </button>
+              {item.sub && openSub === item.id && (
+                <div className="nav-dropdown">
+                  {item.sub.map(s => (
+                    <button key={s.id} onClick={() => { navigate(s.id); setOpenSub(null); }}>{s.label}</button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+        <div className="header-contacts">
+          <div><div className="label">Телефон</div><div className="value">+7 (XXX) XXX-XX-XX</div></div>
+          <div><div className="label">Email</div><div className="value">info@leadtender.ru</div></div>
+          <button onClick={() => navigate("cart")} style={{ position: "relative", background: "none", border: "2px solid #e5e7eb", borderRadius: 8, padding: "8px 12px", cursor: "pointer", fontSize: 18, lineHeight: 1, transition: "all .2s" }} onMouseOver={e => e.currentTarget.style.borderColor = "#9ca3af"} onMouseOut={e => e.currentTarget.style.borderColor = "#e5e7eb"}>
+            🛒{cartCount > 0 && <span style={{ position: "absolute", top: -6, right: -6, background: "#374151", color: "#fff", fontSize: 10, fontWeight: 700, borderRadius: 99, minWidth: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 4px" }}>{cartCount}</span>}
+          </button>
+        </div>
+        <button className="burger" onClick={() => setMenuOpen(!menuOpen)}>
+          <span /><span /><span />
+        </button>
+      </div>
+      <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
+        {items.map(item => (
+          <div key={item.id}>
+            <button onClick={() => { navigate(item.id); setMenuOpen(false); }}>{item.label}</button>
+            {item.sub && item.sub.map(s => (
+              <button key={s.id} className="sub" onClick={() => { navigate(s.id); setMenuOpen(false); }}>{s.label}</button>
+            ))}
+          </div>
+        ))}
+      </div>
+    </header>
+  );
+};
+
+// ── Footer ──
+const Footer = ({ navigate }) => (
+  <footer className="footer">
+    <div className="max-w">
+      <div className="footer-grid">
+        <div>
+          <div style={{ fontWeight: 700, color: "#4b5563", marginBottom: 8 }}>ЛИДТЕНДЕР</div>
+          <div className="text-xs text-gray">ООО «Лидтендер»<br />ИНН: XXXXXXXXXX<br />ОГРН: XXXXXXXXXXXXX</div>
+        </div>
+        <div>
+          <div className="footer-title">Разделы</div>
+          {[["home","Главная"],["catalog","Продукция"],["info","Информация"],["news","Новости"],["contacts","Контакты"]].map(([id, l]) => (
+            <button key={id} onClick={() => navigate(id)}>{l}</button>
+          ))}
+        </div>
+        <div>
+          <div className="footer-title">Контакты</div>
+          <div className="text-xs text-gray">+7 (XXX) XXX-XX-XX<br />info@leadtender.ru<br />г. Москва, ул. XXXXX</div>
+        </div>
+        <div>
+          <div className="footer-title">Документы</div>
+          <button onClick={() => navigate("privacy")}>Политика конфиденциальности</button>
+          <span className="text-xs text-gray">Согласие на обработку ПД</span>
+        </div>
+      </div>
+      <div className="footer-bottom">© 2025 ООО «Лидтендер». Все права защищены.</div>
+    </div>
+  </footer>
+);
+
+// ── PAGES ──
+
+const PageHome = ({ navigate }) => (
+  <div className="stack">
+    <WireBlock label="Hero-блок">
+      <div className="hero">
+        <PhImg h={120} label="ФОНОВОЕ ИЗОБРАЖЕНИЕ / ГРАДИЕНТ" />
+        <div className="text-lg font-bold text-dark mt-3">Слоган компании — 1-2 строки</div>
+        <div className="text-sm text-gray mt-1 mb-4">Подзаголовок с УТП</div>
+        <div className="row" style={{ justifyContent: "center" }}>
+          <button className="btn primary" onClick={() => navigate("contacts")}>Связаться с нами</button>
+          <button className="btn secondary" onClick={() => navigate("catalog")}>Смотреть каталог</button>
+        </div>
+      </div>
+    </WireBlock>
+
+    <WireBlock label="О компании">
+      <div className="grid-2 md-only gap-lg">
+        <div>
+          <Skel w="75%" title /><Skel /><Skel /><Skel w="85%" /><Skel /><Skel w="80%" />
+          <div className="text-xs text-gray italic mt-2">Текст 5–8 строк: описание компании, направления, география</div>
+        </div>
+        <PhImg h={160} label="ФОТО / ИЛЛЮСТРАЦИЯ" />
+      </div>
+    </WireBlock>
+
+    <WireBlock label="Наши приоритеты / преимущества">
+      <div className="grid-4">
+        {["Надёжность","Сертифицированная продукция","Работа по тендерам","Оперативная доставка"].map((t, i) => (
+          <div key={i} className="advantage">
+            <div className="advantage-icon">⬡</div>
+            <div className="text-xs font-medium text-dark">{t}</div>
+          </div>
+        ))}
+      </div>
+    </WireBlock>
+
+    <WireBlock label="Категории продукции">
+      <div className="grid-4">
+        {["Отрезные диски","Шлифовальные диски","Категория 3","Категория 4"].map((c, i) => (
+          <div key={i} className="cat-card" onClick={() => navigate("catalog")}>
+            <PhImg h={100} label="ФОТО" />
+            <div className="cat-name">{c}</div>
+            <div className="text-xs text-gray">→ В каталог</div>
+          </div>
+        ))}
+      </div>
+    </WireBlock>
+
+    <ContactForm />
+  </div>
+);
+
+const PagePartners = ({ navigate }) => (
+  <div className="stack">
+    <div><div className="text-xl font-bold text-dark">Партнёры</div><div className="text-sm text-gray">Организации, которые нас выбрали</div></div>
+    <WireBlock label="Сетка карточек партнёров">
+      <div className="grid-3">
+        {["Завод ВКН","Партнёр 2","Партнёр 3","Партнёр 4","Партнёр 5","Партнёр 6"].map((n, i) => (
+          <div key={i} className={`partner-card${i === 0 ? " clickable" : ""}`} onClick={() => i === 0 && navigate("partner-vkn")}>
+            <PhImg h={60} label="ЛОГОТИП" />
+            <div className="text-sm font-medium text-dark mt-2">{n}</div>
+            {i === 0 && <div className="text-xs text-gray mt-1">→ Нажмите для перехода</div>}
+          </div>
+        ))}
+      </div>
+    </WireBlock>
+    <WireBlock label="Официальное письмо / Диплом ВКН">
+      <div className="row" style={{ alignItems: "flex-start", gap: 16 }}>
+        <PhImg w={200} h={260} label="PDF / СКАН ДОКУМЕНТА" />
+        <div>
+          <div className="text-sm font-medium text-dark mb-2">Официальное письмо о партнёрстве</div>
+          <div className="text-xs text-gray italic">Подтверждение права использования товарного знака ВКН</div>
+          <div className="text-xs text-gray mt-2">Формат: изображение или PDF-вставка с возможностью увеличения</div>
+        </div>
+      </div>
+    </WireBlock>
+  </div>
+);
+
+const PageReviews = ({ navigate }) => (
+  <div className="stack">
+    <div><div className="text-xl font-bold text-dark">Отзывы</div><div className="text-sm text-gray">Что говорят наши клиенты и партнёры</div></div>
+    <WireBlock label="Галерея благодарственных писем">
+      <div className="grid-4 gap-sm">
+        {[1,2,3,4].map(i => (
+          <div key={i}><PhImg h={140} label={`СКАН ПИСЬМА ${i}`} /><div className="text-xs text-gray text-center mt-1">Увеличение по клику</div></div>
+        ))}
+      </div>
+    </WireBlock>
+    <WireBlock label="Текстовые отзывы">
+      <div className="grid-2">
+        {[1,2,3,4].map(i => (
+          <div key={i} className="review-card">
+            <div className="review-header">
+              <PhImg w={40} h={40} label="ЛОГО" />
+              <div><div className="text-sm font-medium text-dark">ФИО Подписанта</div><div className="text-xs text-gray">Должность, Компания</div></div>
+            </div>
+            <Skel /><Skel w="85%" /><Skel w="70%" />
+          </div>
+        ))}
+      </div>
+    </WireBlock>
+    <WireBlock label="Видеоотзывы (опционально)" dashed>
+      <div className="grid-3 gap-sm">
+        {[1,2,3].map(i => (
+          <div key={i} className="video-thumb"><PhImg h={120} label="ВИДЕО ПРЕВЬЮ" /><div className="play-btn">▶</div></div>
+        ))}
+      </div>
+    </WireBlock>
+    <div className="text-center">
+      <button className="btn primary">Оставить отзыв</button>
+      <div className="text-xs text-gray italic mt-1">→ Всплывающее окно или переход к форме</div>
+    </div>
+  </div>
+);
+
+const PagePartnerVKN = ({ navigate }) => (
+  <div className="stack">
+    <button onClick={() => navigate("partners")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#9ca3af", textAlign: "left" }}>← Назад к партнёрам</button>
+    <WireBlock label="Заголовок партнёра">
+      <div className="row" style={{ gap: 16 }}>
+        <PhImg w={80} h={80} label="ЛОГОТИП ВКН" />
+        <div>
+          <div className="text-xl font-bold text-dark">Завод ВКН</div>
+          <div className="text-sm text-gray">Производитель абразивной продукции</div>
+          <div className="mt-1"><span className="badge">Официальный партнёр</span></div>
+        </div>
+      </div>
+    </WireBlock>
+    <WireBlock label="Описание завода">
+      {[1,2,3,4,5,6].map(i => <Skel key={i} w={`${80 + Math.random() * 20}%`} />)}
+      <div className="text-xs text-gray italic mt-2">Полный текст: история, мощности, ассортимент, география</div>
+    </WireBlock>
+    <WireBlock label="Фотогалерея производства">
+      <div className="grid-4 gap-sm">{[1,2,3,4,5,6,7,8].map(i => <PhImg key={i} h={100} label={`ФОТО ${i}`} />)}</div>
+      <div className="text-xs text-gray italic mt-2">Слайдер или сетка фотографий</div>
+    </WireBlock>
+    <WireBlock label="Видео">
+      <PhImg h={300} label="ВИДЕО YOUTUBE / VK VIDEO (EMBED)" />
+    </WireBlock>
+    <WireBlock label="Дипломы и сертификаты">
+      <div className="grid-3 gap-sm">
+        {[1,2,3].map(i => <div key={i}><PhImg h={180} label={`СЕРТИФИКАТ ${i}`} /><div className="text-xs text-gray text-center mt-1">Увеличение по клику</div></div>)}
+      </div>
+    </WireBlock>
+    <WireBlock label="Официальное письмо о партнёрстве">
+      <PhImg h={300} label="СКАН / ФОТО ПИСЬМА О ПРАВЕ ИСПОЛЬЗОВАНИЯ ТОВАРНОГО ЗНАКА" />
+    </WireBlock>
+    <WireBlock label="Ссылка на сайт завода" dashed>
+      <div className="text-sm text-gray">🔗 https://vkn-zavod.ru <span className="text-xs">(внешняя ссылка)</span></div>
+    </WireBlock>
+  </div>
+);
+
+const PageCatalog = ({ navigate, cart, setCart }) => {
+  const products = [
+    { id: 1, name: "Круг отрезной 125×1.0×22 A60", cat: "Отрезные", price: "45 ₽" },
+    { id: 2, name: "Круг отрезной 230×2.0×22 A46", cat: "Отрезные", price: "120 ₽" },
+    { id: 3, name: "Круг отрезной 150×1.6×22 A54", cat: "Отрезные", price: "65 ₽" },
+    { id: 4, name: "Круг шлифовальный 125×6×22 A24", cat: "Шлифовальные", price: "85 ₽" },
+    { id: 5, name: "Круг шлифовальный 180×6×22 A30", cat: "Шлифовальные", price: "140 ₽" },
+    { id: 6, name: "Круг лепестковый 125×22 P60", cat: "Шлифовальные", price: "110 ₽" },
+  ];
+  const [filter, setFilter] = useState("all");
+  const filtered = filter === "all" ? products : products.filter(p => p.cat === filter);
+  const cartCount = Object.values(cart).reduce((a, b) => a + b, 0);
+
+  return (
+    <div className="stack">
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div><div className="text-xl font-bold text-dark">Каталог продукции</div><div className="text-sm text-gray">Отрезные и шлифовальные диски</div></div>
+        <button className="btn sm secondary" onClick={() => navigate("cart")}>🛒 Корзина ({cartCount})</button>
+      </div>
+      <WireBlock label="Фильтр по категориям">
+        <div className="row">
+          {[["all","Все"],["Отрезные","Отрезные диски"],["Шлифовальные","Шлифовальные диски"]].map(([v, l]) => (
+            <button key={v} className={`pill${filter === v ? " active" : ""}`} onClick={() => setFilter(v)}>{l}</button>
+          ))}
+        </div>
+      </WireBlock>
+      <div className="grid-3">
+        {filtered.map(p => (
+          <div key={p.id} className="wire product-card">
+            <div className="product-info" onClick={() => navigate("product-detail")}>
+              <PhImg h={120} label="ФОТО ТОВАРА" />
+              <div className="mt-1"><span className="badge">{p.cat}</span></div>
+              <div className="text-sm font-medium text-dark product-name mt-1">{p.name}</div>
+              <Skel w="75%" /><Skel w="50%" thin />
+              <div className="text-lg font-bold text-dark mt-2">{p.price}</div>
+            </div>
+            <div className="row mt-2">
+              {!cart[p.id] ? (
+                <button className="btn sm primary" onClick={() => setCart(c => ({ ...c, [p.id]: 1 }))}>В корзину</button>
+              ) : (
+                <div className="row">
+                  <div className="qty">
+                    <button onClick={() => setCart(c => { const v = (c[p.id] || 1) - 1; if (v <= 0) { const n = { ...c }; delete n[p.id]; return n; } return { ...c, [p.id]: v }; })}>−</button>
+                    <input type="number" value={cart[p.id]} min="1" onChange={e => { const v = parseInt(e.target.value) || 0; if (v <= 0) { setCart(c => { const n = { ...c }; delete n[p.id]; return n; }); } else { setCart(c => ({ ...c, [p.id]: v })); } }} style={{ width: 44, textAlign: "center", border: "none", fontSize: 14, outline: "none", MozAppearance: "textfield", WebkitAppearance: "none" }} />
+                    <button onClick={() => setCart(c => ({ ...c, [p.id]: (c[p.id] || 0) + 1 }))}>+</button>
+                  </div>
+                  <span className="text-xs text-gray">в корзине</span>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const PageProductDetail = ({ navigate, cart, setCart }) => (
+  <div className="stack">
+    <button onClick={() => navigate("catalog")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#9ca3af", textAlign: "left" }}>← Назад в каталог</button>
+    <div className="grid-2 gap-lg md-only">
+      <WireBlock label="Фотографии товара">
+        <PhImg h={250} label="ОСНОВНОЕ ФОТО" />
+        <div className="grid-3 gap-sm mt-2">{[1,2,3].map(i => <PhImg key={i} h={60} label={`${i}`} />)}</div>
+      </WireBlock>
+      <div className="stack" style={{ gap: 16 }}>
+        <div>
+          <span className="badge">Отрезные диски</span>
+          <div className="text-xl font-bold text-dark mt-2">Круг отрезной 125×1.0×22 A60</div>
+          <div className="text-xs text-gray mt-1">Артикул: ВКН-125-10-22</div>
+        </div>
+        <WireBlock label="Краткое описание">
+          <Skel /><Skel w="85%" /><Skel w="70%" />
+          <div className="text-xs text-gray italic mt-1">2–4 строки описания</div>
+        </WireBlock>
+        <WireBlock label="Характеристики">
+          <table className="spec-table">
+            <tbody>
+              {[["Диаметр","125 мм"],["Толщина","1.0 мм"],["Посадочный диаметр","22.23 мм"],["Материал обработки","Металл"],["Макс. скорость","80 м/с"],["Зернистость","A60"]].map(([k, v], i) => (
+                <tr key={i}><td>{k}</td><td>{v}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </WireBlock>
+        <div className="row" style={{ gap: 16 }}>
+          <div className="text-2xl font-bold text-dark">45 ₽</div>
+          <div className="qty"><button>−</button><span>1</span><button>+</button></div>
+          <button className="btn primary" onClick={() => setCart(c => ({ ...c, [1]: (c[1] || 0) + 1 }))}>Добавить в корзину</button>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const PageCart = ({ navigate, cart, setCart }) => {
+  const items = [
+    { id: 1, name: "Круг отрезной 125×1.0×22 A60", price: 45 },
+    { id: 2, name: "Круг отрезной 230×2.0×22 A46", price: 120 },
+    { id: 3, name: "Круг отрезной 150×1.6×22 A54", price: 65 },
+    { id: 4, name: "Круг шлифовальный 125×6×22 A24", price: 85 },
+    { id: 5, name: "Круг шлифовальный 180×6×22 A30", price: 140 },
+    { id: 6, name: "Круг лепестковый 125×22 P60", price: 110 },
+  ].filter(item => cart[item.id] > 0);
+  const total = items.reduce((s, item) => s + item.price * (cart[item.id] || 0), 0);
+
+  return (
+    <div className="stack">
+      <div className="text-xl font-bold text-dark">Корзина</div>
+      {items.length === 0 ? (
+        <WireBlock>
+          <div className="text-center" style={{ padding: "32px 0", color: "#9ca3af" }}>
+            <div style={{ fontSize: 32, marginBottom: 8 }}>🛒</div>
+            Корзина пуста. <span style={{ textDecoration: "underline", cursor: "pointer" }} onClick={() => navigate("catalog")}>Перейти в каталог</span>
+          </div>
+        </WireBlock>
+      ) : (
+        <>
+          <WireBlock label="Состав заказа">
+            {items.map(item => (
+              <div key={item.id} className="cart-item">
+                <div className="row">
+                  <PhImg w={50} h={50} label="IMG" />
+                  <div>
+                    <div className="text-sm font-medium text-dark">{item.name}</div>
+                    <div className="text-xs text-gray">{item.price} ₽ за шт.</div>
+                  </div>
+                </div>
+                <div className="row" style={{ gap: 12 }}>
+                  <div className="qty">
+                    <button onClick={() => setCart(c => { const v = (c[item.id] || 1) - 1; if (v <= 0) { const n = { ...c }; delete n[item.id]; return n; } return { ...c, [item.id]: v }; })}>−</button>
+                    <input type="number" value={cart[item.id]} min="1" onChange={e => { const v = parseInt(e.target.value) || 0; if (v <= 0) { setCart(c => { const n = { ...c }; delete n[item.id]; return n; }); } else { setCart(c => ({ ...c, [item.id]: v })); } }} style={{ width: 44, textAlign: "center", border: "none", fontSize: 14, outline: "none", MozAppearance: "textfield", WebkitAppearance: "none" }} />
+                    <button onClick={() => setCart(c => ({ ...c, [item.id]: (c[item.id] || 0) + 1 }))}>+</button>
+                  </div>
+                  <div className="font-medium text-dark">{item.price * cart[item.id]} ₽</div>
+                  <button className="cart-remove" onClick={() => setCart(c => { const n = { ...c }; delete n[item.id]; return n; })}>×</button>
+                </div>
+              </div>
+            ))}
+            <div style={{ display: "flex", justifyContent: "flex-end", paddingTop: 12 }}>
+              <div className="text-lg font-bold text-dark">Итого: {total} ₽</div>
+            </div>
+          </WireBlock>
+          <WireBlock label="Форма оформления заказа">
+            <div className="grid-2 gap-sm" style={{ maxWidth: 500 }}>
+              <div className="form-field"><label>ФИО *</label><input disabled /></div>
+              <div className="form-field"><label>Компания</label><input disabled /></div>
+              <div className="form-field"><label>Телефон *</label><input disabled /></div>
+              <div className="form-field"><label>Email *</label><input disabled /></div>
+              <div className="form-field"><label>Город / Доставка</label><input disabled /></div>
+              <div className="form-field" style={{ gridColumn: "1 / -1" }}><label>Комментарий</label><textarea disabled /></div>
+            </div>
+            <div className="checkbox mt-2"><div className="checkbox-box" /><span className="text-xs text-gray">Согласие на обработку персональных данных</span></div>
+            <div className="mt-3"><button className="btn primary">Отправить заказ</button></div>
+            <div className="text-xs text-gray italic mt-2">→ На email менеджера: состав заказа + контакты клиента</div>
+          </WireBlock>
+        </>
+      )}
+    </div>
+  );
+};
+
+const PageInfo = ({ navigate }) => (
+  <div className="stack">
+    <div><div className="text-xl font-bold text-dark">Полезная информация</div><div className="text-sm text-gray">Статьи и справочные материалы об абразивной продукции</div></div>
+    <div className="grid-2">
+      {[
+        "Расшифровка маркировки отрезных дисков",
+        "Расшифровка маркировки шлифовальных дисков",
+        "Виды отрезных дисков и сферы применения",
+        "Виды шлифовальных дисков и сферы применения",
+        "Как выбрать диск для конкретной задачи",
+        "Техника безопасности при работе с дисками",
+      ].map((title, i) => (
+        <WireBlock key={i} onClick={() => navigate("article")}>
+          <div className="news-item">
+            <PhImg w={80} h={80} label="IMG" />
+            <div><div className="text-sm font-medium text-dark">{title}</div><Skel /><Skel w="75%" /><div className="text-xs text-gray mt-2">Читать →</div></div>
+          </div>
+        </WireBlock>
+      ))}
+    </div>
+  </div>
+);
+
+const PageArticle = ({ navigate }) => (
+  <div className="stack" style={{ maxWidth: 768 }}>
+    <button onClick={() => navigate("info")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#9ca3af", textAlign: "left" }}>← Назад к статьям</button>
+    <div className="text-xl font-bold text-dark">Расшифровка маркировки отрезных дисков</div>
+    <div className="text-xs text-gray">Обновлено: 15.05.2025</div>
+    <WireBlock label="Содержание статьи">
+      <PhImg h={200} label="ИЗОБРАЖЕНИЕ / ИЛЛЮСТРАЦИЯ" />
+      <div className="mt-3">{[1,2,3,4,5,6,7,8,9,10].map(i => <Skel key={i} w={`${70 + Math.random() * 30}%`} />)}</div>
+      <Skel title w="33%" />
+      <div className="mt-2">{[1,2,3,4,5].map(i => <Skel key={`b${i}`} w={`${75 + Math.random() * 25}%`} />)}</div>
+    </WireBlock>
+  </div>
+);
+
+const PageNews = ({ navigate }) => (
+  <div className="stack">
+    <div><div className="text-xl font-bold text-dark">Новости компании</div><div className="text-sm text-gray">Участие в тендерах, партнёрства, расширение ассортимента</div></div>
+    {[
+      { date: "10.05.2025", title: "Расширение ассортимента шлифовальных дисков" },
+      { date: "28.04.2025", title: "Новое партнёрство с заводом ВКН" },
+      { date: "15.04.2025", title: "Успешное участие в тендере на поставку абразивов" },
+      { date: "01.04.2025", title: "Запуск нового сайта компании Лидтендер" },
+    ].map((item, i) => (
+      <WireBlock key={i} onClick={() => navigate("news-detail")}>
+        <div className="news-item">
+          <PhImg w={120} h={80} label="ФОТО" />
+          <div>
+            <div className="text-xs text-gray mb-1">{item.date}</div>
+            <div className="text-sm font-medium text-dark">{item.title}</div>
+            <Skel /><Skel w="66%" />
+            <div className="text-xs text-gray mt-2">Читать подробнее →</div>
+          </div>
+        </div>
+      </WireBlock>
+    ))}
+  </div>
+);
+
+const PageNewsDetail = ({ navigate }) => (
+  <div className="stack" style={{ maxWidth: 768 }}>
+    <button onClick={() => navigate("news")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#9ca3af", textAlign: "left" }}>← Назад к новостям</button>
+    <div className="text-xs text-gray">28.04.2025</div>
+    <div className="text-xl font-bold text-dark">Новое партнёрство с заводом ВКН</div>
+    <PhImg h={250} label="ФОТО НОВОСТИ" />
+    <WireBlock label="Текст новости">
+      {[1,2,3,4,5,6,7,8].map(i => <Skel key={i} w={`${70 + Math.random() * 30}%`} />)}
+    </WireBlock>
+  </div>
+);
+
+const PageContacts = ({ navigate }) => (
+  <div className="stack">
+    <div className="text-xl font-bold text-dark">Контакты</div>
+    <div className="contact-grid">
+      <div className="stack" style={{ gap: 16 }}>
+        <WireBlock label="Данные компании">
+          <div className="text-sm" style={{ lineHeight: 2, color: "#6b7280" }}>
+            <span className="text-xs text-gray">Адрес:</span><br />г. Москва, ул. XXXXXXX, д. XX<br />
+            <span className="text-xs text-gray">Телефон:</span><br />+7 (XXX) XXX-XX-XX<br />
+            <span className="text-xs text-gray">Email:</span><br />info@leadtender.ru
+          </div>
+        </WireBlock>
+        <WireBlock label="Реквизиты ООО «Лидтендер»" dashed>
+          <div className="text-xs text-gray">ИНН: XXXXXXXXXX<br />ОГРН: XXXXXXXXXXXXX<br />Юр. адрес: ...<br /><span className="italic">По желанию заказчика</span></div>
+        </WireBlock>
+      </div>
+      <WireBlock label="Карта">
+        <PhImg h={280} label="ЯНДЕКС.КАРТЫ / GOOGLE MAPS" />
+      </WireBlock>
+    </div>
+    <ContactForm />
+  </div>
+);
+
+const Page404 = ({ navigate }) => (
+  <div className="text-center" style={{ padding: "64px 0" }}>
+    <div style={{ fontSize: 60, fontWeight: 700, color: "#e5e7eb" }}>404</div>
+    <div className="text-lg text-dark mb-2">Страница не найдена</div>
+    <div className="text-sm text-gray mb-4">Запрашиваемая страница не существует или была удалена</div>
+    <button className="btn primary" onClick={() => navigate("home")}>На главную</button>
+  </div>
+);
+
+const PagePrivacy = () => (
+  <div className="stack" style={{ maxWidth: 768 }}>
+    <div className="text-xl font-bold text-dark">Политика конфиденциальности</div>
+    <WireBlock label="Текст политики (152-ФЗ)">
+      {Array.from({ length: 20 }, (_, i) => <Skel key={i} w={`${70 + Math.random() * 30}%`} />)}
+      <div className="text-xs text-gray italic mt-3">Обязательна при наличии форм сбора данных (требование 152-ФЗ)</div>
+    </WireBlock>
+  </div>
+);
+
+// ── MAIN APP ──
+const App = () => {
+  const [page, setPage] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [cart, setCart] = useState({});
+
+  const navigate = (p) => { setPage(p); setMenuOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); };
+
+  const pageNames = {
+    home: "Главная → О компании", about: "Главная → О компании",
+    partners: "Главная → Партнёры", reviews: "Главная → Отзывы",
+    "partner-vkn": "Страница партнёра (ВКН)", catalog: "Каталог продукции",
+    "product-detail": "Карточка товара", cart: "Корзина",
+    info: "Информация", article: "Статья", news: "Новости",
+    "news-detail": "Новость (детально)", contacts: "Контакты",
+    privacy: "Политика конфиденциальности", "404": "Страница 404",
+  };
+
+  const pages = {
+    home: <PageHome navigate={navigate} />,
+    about: <PageHome navigate={navigate} />,
+    partners: <PagePartners navigate={navigate} />,
+    reviews: <PageReviews navigate={navigate} />,
+    "partner-vkn": <PagePartnerVKN navigate={navigate} />,
+    catalog: <PageCatalog navigate={navigate} cart={cart} setCart={setCart} />,
+    "product-detail": <PageProductDetail navigate={navigate} cart={cart} setCart={setCart} />,
+    cart: <PageCart navigate={navigate} cart={cart} setCart={setCart} />,
+    info: <PageInfo navigate={navigate} />,
+    article: <PageArticle navigate={navigate} />,
+    news: <PageNews navigate={navigate} />,
+    "news-detail": <PageNewsDetail navigate={navigate} />,
+    contacts: <PageContacts navigate={navigate} />,
+    privacy: <PagePrivacy />,
+    "404": <Page404 navigate={navigate} />,
+  };
+
+  return (
+    <div>
+      <Header navigate={navigate} page={page} menuOpen={menuOpen} setMenuOpen={setMenuOpen} cart={cart} />
+
+
+
+      <div className="max-w">
+        <div className="breadcrumb">
+          <span onClick={() => navigate("home")}>Главная</span>
+          {page !== "home" && page !== "about" && <span> / {pageNames[page]}</span>}
+        </div>
+        <main style={{ paddingBottom: 32 }}>
+          {pages[page] || <Page404 navigate={navigate} />}
+        </main>
+      </div>
+
+      <Footer navigate={navigate} />
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById("root"));
+</script>
+</body>
+</html>
