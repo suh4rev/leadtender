@@ -671,7 +671,7 @@ const PageCart = ({ navigate, cart, setCart }) => {
         </WireBlock>
       ) : (
         <>
-          <WireBlock label="Состав заказа">
+          <WireBlock label="Состав а">
             {items.map(item => (
               <div key={item.id} className="cart-item">
                 <div className="row">
@@ -692,7 +692,7 @@ const PageCart = ({ navigate, cart, setCart }) => {
               </div>
             ))}
           </WireBlock>
-          <WireBlock label="Контактные данные">
+          <WireBlock label="Форма оформления заказа">
             <div className="grid-2 gap-sm" style={{ maxWidth: 500 }}>
               <div className="form-field"><label>ФИО *</label><input disabled /></div>
               <div className="form-field"><label>Компания</label><input disabled /></div>
@@ -702,7 +702,7 @@ const PageCart = ({ navigate, cart, setCart }) => {
               <div className="form-field" style={{ gridColumn: "1 / -1" }}><label>Комментарий</label><textarea disabled /></div>
             </div>
             <div className="checkbox mt-2"><div className="checkbox-box" /><span className="text-xs text-gray">Согласие на обработку персональных данных</span></div>
-            <div className="mt-3"><button className="btn primary">Отправить заказ</button></div>
+            <div className="mt-3"><button className="btn primary">Отправить </button></div>
             <div className="text-xs text-gray italic mt-2">→ На email менеджера: состав заказа + контакты клиента</div>
           </WireBlock>
         </>
@@ -795,8 +795,8 @@ const PageContacts = ({ navigate }) => (
             <span className="text-xs text-gray">Email:</span><br />info@leadtender.ru
           </div>
         </WireBlock>
-        <WireBlock label="Реквизиты ООО «Лидтендер»">
-          <div className="text-xs text-gray">ИНН: 5919031967<br />ОГРН: 1235900000874<br />КПП: 591901001<br />ОКПО: 56777597<br />Ген. директор: Попов Иван Сергеевич</div>
+        <WireBlock label="Реквизиты ООО «Лидтендер»" dashed>
+          <div className="text-xs text-gray">ИНН: XXXXXXXXXX<br />ОГРН: XXXXXXXXXXXXX<br />Юр. адрес: ...<br /><span className="italic">По желанию заказчика</span></div>
         </WireBlock>
       </div>
       <WireBlock label="Карта">
