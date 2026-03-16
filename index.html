@@ -3,78 +3,80 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Лидтендер — Wireframe-прототип сайта</title>
+<title>LEADTENDER</title>
+<link rel="icon" href="image/short-logo.png" type="image/png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #fff; color: #374151; line-height: 1.5; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #FAFAFA; color: #333333; line-height: 1.5; }
 .max-w { max-width: 1152px; margin: 0 auto; padding: 0 16px; }
 
 /* Header */
-.header { border-bottom: 2px solid #e5e7eb; background: #fff; position: sticky; top: 0; z-index: 50; }
+.header { border-bottom: 1px solid #E5E5E5; background: #fff; position: sticky; top: 0; z-index: 50; }
 .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; max-width: 1152px; margin: 0 auto; }
 .logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
-.logo-icon { width: 40px; height: 40px; background: #d1d5db; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #6b7280; font-weight: 700; }
-.logo-text { font-weight: 700; color: #374151; font-size: 14px; line-height: 1.2; }
-.logo-sub { font-size: 12px; color: #9ca3af; }
+.logo-icon { width: 40px; height: 40px; background: #D0D0D0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #555555; font-weight: 700; }
+.logo-text { font-weight: 700; color: #1A1A1A; font-size: 14px; line-height: 1.2; }
+.logo-sub { font-size: 12px; color: #888888; }
 .nav { display: flex; align-items: center; gap: 4px; }
-.nav-btn { padding: 8px 12px; font-size: 14px; border-radius: 6px; border: none; background: none; cursor: pointer; color: #6b7280; transition: all .2s; }
-.nav-btn:hover { background: #f9fafb; color: #374151; }
-.nav-btn.active { background: #f3f4f6; color: #1f2937; font-weight: 600; }
-.nav-dropdown { position: absolute; top: 100%; left: 0; background: #fff; border: 2px solid #e5e7eb; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.1); padding: 4px 0; min-width: 160px; z-index: 50; }
-.nav-dropdown button { display: block; width: 100%; text-align: left; padding: 8px 16px; font-size: 14px; color: #6b7280; border: none; background: none; cursor: pointer; }
-.nav-dropdown button:hover { background: #f9fafb; color: #1f2937; }
-.header-contacts { display: flex; align-items: center; gap: 16px; font-size: 14px; color: #6b7280; }
-.header-contacts .label { font-size: 11px; color: #9ca3af; }
-.header-contacts .value { font-weight: 500; color: #4b5563; }
+.nav-btn { padding: 8px 12px; font-size: 14px; border-radius: 6px; border: none; background: none; cursor: pointer; color: #555555; transition: all .2s; }
+.nav-btn:hover { background: #F0F0F0; color: #1A1A1A; }
+.nav-btn.active { background: #F0F0F0; color: #1A1A1A; font-weight: 600; }
+.nav-dropdown { position: absolute; top: 100%; left: 0; background: #fff; border: 1px solid #E5E5E5; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,.08); padding: 4px 0; min-width: 160px; z-index: 50; }
+.nav-dropdown button { display: block; width: 100%; text-align: left; padding: 8px 16px; font-size: 14px; color: #555555; border: none; background: none; cursor: pointer; }
+.nav-dropdown button:hover { background: #F0F0F0; color: #1A1A1A; }
+.header-contacts { display: flex; align-items: center; gap: 16px; font-size: 14px; color: #555555; }
+.header-contacts .label { font-size: 11px; color: #888888; }
+.header-contacts .value { font-weight: 500; color: #333333; }
 .burger { display: none; padding: 8px; border: none; background: none; cursor: pointer; }
 .mobile-actions { display: none; align-items: center; gap: 8px; }
 .mobile-cart { display: none; }
-.burger span { display: block; width: 24px; height: 2px; background: #6b7280; margin: 5px 0; transition: all .3s; }
-.mobile-menu { display: none; border-top: 1px solid #e5e7eb; background: #fff; padding: 8px 16px; position: absolute; top: 100%; left: 0; right: 0; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,.12); max-height: 80vh; overflow-y: auto; }
-.mobile-menu button { display: block; width: 100%; text-align: left; padding: 10px 0; font-size: 14px; color: #6b7280; border: none; background: none; cursor: pointer; font-weight: 500; }
-.mobile-menu .sub { padding-left: 24px; color: #9ca3af; font-weight: 400; }
+.burger span { display: block; width: 24px; height: 2px; background: #555555; margin: 5px 0; transition: all .3s; }
+.mobile-menu { display: none; border-top: 1px solid #E5E5E5; background: #fff; padding: 8px 16px; position: absolute; top: 100%; left: 0; right: 0; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,.12); max-height: 80vh; overflow-y: auto; }
+.mobile-menu button { display: block; width: 100%; text-align: left; padding: 10px 0; font-size: 14px; color: #555555; border: none; background: none; cursor: pointer; font-weight: 500; }
+.mobile-menu .sub { padding-left: 24px; color: #888888; font-weight: 400; }
 
 /* Page map */
-.pagemap { background: #f9fafb; border-bottom: 1px solid #e5e7eb; overflow-x: auto; }
+.pagemap { background: #FAFAFA; border-bottom: 1px solid #E5E5E5; overflow-x: auto; }
 .pagemap-inner { display: flex; align-items: center; gap: 4px; padding: 8px 16px; max-width: 1152px; margin: 0 auto; flex-wrap: nowrap; }
-.pagemap-label { font-size: 12px; color: #9ca3af; font-weight: 500; white-space: nowrap; margin-right: 4px; }
-.pagemap-btn { padding: 4px 8px; font-size: 11px; border-radius: 4px; border: none; background: none; cursor: pointer; white-space: nowrap; color: #9ca3af; transition: all .2s; }
-.pagemap-btn:hover { background: #e5e7eb; color: #4b5563; }
-.pagemap-btn.active { background: #374151; color: #fff; }
+.pagemap-label { font-size: 12px; color: #888888; font-weight: 500; white-space: nowrap; margin-right: 4px; }
+.pagemap-btn { padding: 4px 8px; font-size: 11px; border-radius: 4px; border: none; background: none; cursor: pointer; white-space: nowrap; color: #888888; transition: all .2s; }
+.pagemap-btn:hover { background: #E5E5E5; color: #333333; }
+.pagemap-btn.active { background: #1A1A1A; color: #fff; }
 
 /* Breadcrumb */
-.breadcrumb { font-size: 12px; color: #9ca3af; padding: 12px 0; }
+.breadcrumb { font-size: 12px; color: #888888; padding: 12px 0; }
 .breadcrumb span { cursor: pointer; }
-.breadcrumb span:hover { color: #4b5563; }
+.breadcrumb span:hover { color: #E02020; }
 
 /* Wire blocks */
-.wire { border: 2px solid #d1d5db; background: #f9fafb; border-radius: 8px; padding: 16px; margin-bottom: 0; }
-.wire.dashed { border-style: dashed; border-color: #d1d5db; }
+.wire { border: 1px solid #E5E5E5; background: #FFFFFF; border-radius: 8px; padding: 16px; margin-bottom: 0; }
+.wire.dashed { border-style: dashed; border-color: #D0D0D0; }
 .wire.clickable { cursor: pointer; transition: all .2s; }
-.wire.clickable:hover { background: #f3f4f6; border-color: #9ca3af; }
-.wire-label { font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+.wire.clickable:hover { background: #FAFAFA; border-color: #D0D0D0; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+.wire-label { font-size: 11px; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
 
 /* Placeholder image */
-.ph-img { background: #e5e7eb; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 11px; }
+.ph-img { background: #E5E5E5; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #888888; font-size: 11px; }
 
 /* Buttons */
 .btn { padding: 10px 20px; font-size: 14px; border-radius: 6px; font-weight: 500; cursor: pointer; transition: all .2s; border: none; }
 .btn.sm { padding: 6px 12px; font-size: 12px; }
-.btn.primary { background: #374151; color: #fff; }
-.btn.primary:hover { background: #1f2937; }
-.btn.secondary { background: #fff; border: 2px solid #d1d5db; color: #6b7280; }
-.btn.secondary:hover { border-color: #9ca3af; }
+.btn.primary { background: #E02020; color: #fff; }
+.btn.primary:hover { background: #C41818; }
+.btn.secondary { background: #F5F5F5; border: 2px solid #D0D0D0; color: #555555; }
+.btn.secondary:hover { border-color: #888888; }
 
 /* Form fields */
-.form-field label { font-size: 12px; color: #6b7280; display: block; margin-bottom: 4px; }
-.form-field input, .form-field textarea { width: 100%; border: 2px solid #e5e7eb; border-radius: 6px; padding: 8px; font-size: 14px; background: #fff; }
+.form-field label { font-size: 12px; color: #555555; display: block; margin-bottom: 4px; }
+.form-field input, .form-field textarea { width: 100%; border: 1px solid #E5E5E5; border-radius: 6px; padding: 8px; font-size: 14px; background: #fff; transition: border-color .2s; }
+.form-field input:focus, .form-field textarea:focus { outline: none; border-color: #E02020; }
 .form-field textarea { height: 80px; resize: vertical; }
 
 /* Badge */
-.badge { display: inline-block; background: #e5e7eb; color: #6b7280; font-size: 11px; padding: 2px 8px; border-radius: 99px; }
+.badge { display: inline-block; background: #FEF2F2; color: #E02020; font-size: 11px; padding: 2px 8px; border-radius: 99px; }
 
 /* Grid helpers */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -90,8 +92,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 .text-lg { font-size: 18px; }
 .text-xl { font-size: 20px; }
 .text-2xl { font-size: 24px; }
-.text-gray { color: #9ca3af; }
-.text-dark { color: #4b5563; }
+.text-gray { color: #888888; }
+.text-dark { color: #1A1A1A; }
 .font-bold { font-weight: 700; }
 .font-medium { font-weight: 500; }
 .italic { font-style: italic; }
@@ -103,51 +105,51 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 .mb-4 { margin-bottom: 16px; }
 
 /* Skeleton lines */
-.skel { height: 8px; background: #e5e7eb; border-radius: 4px; margin-bottom: 6px; }
-.skel.title { height: 12px; background: #d1d5db; }
-.skel.thin { height: 6px; background: #f3f4f6; }
+.skel { height: 8px; background: #E5E5E5; border-radius: 4px; margin-bottom: 6px; }
+.skel.title { height: 12px; background: #D0D0D0; }
+.skel.thin { height: 6px; background: #F0F0F0; }
 
 /* Footer */
-.footer { border-top: 2px solid #e5e7eb; background: #f9fafb; margin-top: 48px; padding: 32px 0; }
+.footer { border-top: none; background: #111111; margin-top: 48px; padding: 32px 0; }
 .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; font-size: 14px; }
-.footer-title { font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
-.footer a, .footer button { color: #9ca3af; font-size: 12px; text-decoration: none; display: block; margin-bottom: 4px; border: none; background: none; cursor: pointer; padding: 0; text-align: left; }
-.footer a:hover, .footer button:hover { color: #4b5563; }
-.footer-bottom { border-top: 1px solid #e5e7eb; margin-top: 24px; padding-top: 16px; text-align: center; font-size: 12px; color: #9ca3af; }
+.footer-title { font-size: 11px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+.footer a, .footer button { color: #AAAAAA; font-size: 12px; text-decoration: none; display: block; margin-bottom: 4px; border: none; background: none; cursor: pointer; padding: 0; text-align: left; }
+.footer a:hover, .footer button:hover { color: #FFFFFF; }
+.footer-bottom { border-top: 1px solid #333333; margin-top: 24px; padding-top: 16px; text-align: center; font-size: 12px; color: #666666; }
 
 /* Filter pills */
-.pill { padding: 6px 12px; font-size: 12px; border-radius: 99px; border: 2px solid #e5e7eb; background: none; cursor: pointer; color: #9ca3af; transition: all .2s; }
-.pill.active { border-color: #6b7280; background: #f3f4f6; color: #374151; font-weight: 600; }
-.pill:hover { border-color: #d1d5db; }
+.pill { padding: 6px 12px; font-size: 12px; border-radius: 99px; border: 2px solid #E5E5E5; background: none; cursor: pointer; color: #888888; transition: all .2s; }
+.pill.active { border-color: #E02020; background: #FEF2F2; color: #E02020; font-weight: 600; }
+.pill:hover { border-color: #D0D0D0; }
 
 /* Checkbox placeholder */
 .checkbox { display: flex; align-items: center; gap: 8px; }
-.checkbox-box { width: 16px; height: 16px; border: 2px solid #d1d5db; border-radius: 4px; flex-shrink: 0; }
+.checkbox-box { width: 16px; height: 16px; border: 2px solid #D0D0D0; border-radius: 4px; flex-shrink: 0; }
 
 /* Table */
 .spec-table { width: 100%; font-size: 14px; border-collapse: collapse; }
-.spec-table tr:nth-child(even) { background: #f9fafb; }
+.spec-table tr:nth-child(even) { background: #FAFAFA; }
 .spec-table td { padding: 6px 8px; }
-.spec-table td:first-child { color: #6b7280; }
-.spec-table td:last-child { font-weight: 500; color: #4b5563; }
+.spec-table td:first-child { color: #555555; }
+.spec-table td:last-child { font-weight: 500; color: #333333; }
 
 /* Quantity control */
-.qty { display: inline-flex; align-items: center; border: 2px solid #e5e7eb; border-radius: 6px; overflow: hidden; }
-.qty button { width: 32px; height: 32px; border: none; background: none; cursor: pointer; font-size: 16px; color: #9ca3af; }
+.qty { display: inline-flex; align-items: center; border: 2px solid #E5E5E5; border-radius: 6px; overflow: hidden; }
+.qty button { width: 32px; height: 32px; border: none; background: none; cursor: pointer; font-size: 16px; color: #888888; }
 .qty span { width: 32px; text-align: center; font-size: 14px; }
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 input[type=number] { -moz-appearance: textfield; }
 
 /* Cart item */
-.cart-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f3f4f6; }
+.cart-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #F0F0F0; }
 .cart-item:last-child { border-bottom: none; }
-.cart-remove { background: none; border: none; cursor: pointer; font-size: 18px; color: #d1d5db; padding: 4px 8px; }
+.cart-remove { background: none; border: none; cursor: pointer; font-size: 18px; color: #D0D0D0; padding: 4px 8px; }
 .cart-remove:hover { color: #ef4444; }
 
 /* Product card in catalog */
 .product-card .product-info { cursor: pointer; }
-.product-card .product-info:hover .product-name { color: #374151; }
+.product-card .product-info:hover .product-name { color: #E02020; }
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -166,18 +168,18 @@ input[type=number] { -moz-appearance: textfield; }
 
 /* Scrollbar for pagemap */
 .pagemap::-webkit-scrollbar { height: 4px; }
-.pagemap::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 2px; }
+.pagemap::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 2px; }
 
 /* Hero */
 .hero { text-align: center; padding: 32px 16px; }
 
 /* Partner card */
-.partner-card { border: 2px solid #e5e7eb; border-radius: 8px; padding: 16px; text-align: center; transition: all .2s; }
+.partner-card { border: 1px solid #E5E5E5; border-radius: 8px; padding: 16px; text-align: center; transition: all .2s; background: #FFFFFF; }
 .partner-card.clickable { cursor: pointer; }
-.partner-card.clickable:hover { border-color: #9ca3af; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+.partner-card.clickable:hover { border-color: #D0D0D0; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
 
 /* Review card */
-.review-card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; }
+.review-card { border: 1px solid #E5E5E5; border-radius: 8px; padding: 16px; background: #FFFFFF; }
 .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 
 /* News item */
@@ -189,18 +191,78 @@ input[type=number] { -moz-appearance: textfield; }
 
 /* Play button overlay */
 .video-thumb { position: relative; }
-.play-btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 32px; color: #9ca3af; }
+.play-btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 32px; color: #888888; }
 
 /* Advantage item */
 .advantage { text-align: center; padding: 12px; }
-.advantage-icon { width: 56px; height: 56px; background: #e5e7eb; border-radius: 50%; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #9ca3af; }
+.advantage-icon { width: 56px; height: 56px; background: #FEF2F2; border-radius: 50%; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #E02020; }
 
 /* Category card */
 .cat-card { cursor: pointer; }
-.cat-card:hover .cat-name { color: #374151; }
-.cat-name { font-size: 14px; font-weight: 500; color: #6b7280; margin-top: 8px; transition: color .2s; }
+.cat-card:hover .cat-name { color: #E02020; }
+.cat-name { font-size: 14px; font-weight: 500; color: #555555; margin-top: 8px; transition: color .2s; }
 .info-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 @media (max-width: 768px) { .info-list { grid-template-columns: 1fr; } }
+/* Dark Hero */
+.hero-dark {
+  position: relative; overflow: hidden; border-radius: 12px;
+  background: url('image/hero_banner.png') center right / cover no-repeat, #0A0A0A;
+  padding: 80px 24px; text-align: center; min-height: 380px;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(0,0,0,.7) 0%, rgba(0,0,0,.3) 80%),
+    linear-gradient(to bottom, rgba(0,0,0,.6) 0%, rgba(0,0,0,.4) 30%, rgba(0,0,0,.5) 70%, rgba(0,0,0,.7) 100%);
+}
+.hero-particles { position: absolute; inset: 0; pointer-events: none; }
+.hero-spark {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,140,50,.9) 0%, rgba(224,32,32,.6) 50%, transparent 100%);
+  animation: sparkle ease-in-out infinite alternate;
+}
+@keyframes sparkle {
+  0% { transform: scale(0.5); opacity: 0.2; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+.hero-content { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 99px;
+  border: 1px solid rgba(224,32,32,.5); background: rgba(224,32,32,.2);
+  color: #FFFFFF; font-size: 11px; font-weight: 700; letter-spacing: .1em; margin-bottom: 20px;
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+}
+.hero-title {
+  font-size: 36px; font-weight: 800; color: #FFFFFF; line-height: 1.2; margin: 0 0 16px;
+  text-shadow: 0 2px 8px rgba(0,0,0,.8), 0 4px 24px rgba(0,0,0,.5);
+}
+.hero-sub {
+  font-size: 16px; color: rgba(255,255,255,.85); line-height: 1.6; margin: 0;
+  text-shadow: 0 1px 6px rgba(0,0,0,.8), 0 2px 16px rgba(0,0,0,.5);
+}
+.btn-hero { padding: 14px 28px; font-size: 15px; border-radius: 8px; box-shadow: 0 4px 20px rgba(224,32,32,.3); }
+.btn-hero:hover { box-shadow: 0 6px 28px rgba(224,32,32,.5); }
+.btn-hero-outline {
+  padding: 14px 28px; font-size: 15px; border-radius: 8px;
+  background: transparent; border: 1px solid rgba(255,255,255,.25); color: rgba(255,255,255,.8);
+  cursor: pointer; transition: all .2s;
+}
+.btn-hero-outline:hover { border-color: rgba(255,255,255,.5); color: #fff; background: rgba(255,255,255,.05); }
+.hero-line {
+  position: absolute; background: linear-gradient(90deg, transparent, rgba(224,32,32,.15), transparent);
+  height: 1px; pointer-events: none;
+}
+.hero-line-1 { bottom: 30%; left: 0; right: 0; transform: rotate(-3deg); }
+.hero-line-2 { top: 25%; left: 0; right: 0; transform: rotate(2deg); opacity: .5; }
+
+@media (max-width: 768px) {
+  .hero-dark { padding: 48px 16px; min-height: 300px; }
+  .hero-title { font-size: 24px; }
+  .hero-sub { font-size: 14px; }
+  .btn-hero, .btn-hero-outline { padding: 12px 20px; font-size: 13px; }
+}
 </style>
 </head>
 <body>
@@ -237,7 +299,7 @@ const ContactForm = () => (
       <div className="checkbox-box" />
       <span className="text-xs text-gray">Согласие на обработку персональных данных</span>
     </div>
-    <div className="mt-3"><button className="btn primary">Отправить заявку</button></div>
+    <div className="mt-3"><button className="btn primary">Отправить заказ</button></div>
     <div className="text-xs text-gray italic mt-2">→ Письмо на email менеджера + автоответ «Заявка принята»</div>
   </WireBlock>
 );
@@ -262,8 +324,7 @@ const Header = ({ navigate, page, menuOpen, setMenuOpen, cart }) => {
     <header className="header">
       <div className="header-inner">
         <div className="logo" onClick={() => navigate("home")}>
-          <div className="logo-icon">LT</div>
-          <div><div className="logo-text">ЛИДТЕНДЕР</div><div className="logo-sub">leadtender.ru</div></div>
+          <img src="image/long-logo.png" alt="Leadtender" style={{ height: 30, objectFit: "contain" }} />
         </div>
         <nav className="nav">
           {items.map(item => (
@@ -285,15 +346,14 @@ const Header = ({ navigate, page, menuOpen, setMenuOpen, cart }) => {
           ))}
         </nav>
         <div className="header-contacts">
-          <div><div className="label">Телефон</div><div className="value">+7 (XXX) XXX-XX-XX</div></div>
           <div><div className="label">Email</div><div className="value">info@leadtender.ru</div></div>
-          <button onClick={() => navigate("cart")} style={{ position: "relative", background: "none", border: "2px solid #e5e7eb", borderRadius: 8, padding: "8px 12px", cursor: "pointer", fontSize: 18, lineHeight: 1, transition: "all .2s" }} onMouseOver={e => e.currentTarget.style.borderColor = "#9ca3af"} onMouseOut={e => e.currentTarget.style.borderColor = "#e5e7eb"}>
-            🛒{cartCount > 0 && <span style={{ position: "absolute", top: -6, right: -6, background: "#374151", color: "#fff", fontSize: 10, fontWeight: 700, borderRadius: 99, minWidth: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 4px" }}>{cartCount}</span>}
+          <button onClick={() => navigate("cart")} style={{ position: "relative", background: "none", border: "2px solid #E5E5E5", borderRadius: 8, padding: "8px 12px", cursor: "pointer", fontSize: 18, lineHeight: 1, transition: "all .2s" }} onMouseOver={e => e.currentTarget.style.borderColor = "#888888"} onMouseOut={e => e.currentTarget.style.borderColor = "#E5E5E5"}>
+            🛒{cartCount > 0 && <span style={{ position: "absolute", top: -6, right: -6, background: "#E02020", color: "#fff", fontSize: 10, fontWeight: 700, borderRadius: 99, minWidth: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 4px" }}>{cartCount}</span>}
           </button>
         </div>
         <div className="mobile-actions">
-          <button onClick={() => navigate("cart")} className="mobile-cart" style={{ position: "relative", background: "none", border: "2px solid #e5e7eb", borderRadius: 8, padding: "6px 10px", cursor: "pointer", fontSize: 16, lineHeight: 1 }}>
-            🛒{cartCount > 0 && <span style={{ position: "absolute", top: -6, right: -6, background: "#374151", color: "#fff", fontSize: 10, fontWeight: 700, borderRadius: 99, minWidth: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 4px" }}>{cartCount}</span>}
+          <button onClick={() => navigate("cart")} className="mobile-cart" style={{ position: "relative", background: "none", border: "2px solid #E5E5E5", borderRadius: 8, padding: "6px 10px", cursor: "pointer", fontSize: 16, lineHeight: 1 }}>
+            🛒{cartCount > 0 && <span style={{ position: "absolute", top: -6, right: -6, background: "#E02020", color: "#fff", fontSize: 10, fontWeight: 700, borderRadius: 99, minWidth: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 4px" }}>{cartCount}</span>}
           </button>
           <button className="burger" onClick={() => setMenuOpen(!menuOpen)}>
           <span /><span /><span />
@@ -320,8 +380,8 @@ const Footer = ({ navigate }) => (
     <div className="max-w">
       <div className="footer-grid">
         <div>
-          <div style={{ fontWeight: 700, color: "#4b5563", marginBottom: 8 }}>ЛИДТЕНДЕР</div>
-          <div className="text-xs text-gray">ООО «Лидтендер»<br />ИНН: XXXXXXXXXX<br />ОГРН: XXXXXXXXXXXXX</div>
+          <div style={{ fontWeight: 700, color: "#FFFFFF", marginBottom: 8 }}>ЛИДТЕНДЕР</div>
+          <div className="text-xs text-gray">ООО «Лидтендер»<br />ИНН: 5919031967<br />ОГРН: 1235900000874<br />КПП: 591901001<br />ОКПО: 56777597</div>
         </div>
         <div>
           <div className="footer-title">Разделы</div>
@@ -331,7 +391,7 @@ const Footer = ({ navigate }) => (
         </div>
         <div>
           <div className="footer-title">Контакты</div>
-          <div className="text-xs text-gray">+7 (XXX) XXX-XX-XX<br />info@leadtender.ru<br />г. Москва, ул. XXXXX</div>
+          <div className="text-xs text-gray">info@leadtender.ru<br />г. Соликамск, ул. Черняховского, д. 8А, пом. 9</div>
         </div>
         <div>
           <div className="footer-title">Документы</div>
@@ -348,17 +408,20 @@ const Footer = ({ navigate }) => (
 
 const PageHome = ({ navigate }) => (
   <div className="stack">
-    <WireBlock label="Hero-блок">
-      <div className="hero">
-        <PhImg h={120} label="ФОНОВОЕ ИЗОБРАЖЕНИЕ / ГРАДИЕНТ" />
-        <div className="text-lg font-bold text-dark mt-3">Слоган компании — 1-2 строки</div>
-        <div className="text-sm text-gray mt-1 mb-4">Подзаголовок с УТП</div>
-        <div className="row" style={{ justifyContent: "center" }}>
-          <button className="btn primary" onClick={() => navigate("contacts")}>Связаться с нами</button>
-          <button className="btn secondary" onClick={() => navigate("catalog")}>Смотреть каталог</button>
+    <div className="hero-dark">
+      <div className="hero-overlay" />
+      <div className="hero-content">
+        <div className="hero-badge">ОФИЦИАЛЬНЫЙ ПАРТНЁР ЗАВОДА ВКН</div>
+        <h1 className="hero-title">Надёжные поставки<br />абразивной продукции</h1>
+        <p className="hero-sub">Работаем с тендерами, оптом и в розницу.<br />Поставки от завода-производителя по всей России.</p>
+        <div className="row" style={{ justifyContent: "center", gap: 16, marginTop: 24 }}>
+          <button className="btn primary btn-hero" onClick={() => navigate("contacts")}>Связаться с нами</button>
+          <button className="btn btn-hero-outline" onClick={() => navigate("catalog")}>Смотреть каталог</button>
         </div>
       </div>
-    </WireBlock>
+      <div className="hero-line hero-line-1" />
+      <div className="hero-line hero-line-2" />
+    </div>
 
     <WireBlock label="О компании">
       <div className="grid-2 md-only gap-lg">
@@ -447,13 +510,6 @@ const PageReviews = ({ navigate }) => (
         ))}
       </div>
     </WireBlock>
-    <WireBlock label="Видеоотзывы (опционально)" dashed>
-      <div className="grid-3 gap-sm">
-        {[1,2,3].map(i => (
-          <div key={i} className="video-thumb"><PhImg h={120} label="ВИДЕО ПРЕВЬЮ" /><div className="play-btn">▶</div></div>
-        ))}
-      </div>
-    </WireBlock>
     <div className="text-center">
       <button className="btn primary">Оставить отзыв</button>
       <div className="text-xs text-gray italic mt-1">→ Всплывающее окно или переход к форме</div>
@@ -463,7 +519,7 @@ const PageReviews = ({ navigate }) => (
 
 const PagePartnerVKN = ({ navigate }) => (
   <div className="stack">
-    <button onClick={() => navigate("partners")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#9ca3af", textAlign: "left" }}>← Назад к партнёрам</button>
+    <button onClick={() => navigate("partners")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#888888", textAlign: "left" }}>← Назад к партнёрам</button>
     <WireBlock label="Заголовок партнёра">
       <div className="row" style={{ gap: 16 }}>
         <PhImg w={80} h={80} label="ЛОГОТИП ВКН" />
@@ -501,12 +557,12 @@ const PagePartnerVKN = ({ navigate }) => (
 
 const PageCatalog = ({ navigate, cart, setCart }) => {
   const products = [
-    { id: 1, name: "Круг отрезной 125×1.0×22 A60", cat: "Отрезные", price: "45 ₽" },
-    { id: 2, name: "Круг отрезной 230×2.0×22 A46", cat: "Отрезные", price: "120 ₽" },
-    { id: 3, name: "Круг отрезной 150×1.6×22 A54", cat: "Отрезные", price: "65 ₽" },
-    { id: 4, name: "Круг шлифовальный 125×6×22 A24", cat: "Шлифовальные", price: "85 ₽" },
-    { id: 5, name: "Круг шлифовальный 180×6×22 A30", cat: "Шлифовальные", price: "140 ₽" },
-    { id: 6, name: "Круг лепестковый 125×22 P60", cat: "Шлифовальные", price: "110 ₽" },
+    { id: 1, name: "Круг отрезной 125×1.0×22 A60", cat: "Отрезные" },
+    { id: 2, name: "Круг отрезной 230×2.0×22 A46", cat: "Отрезные" },
+    { id: 3, name: "Круг отрезной 150×1.6×22 A54", cat: "Отрезные" },
+    { id: 4, name: "Круг шлифовальный 125×6×22 A24", cat: "Шлифовальные" },
+    { id: 5, name: "Круг шлифовальный 180×6×22 A30", cat: "Шлифовальные" },
+    { id: 6, name: "Круг лепестковый 125×22 P60", cat: "Шлифовальные" },
   ];
   const [filter, setFilter] = useState("all");
   const filtered = filter === "all" ? products : products.filter(p => p.cat === filter);
@@ -533,7 +589,7 @@ const PageCatalog = ({ navigate, cart, setCart }) => {
               <div className="mt-1"><span className="badge">{p.cat}</span></div>
               <div className="text-sm font-medium text-dark product-name mt-1">{p.name}</div>
               <Skel w="75%" /><Skel w="50%" thin />
-              <div className="text-lg font-bold text-dark mt-2">{p.price}</div>
+              <div className="text-xs text-gray mt-2">Цена по запросу</div>
             </div>
             <div className="row mt-2">
               {!cart[p.id] ? (
@@ -558,7 +614,7 @@ const PageCatalog = ({ navigate, cart, setCart }) => {
 
 const PageProductDetail = ({ navigate, cart, setCart }) => (
   <div className="stack">
-    <button onClick={() => navigate("catalog")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#9ca3af", textAlign: "left" }}>← Назад в каталог</button>
+    <button onClick={() => navigate("catalog")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#888888", textAlign: "left" }}>← Назад в каталог</button>
     <div className="grid-2 gap-lg md-only">
       <WireBlock label="Фотографии товара">
         <PhImg h={250} label="ОСНОВНОЕ ФОТО" />
@@ -583,8 +639,8 @@ const PageProductDetail = ({ navigate, cart, setCart }) => (
             </tbody>
           </table>
         </WireBlock>
+        <div className="text-sm text-gray mb-2">Цена по запросу</div>
         <div className="row" style={{ gap: 16 }}>
-          <div className="text-2xl font-bold text-dark">45 ₽</div>
           <div className="qty"><button>−</button><span>1</span><button>+</button></div>
           <button className="btn primary" onClick={() => setCart(c => ({ ...c, [1]: (c[1] || 0) + 1 }))}>Добавить в корзину</button>
         </div>
@@ -595,21 +651,20 @@ const PageProductDetail = ({ navigate, cart, setCart }) => (
 
 const PageCart = ({ navigate, cart, setCart }) => {
   const items = [
-    { id: 1, name: "Круг отрезной 125×1.0×22 A60", price: 45 },
-    { id: 2, name: "Круг отрезной 230×2.0×22 A46", price: 120 },
-    { id: 3, name: "Круг отрезной 150×1.6×22 A54", price: 65 },
-    { id: 4, name: "Круг шлифовальный 125×6×22 A24", price: 85 },
-    { id: 5, name: "Круг шлифовальный 180×6×22 A30", price: 140 },
-    { id: 6, name: "Круг лепестковый 125×22 P60", price: 110 },
+    { id: 1, name: "Круг отрезной 125×1.0×22 A60" },
+    { id: 2, name: "Круг отрезной 230×2.0×22 A46" },
+    { id: 3, name: "Круг отрезной 150×1.6×22 A54" },
+    { id: 4, name: "Круг шлифовальный 125×6×22 A24" },
+    { id: 5, name: "Круг шлифовальный 180×6×22 A30" },
+    { id: 6, name: "Круг лепестковый 125×22 P60" },
   ].filter(item => cart[item.id] > 0);
-  const total = items.reduce((s, item) => s + item.price * (cart[item.id] || 0), 0);
 
   return (
     <div className="stack">
       <div className="text-xl font-bold text-dark">Корзина</div>
       {items.length === 0 ? (
         <WireBlock>
-          <div className="text-center" style={{ padding: "32px 0", color: "#9ca3af" }}>
+          <div className="text-center" style={{ padding: "32px 0", color: "#888888" }}>
             <div style={{ fontSize: 32, marginBottom: 8 }}>🛒</div>
             Корзина пуста. <span style={{ textDecoration: "underline", cursor: "pointer" }} onClick={() => navigate("catalog")}>Перейти в каталог</span>
           </div>
@@ -623,7 +678,6 @@ const PageCart = ({ navigate, cart, setCart }) => {
                   <PhImg w={50} h={50} label="IMG" />
                   <div>
                     <div className="text-sm font-medium text-dark">{item.name}</div>
-                    <div className="text-xs text-gray">{item.price} ₽ за шт.</div>
                   </div>
                 </div>
                 <div className="row" style={{ gap: 12 }}>
@@ -632,16 +686,13 @@ const PageCart = ({ navigate, cart, setCart }) => {
                     <input type="number" value={cart[item.id]} min="1" onChange={e => { const v = parseInt(e.target.value) || 0; if (v <= 0) { setCart(c => { const n = { ...c }; delete n[item.id]; return n; }); } else { setCart(c => ({ ...c, [item.id]: v })); } }} style={{ width: 44, textAlign: "center", border: "none", fontSize: 14, outline: "none", MozAppearance: "textfield", WebkitAppearance: "none" }} />
                     <button onClick={() => setCart(c => ({ ...c, [item.id]: (c[item.id] || 0) + 1 }))}>+</button>
                   </div>
-                  <div className="font-medium text-dark">{item.price * cart[item.id]} ₽</div>
+                  <span className="text-xs text-gray">{cart[item.id]} шт.</span>
                   <button className="cart-remove" onClick={() => setCart(c => { const n = { ...c }; delete n[item.id]; return n; })}>×</button>
                 </div>
               </div>
             ))}
-            <div style={{ display: "flex", justifyContent: "flex-end", paddingTop: 12 }}>
-              <div className="text-lg font-bold text-dark">Итого: {total} ₽</div>
-            </div>
           </WireBlock>
-          <WireBlock label="Форма оформления заказа">
+          <WireBlock label="Контактные данные">
             <div className="grid-2 gap-sm" style={{ maxWidth: 500 }}>
               <div className="form-field"><label>ФИО *</label><input disabled /></div>
               <div className="form-field"><label>Компания</label><input disabled /></div>
@@ -685,9 +736,9 @@ const PageInfo = ({ navigate }) => (
 
 const PageArticle = ({ navigate }) => (
   <div className="stack" style={{ maxWidth: 768 }}>
-    <button onClick={() => navigate("info")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#9ca3af", textAlign: "left" }}>← Назад к статьям</button>
+    <button onClick={() => navigate("info")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#888888", textAlign: "left" }}>← Назад к статьям</button>
     <div className="text-xl font-bold text-dark">Расшифровка маркировки отрезных дисков</div>
-    <div className="text-xs text-gray">Обновлено: 15.05.2026</div>
+    <div className="text-xs text-gray">Обновлено: 15.05.2025</div>
     <WireBlock label="Содержание статьи">
       <PhImg h={200} label="ИЗОБРАЖЕНИЕ / ИЛЛЮСТРАЦИЯ" />
       <div className="mt-3">{[1,2,3,4,5,6,7,8,9,10].map(i => <Skel key={i} w={`${70 + Math.random() * 30}%`} />)}</div>
@@ -701,10 +752,10 @@ const PageNews = ({ navigate }) => (
   <div className="stack">
     <div><div className="text-xl font-bold text-dark">Новости компании</div><div className="text-sm text-gray">Участие в тендерах, партнёрства, расширение ассортимента</div></div>
     {[
-      { date: "10.05.2026", title: "Расширение ассортимента шлифовальных дисков" },
-      { date: "28.04.2026", title: "Новое партнёрство с заводом ВКН" },
-      { date: "15.04.2026", title: "Успешное участие в тендере на поставку абразивов" },
-      { date: "01.04.2026", title: "Запуск нового сайта компании Лидтендер" },
+      { date: "10.05.2025", title: "Расширение ассортимента шлифовальных дисков" },
+      { date: "28.04.2025", title: "Новое партнёрство с заводом ВКН" },
+      { date: "15.04.2025", title: "Успешное участие в тендере на поставку абразивов" },
+      { date: "01.04.2025", title: "Запуск нового сайта компании Лидтендер" },
     ].map((item, i) => (
       <WireBlock key={i} onClick={() => navigate("news-detail")}>
         <div className="news-item">
@@ -723,8 +774,8 @@ const PageNews = ({ navigate }) => (
 
 const PageNewsDetail = ({ navigate }) => (
   <div className="stack" style={{ maxWidth: 768 }}>
-    <button onClick={() => navigate("news")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#9ca3af", textAlign: "left" }}>← Назад к новостям</button>
-    <div className="text-xs text-gray">28.04.2026</div>
+    <button onClick={() => navigate("news")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#888888", textAlign: "left" }}>← Назад к новостям</button>
+    <div className="text-xs text-gray">28.04.2025</div>
     <div className="text-xl font-bold text-dark">Новое партнёрство с заводом ВКН</div>
     <PhImg h={250} label="ФОТО НОВОСТИ" />
     <WireBlock label="Текст новости">
@@ -739,18 +790,17 @@ const PageContacts = ({ navigate }) => (
     <div className="contact-grid">
       <div className="stack" style={{ gap: 16 }}>
         <WireBlock label="Данные компании">
-          <div className="text-sm" style={{ lineHeight: 2, color: "#6b7280" }}>
-            <span className="text-xs text-gray">Адрес:</span><br />г. Москва, ул. XXXXXXX, д. XX<br />
-            <span className="text-xs text-gray">Телефон:</span><br />+7 (XXX) XXX-XX-XX<br />
+          <div className="text-sm" style={{ lineHeight: 2, color: "#555555" }}>
+            <span className="text-xs text-gray">Адрес:</span><br />618548, Пермский край, г. Соликамск, ул. Черняховского, д. 8А, пом. 9<br />
             <span className="text-xs text-gray">Email:</span><br />info@leadtender.ru
           </div>
         </WireBlock>
-        <WireBlock label="Реквизиты ООО «Лидтендер»" dashed>
-          <div className="text-xs text-gray">ИНН: XXXXXXXXXX<br />ОГРН: XXXXXXXXXXXXX<br />Юр. адрес: ...<br /><span className="italic">По желанию заказчика</span></div>
+        <WireBlock label="Реквизиты ООО «Лидтендер»">
+          <div className="text-xs text-gray">ИНН: 5919031967<br />ОГРН: 1235900000874<br />КПП: 591901001<br />ОКПО: 56777597<br />Ген. директор: Попов Иван Сергеевич</div>
         </WireBlock>
       </div>
       <WireBlock label="Карта">
-        <PhImg h={280} label="ЯНДЕКС.КАРТЫ / GOOGLE MAPS" />
+        <PhImg h={280} label="ЯНДЕКС.КАРТЫ" />
       </WireBlock>
     </div>
     <ContactForm />
@@ -759,7 +809,7 @@ const PageContacts = ({ navigate }) => (
 
 const Page404 = ({ navigate }) => (
   <div className="text-center" style={{ padding: "64px 0" }}>
-    <div style={{ fontSize: 60, fontWeight: 700, color: "#e5e7eb" }}>404</div>
+    <div style={{ fontSize: 60, fontWeight: 700, color: "#E5E5E5" }}>404</div>
     <div className="text-lg text-dark mb-2">Страница не найдена</div>
     <div className="text-sm text-gray mb-4">Запрашиваемая страница не существует или была удалена</div>
     <button className="btn primary" onClick={() => navigate("home")}>На главную</button>
