@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEADTENDER — Каталог продукции</title>
+  <meta name="description" content="Каталог промышленного оборудования, инструмента и расходных материалов. Абразивный и ручной инструмент, электроинструмент, крепёж, СИЗ, сварочное оборудование.">
+  <meta property="og:title" content="LEADTENDER — Каталог продукции">
+  <meta property="og:description" content="Промышленное оборудование, инструмент и расходные материалы. Работаем напрямую с заводами.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="image/short-logo.png" type="image/png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- AOS.js -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css?v=2">
+  <link rel="stylesheet" href="css/components.css?v=2">
+  <link rel="stylesheet" href="css/layout.css?v=2">
+  <link rel="stylesheet" href="css/animations.css?v=2">
+
+  <style>
+    /* === PAGE HEADER === */
+    .catalog-page-header {
+      padding: 92px 0 40px;
+      background: var(--color-bg);
+    }
+    .catalog-page-header h1 {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      margin-top: 16px;
+      line-height: 1.1;
+    }
+    .catalog-page-header p {
+      font-size: 18px;
+      color: var(--color-text-body);
+      margin-top: 12px;
+    }
+
+    /* === CATALOG LAYOUT === */
+    .catalog-layout {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    /* === SIDEBAR === */
+    .catalog-sidebar {
+      width: 280px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 88px;
+      background: var(--color-bg-white);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .catalog-cat-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: inherit;
+      color: var(--color-text-body);
+      border: none;
+      background: none;
+      cursor: pointer;
+      text-align: left;
+      transition: background var(--transition-fast), color var(--transition-fast);
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .catalog-cat-btn:hover {
+      background: #F8FAFC;
+    }
+    .catalog-cat-btn.active {
+      color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+    .catalog-cat-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: #F1F5F9;
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+    .catalog-cat-icon.active {
+      background: var(--color-primary);
+      color: white;
+    }
+    .catalog-cat-name {
+      flex: 1;
+      min-width: 0;
+    }
+    .catalog-chevron {
+      display: flex;
+      align-items: center;
+      color: var(--color-text-muted);
+      transition: transform 0.25s ease;
+    }
+    .catalog-cat-btn.active .catalog-chevron {
+      transform: rotate(180deg);
+      color: var(--color-primary);
+    }
+
+    /* Subcategories accordion */
+    .catalog-sub-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: #FAFBFC;
+    }
+    .catalog-sub-list.open {
+      max-height: 400px;
+    }
+    .catalog-sub-btn {
+      display: block;
+      width: 100%;
+      padding: 10px 16px 10px 64px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--color-text-muted);
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--color-border-light);
+      cursor: pointer;
+      text-align: left;
+      transition: color var(--transition-fast), background var(--transition-fast);
+    }
+    .catalog-sub-btn:last-child {
+      border-bottom: none;
+    }
+    .catalog-sub-btn:hover {
+      color: var(--color-text-primary);
+      background: #F1F5F9;
+    }
+    .catalog-sub-btn.active {
+      color: var(--color-primary);
+      font-weight: 600;
+      background: var(--color-primary-light);
+    }
+
+    /* === MOBILE PILLS === */
+    .catalog-pills {
+      display: none;
+      overflow-x: auto;
+      gap: 8px;
+      padding: 4px 0 16px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .catalog-pills::-webkit-scrollbar { display: none; }
+    .catalog-pill {
+      flex-shrink: 0;
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: inherit;
+      border-radius: 50px;
+      border: 1.5px solid var(--color-border);
+      background: var(--color-bg-white);
+      color: var(--color-text-body);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      white-space: nowrap;
+    }
+    .catalog-pill:hover {
+      border-color: var(--color-text-muted);
+    }
+    .catalog-pill.active {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    /* === MAIN AREA === */
+    .catalog-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Toolbar */
+    .catalog-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .catalog-toolbar-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+    .catalog-toolbar-count {
+      font-size: 14px;
+      color: var(--color-text-muted);
+    }
+
+    /* === PRODUCT GRID === */
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    /* Product Card */
+    .product-card {
+      background: var(--color-bg-white);
+      border: 1px solid var(--color-border-light);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .product-card-image {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-card-icon {
+      color: rgba(255, 255, 255, 0.25);
+      display: flex;
+    }
+    .product-card:hover .product-card-icon {
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .product-card-body {
+      padding: 16px 20px 20px;
+    }
+    .product-card-body .badge {
+      margin-bottom: 8px;
+    }
+    .product-card-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      line-height: 1.4;
+      transition: color var(--transition-fast);
+    }
+    .product-card:hover .product-card-name {
+      color: var(--color-primary);
+    }
+
+    /* === EMPTY STATE === */
+    .catalog-empty {
+      display: none;
+      padding: 80px 20px;
+      text-align: center;
+      background: var(--color-bg-white);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-lg);
+    }
+    .catalog-empty svg {
+      color: var(--color-text-muted);
+      margin-bottom: 16px;
+    }
+    .catalog-empty p {
+      font-size: 16px;
+      color: var(--color-text-muted);
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .catalog-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .catalog-sidebar {
+        width: 240px;
+      }
+    }
+    @media (max-width: 768px) {
+      .catalog-layout {
+        flex-direction: column;
+      }
+      .catalog-sidebar {
+        display: none;
+      }
+      .catalog-pills {
+        display: flex;
+      }
+      .catalog-page-header h1 {
+        font-size: 32px;
+      }
+    }
+    @media (max-width: 640px) {
+      .catalog-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- Header (injected by JS, solid style for inner pages) -->
+  <div id="header" data-header-style="solid"></div>
+
+  <!-- Page Header -->
+  <div class="catalog-page-header">
+    <div class="container">
+      <nav class="breadcrumbs" id="catalog-breadcrumbs" aria-label="Навигация">
+        <a href="index.html">Главная</a>
+        <span class="separator">/</span>
+        <span class="current">Продукция</span>
+      </nav>
+      <h1>Каталог продукции</h1>
+      <p>Промышленное оборудование, инструмент и расходные материалы</p>
+    </div>
+  </div>
+
+  <!-- Catalog Section -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+
+      <!-- Mobile pills (visible only on <=768px) -->
+      <div class="catalog-pills" id="catalog-pills"></div>
+
+      <div class="catalog-layout">
+        <!-- Sidebar -->
+        <aside class="catalog-sidebar" id="catalog-sidebar"></aside>
+
+        <!-- Main Content -->
+        <main class="catalog-main">
+          <div class="catalog-toolbar" id="catalog-toolbar"></div>
+          <div class="catalog-grid" id="catalog-grid"></div>
+          <div class="catalog-empty" id="catalog-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <p>Товары в этой категории скоро появятся</p>
+          </div>
+        </main>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer (injected by JS) -->
+  <div id="footer"></div>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Наверх">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/catalog.js"></script>
+</body>
+</html>

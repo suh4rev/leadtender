@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEADTENDER — Контакты</title>
+  <meta name="description" content="Контактная информация компании LEADTENDER. Адрес, email, реквизиты ООО «Лидтендер». Форма обратной связи.">
+  <meta property="og:title" content="LEADTENDER — Контакты">
+  <meta property="og:description" content="Свяжитесь с нами для подбора промышленного оборудования и инструмента.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="image/short-logo.png" type="image/png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- AOS.js -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css?v=2">
+  <link rel="stylesheet" href="css/components.css?v=2">
+  <link rel="stylesheet" href="css/layout.css?v=2">
+  <link rel="stylesheet" href="css/animations.css?v=2">
+
+  <style>
+    /* === PAGE HEADER === */
+    .contacts-page-header {
+      padding: 92px 0 40px;
+      background: var(--color-bg);
+    }
+    .contacts-page-header h1 {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      margin-top: 16px;
+      line-height: 1.1;
+    }
+    .contacts-page-header p {
+      font-size: 18px;
+      color: var(--color-text-body);
+      margin-top: 12px;
+    }
+
+    /* === INFO BLOCK (two columns: contacts + requisites) === */
+    .contacts-info-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .contacts-left {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .contacts-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--color-bg-white);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+    a.contacts-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .contacts-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contacts-card-text {
+      min-width: 0;
+    }
+    .contacts-card-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+    .contacts-card-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      line-height: 1.4;
+    }
+    a.contacts-card:hover .contacts-card-value {
+      color: var(--color-primary);
+    }
+
+    /* === MAP === */
+    .contacts-map {
+      width: 100%;
+      height: 400px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-border-light);
+      overflow: hidden;
+      background: #E2E8F0;
+    }
+    .contacts-map iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* === REQUISITES === */
+    .contacts-requisites {
+      background: var(--color-bg-white);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+    }
+    .contacts-req-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 24px;
+    }
+    .contacts-req-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .contacts-req-table tr {
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .contacts-req-table tr:last-child {
+      border-bottom: none;
+    }
+    .contacts-req-table tr:nth-child(even) {
+      background: #F8FAFC;
+    }
+    .contacts-req-table td {
+      padding: 14px 16px;
+      font-size: 15px;
+      vertical-align: top;
+    }
+    .contacts-req-table td:first-child {
+      color: var(--color-text-muted);
+      width: 180px;
+      font-weight: 500;
+    }
+    .contacts-req-table td:last-child {
+      color: var(--color-text-primary);
+      font-weight: 600;
+    }
+
+    /* === CONTACT FORM SECTION === */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact-info {
+      position: sticky;
+      top: 100px;
+    }
+    .contact-form-wrap {
+      background: var(--color-bg-white);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .contacts-info-block { grid-template-columns: 1fr; }
+      .contacts-map { height: 320px; }
+      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .contact-info { position: static; }
+    }
+    @media (max-width: 640px) {
+      .contacts-page-header h1 { font-size: 32px; }
+      .contacts-map { height: 260px; }
+      .contacts-requisites { padding: 24px 20px; }
+      .contacts-req-table td:first-child { width: 130px; }
+      .contact-form-wrap { padding: 24px 20px; }
+      .contacts-card { padding: 18px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- Header -->
+  <div id="header" data-header-style="solid"></div>
+
+  <!-- Page Header -->
+  <div class="contacts-page-header">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Навигация">
+        <a href="index.html">Главная</a>
+        <span class="separator">/</span>
+        <span class="current">Контакты</span>
+      </nav>
+      <h1>Контакты</h1>
+      <p>Свяжитесь с нами — поможем подобрать оборудование и подготовим предложение</p>
+    </div>
+  </div>
+
+
+  <!-- ============================================
+       СЕКЦИЯ 1: КОНТАКТНЫЕ ДАННЫЕ + РЕКВИЗИТЫ
+       ============================================ -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="contacts-info-block" data-aos="fade-up">
+
+        <!-- Left: contact cards -->
+        <div class="contacts-left">
+          <a href="mailto:info@leadtender.ru" class="contacts-card">
+            <div class="contacts-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+            </div>
+            <div class="contacts-card-text">
+              <div class="contacts-card-label">Email</div>
+              <div class="contacts-card-value">info@leadtender.ru</div>
+            </div>
+          </a>
+
+          <div class="contacts-card">
+            <div class="contacts-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="contacts-card-text">
+              <div class="contacts-card-label">Адрес</div>
+              <div class="contacts-card-value">618548, Пермский край, г. Соликамск, ул. Черняховского, д. 8А, пом. 9</div>
+            </div>
+          </div>
+
+          <div class="contacts-card">
+            <div class="contacts-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="contacts-card-text">
+              <div class="contacts-card-label">Режим работы</div>
+              <div class="contacts-card-value">Пн — Пт: 9:00 — 18:00 / Сб, Вс: выходной</div>
+            </div>
+          </div>
+
+          <div class="contacts-card">
+            <div class="contacts-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="contacts-card-text">
+              <div class="contacts-card-label">Юридическое наименование</div>
+              <div class="contacts-card-value">ООО «Лидтендер»</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: requisites -->
+        <div class="contacts-requisites">
+          <div class="contacts-req-title">Реквизиты</div>
+          <table class="contacts-req-table">
+            <tbody>
+              <tr>
+                <td>ИНН</td>
+                <td>5919031967</td>
+              </tr>
+              <tr>
+                <td>ОГРН</td>
+                <td>1235900000874</td>
+              </tr>
+              <tr>
+                <td>КПП</td>
+                <td>591901001</td>
+              </tr>
+              <tr>
+                <td>ОКПО</td>
+                <td>56777597</td>
+              </tr>
+              <tr>
+                <td>Юр. адрес</td>
+                <td>618548, Пермский край, г. Соликамск, ул. Черняховского, д. 8А, помещ. 9</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       СЕКЦИЯ 2: КАРТА
+       ============================================ -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="contacts-map" data-aos="fade-up">
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?ll=56.7667%2C59.6333&z=15&l=map&pt=56.7667%2C59.6333%2Cpm2rdm"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       СЕКЦИЯ 4: ФОРМА ОБРАТНОЙ СВЯЗИ
+       ============================================ -->
+  <section class="section" id="form" style="background: var(--color-bg-white);">
+    <div class="container">
+      <div class="contact-layout" data-aos="fade-up">
+        <!-- Left: info -->
+        <div class="contact-info">
+          <div class="section-label">СВЯЗАТЬСЯ С НАМИ</div>
+          <h2 style="font-size: 42px; font-weight: 800; color: var(--color-text-primary); line-height: 1.1; margin-top: 12px;">
+            Есть вопросы?<br><span style="color: var(--color-primary);">Напишите нам</span>
+          </h2>
+          <p style="color: var(--color-text-muted); margin-top: 20px; font-size: 16px; line-height: 1.7;">
+            Поможем подобрать оборудование, рассчитаем стоимость и подготовим коммерческое предложение.
+          </p>
+        </div>
+
+        <!-- Right: form -->
+        <div class="contact-form-wrap">
+          <form class="contact-form" novalidate>
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="name">Ваше имя *</label>
+                <input type="text" class="form-input" id="name" name="name" placeholder="Иван Иванов" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="phone">Ваш телефон *</label>
+                <input type="tel" class="form-input" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Ваш email *</label>
+                <input type="email" class="form-input" id="email" name="email" placeholder="mail@example.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="company">Компания</label>
+                <input type="text" class="form-input" id="company" name="company" placeholder="Название компании">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Ваше сообщение</label>
+              <textarea class="form-input form-textarea" id="message" name="message" placeholder="Опишите ваш запрос..."></textarea>
+            </div>
+            <div class="form-group">
+              <div class="form-checkbox">
+                <input type="checkbox" id="privacy" name="privacy" required>
+                <label for="privacy">Даю согласие на <a href="privacy.html" target="_blank">обработку персональных данных</a></label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-secondary btn-lg w-full" style="border-radius: 50px;">Отправить заявку</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (injected by JS) -->
+  <div id="footer"></div>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Наверх">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/forms.js"></script>
+</body>
+</html>

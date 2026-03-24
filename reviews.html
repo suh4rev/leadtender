@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEADTENDER — Отзывы</title>
+  <meta name="description" content="Отзывы клиентов компании LEADTENDER. Что говорят о нас наши партнёры и заказчики.">
+  <meta property="og:title" content="LEADTENDER — Отзывы">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="image/short-logo.png" type="image/png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/main.css?v=2">
+  <link rel="stylesheet" href="css/components.css?v=2">
+  <link rel="stylesheet" href="css/layout.css?v=2">
+  <link rel="stylesheet" href="css/animations.css?v=2">
+
+  <style>
+    .reviews-page-header {
+      padding: 92px 0 40px;
+      background: var(--color-bg);
+    }
+    .reviews-page-header h1 {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      margin-top: 16px;
+      line-height: 1.1;
+    }
+    .reviews-page-header p {
+      font-size: 18px;
+      color: var(--color-text-body);
+      margin-top: 12px;
+    }
+
+    /* === HERO QUOTE === */
+    .reviews-hero {
+      background: var(--color-bg-dark);
+      border-radius: var(--radius-2xl);
+      padding: 64px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .reviews-hero::before {
+      content: "\201C";
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      font-size: 120px;
+      font-family: Georgia, serif;
+      color: var(--color-primary);
+      opacity: 0.15;
+      line-height: 1;
+    }
+    .reviews-hero-stars {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 28px;
+    }
+    .reviews-hero-quote {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--color-text-white);
+      line-height: 1.7;
+      max-width: 720px;
+      margin: 0 auto 32px;
+      font-style: italic;
+    }
+    .reviews-hero-author {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .reviews-hero-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: white;
+      flex-shrink: 0;
+    }
+    .reviews-hero-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-white);
+    }
+    .reviews-hero-role {
+      font-size: 13px;
+      color: var(--color-text-white-muted);
+      margin-top: 2px;
+    }
+
+    /* === REVIEWS GRID === */
+    .reviews-section-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 28px;
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .review-card {
+      background: var(--color-bg-white);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .review-card-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 18px;
+    }
+    .review-card-text {
+      font-size: 15px;
+      color: var(--color-text-body);
+      line-height: 1.7;
+      flex: 1;
+    }
+    .review-card-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid var(--color-border-light);
+      padding-top: 18px;
+      margin-top: 22px;
+    }
+    .review-card-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      color: white;
+      flex-shrink: 0;
+    }
+    .review-card-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+    .review-card-role {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-top: 1px;
+    }
+
+    /* === LETTERS === */
+    .reviews-letters {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .review-letter {
+      background: linear-gradient(135deg, #F8FAFC, #E2E8F0);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-lg);
+      padding: 32px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+    .review-letter:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .review-letter svg {
+      color: var(--color-text-muted);
+    }
+    .review-letter-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-body);
+      line-height: 1.4;
+    }
+
+    /* === CTA === */
+    .reviews-cta {
+      background: var(--color-bg);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      text-align: center;
+    }
+    .reviews-cta h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 8px;
+    }
+    .reviews-cta p {
+      font-size: 16px;
+      color: var(--color-text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+      .reviews-letters { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .reviews-hero { padding: 48px 28px; }
+      .reviews-hero-quote { font-size: 18px; }
+      .reviews-hero::before { font-size: 80px; top: 10px; left: 20px; }
+      .reviews-page-header h1 { font-size: 32px; }
+    }
+    @media (max-width: 640px) {
+      .reviews-grid { grid-template-columns: 1fr; }
+      .reviews-letters { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scroll-progress" id="scroll-progress"></div>
+  <div id="header" data-header-style="solid"></div>
+
+  <div class="reviews-page-header">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Навигация">
+        <a href="index.html">Главная</a>
+        <span class="separator">/</span>
+        <span class="current">Отзывы</span>
+      </nav>
+      <h1>Отзывы клиентов</h1>
+      <p>Что говорят о нас наши партнёры и заказчики</p>
+    </div>
+  </div>
+
+  <!-- Hero Quote -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="reviews-hero" data-aos="fade-up" id="reviews-hero">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Grid -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="reviews-section-title" data-aos="fade-up">Все отзывы</div>
+      <div class="reviews-grid" id="reviews-grid" data-aos="fade-up" data-aos-delay="100">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Letters -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="reviews-section-title" data-aos="fade-up">Благодарственные письма</div>
+      <div class="reviews-letters" data-aos="fade-up" data-aos-delay="100">
+        <div class="review-letter">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <div class="review-letter-name">Благодарственное письмо<br>АО «Промтех»</div>
+        </div>
+        <div class="review-letter">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <div class="review-letter-name">Благодарственное письмо<br>ООО «МеталлСтрой»</div>
+        </div>
+        <div class="review-letter">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <div class="review-letter-name">Благодарственное письмо<br>ИП Козлов</div>
+        </div>
+        <div class="review-letter">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <div class="review-letter-name">Благодарственное письмо<br>ПАО «Уральская сталь»</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="reviews-cta" data-aos="fade-up">
+        <h3>Хотите оставить отзыв?</h3>
+        <p>Мы ценим обратную связь от наших клиентов</p>
+        <a href="contacts.html#form" class="btn btn-primary btn-lg" style="border-radius: 50px;">Написать нам</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Наверх">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    var REVIEW_COLORS = ['#DC2626', '#2563EB', '#059669', '#7C3AED'];
+
+    function starsSVG(count) {
+      var gold = '<svg width="16" height="16" viewBox="0 0 24 24" fill="#F59E0B" stroke="#F59E0B" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+      var gray = '<svg width="16" height="16" viewBox="0 0 24 24" fill="#E2E8F0" stroke="#E2E8F0" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+      var html = '';
+      for (var i = 0; i < 5; i++) {
+        html += i < count ? gold : gray;
+      }
+      return html;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var hero = document.getElementById('reviews-hero');
+      var grid = document.getElementById('reviews-grid');
+
+      // Hero: first review
+      var first = REVIEWS[0];
+      var fColor = REVIEW_COLORS[0];
+      hero.innerHTML =
+        '<div class="reviews-hero-stars">' + starsSVG(first.rating) + '</div>' +
+        '<div class="reviews-hero-quote">' + first.text + '</div>' +
+        '<div class="reviews-hero-author">' +
+          '<div class="reviews-hero-avatar" style="background: ' + fColor + ';">' + first.name.charAt(0) + '</div>' +
+          '<div style="text-align:left;">' +
+            '<div class="reviews-hero-name">' + first.name + '</div>' +
+            '<div class="reviews-hero-role">' + first.position + ', ' + first.company + '</div>' +
+          '</div>' +
+        '</div>';
+
+      // Grid: remaining reviews
+      var html = '';
+      REVIEWS.slice(1).forEach(function(r, i) {
+        var color = REVIEW_COLORS[i + 1] || '#94A3B8';
+        html +=
+          '<div class="review-card">' +
+            '<div class="review-card-stars">' + starsSVG(r.rating) + '</div>' +
+            '<div class="review-card-text">' + r.text + '</div>' +
+            '<div class="review-card-author">' +
+              '<div class="review-card-avatar" style="background: ' + color + ';">' + r.name.charAt(0) + '</div>' +
+              '<div>' +
+                '<div class="review-card-name">' + r.name + '</div>' +
+                '<div class="review-card-role">' + r.position + ', ' + r.company + '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+      });
+      grid.innerHTML = html;
+    });
+  </script>
+</body>
+</html>

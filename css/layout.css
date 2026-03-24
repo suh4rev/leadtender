@@ -1,0 +1,546 @@
+/* ===================================================================
+   LEADTENDER — Layout
+   Header, Navigation, Footer, Breadcrumbs, Page Header
+   =================================================================== */
+
+/* ===== Header ===== */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.header.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+/* ---- Header Inner ---- */
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---- Logo ---- */
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  position: relative;
+}
+
+.header-logo img {
+  height: 36px;
+}
+
+.header-logo-text {
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+}
+
+.header-logo-sub {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  display: block;
+  margin-top: -2px;
+}
+
+/* ---- Transparent header (on dark hero) ---- */
+
+.header-transparent .header-logo-text {
+  color: #fff;
+}
+
+.header-transparent .header-logo-sub {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.header-transparent.scrolled .header-logo-text {
+  color: var(--color-text-primary);
+}
+
+.header-transparent.scrolled .header-logo-sub {
+  color: var(--color-text-muted);
+}
+
+/* ===== Logo switching ===== */
+
+.header-logo .logo-white,
+.header-logo .logo-black {
+  height: 36px;
+  transition: opacity 0.4s ease;
+}
+
+/* Stack both logos — black sits behind white */
+.header-logo .logo-black {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Transparent header: white visible, black hidden */
+.header-transparent .logo-white { opacity: 1; }
+.header-transparent .logo-black { opacity: 0; }
+
+/* Scrolled: white hidden, black visible */
+.header-transparent.scrolled .logo-white { opacity: 0; }
+.header-transparent.scrolled .logo-black { opacity: 1; }
+
+/* Non-transparent pages: only black */
+.header:not(.header-transparent) .logo-white { opacity: 0; }
+.header:not(.header-transparent) .logo-black { opacity: 1; }
+
+/* ===== Navigation ===== */
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-nav-item {
+  position: relative;
+}
+
+.header-nav-link {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-body);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-nav-link:hover {
+  background: #F1F5F9;
+  color: var(--color-text-primary);
+}
+
+.header-nav-link.active {
+  background: #F1F5F9;
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* Nav links on transparent header */
+
+.header-transparent .header-nav-link {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.header-transparent .header-nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.header-transparent .header-nav-link.active {
+  background: transparent;
+  color: #fff;
+  font-weight: 600;
+}
+
+.header-transparent.scrolled .header-nav-link {
+  color: var(--color-text-body);
+}
+
+.header-transparent.scrolled .header-nav-link:hover {
+  background: #F1F5F9;
+  color: var(--color-text-primary);
+}
+
+.header-transparent.scrolled .header-nav-link.active {
+  background: #F1F5F9;
+  color: var(--color-text-primary);
+}
+
+/* ===== Dropdown ===== */
+
+.header-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: var(--transition-fast);
+  z-index: 60;
+}
+
+.header-nav-item:hover .header-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.header-dropdown a {
+  display: block;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--color-text-body);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+
+.header-dropdown a:hover {
+  background: #F1F5F9;
+  color: var(--color-primary);
+}
+
+/* ===== Header Right Side ===== */
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-email {
+  font-size: 14px;
+  color: var(--color-text-body);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-transparent .header-email {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.header-transparent.scrolled .header-email {
+  color: var(--color-text-body);
+}
+
+/* .header-cta uses .btn .btn-primary .btn-sm from components */
+
+/* ===== Burger (mobile only) ===== */
+
+.header-burger {
+  display: none;
+}
+
+.header-burger span {
+  height: 2px;
+  background: var(--color-text-primary);
+  border-radius: 2px;
+  transition: var(--transition-base);
+}
+
+.header-transparent .header-burger span {
+  background: #fff;
+}
+
+.header-transparent.scrolled .header-burger span {
+  background: var(--color-text-primary);
+}
+
+.header-burger.active span:nth-child(1) {
+  transform: rotate(45deg) translateY(7px);
+}
+
+.header-burger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.header-burger.active span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-7px);
+}
+
+/* ===== Mobile Menu ===== */
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 24px 24px;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  overflow-y: auto;
+}
+
+.mobile-menu.active {
+  transform: translateX(0);
+}
+
+.mobile-menu-link {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border-light);
+  display: block;
+}
+
+.mobile-menu-link:hover {
+  color: var(--color-primary);
+}
+
+.mobile-menu-sub {
+  padding-left: 20px;
+}
+
+.mobile-menu-sub a {
+  font-size: 16px;
+  font-weight: 400;
+  padding: 12px 0;
+  color: var(--color-text-body);
+  display: block;
+}
+
+.mobile-menu-sub a:hover {
+  color: var(--color-primary);
+}
+
+.mobile-menu-cta {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.mobile-menu-cta .btn {
+  width: 100%;
+}
+
+/* ===== Footer ===== */
+
+.footer {
+  background: #111;
+  color: var(--color-text-white-muted);
+  padding: 64px 0 32px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+
+.footer-col h4 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.footer-col p {
+  font-size: 14px;
+  line-height: 2;
+  color: var(--color-text-white-muted);
+}
+
+.footer-col p br {
+  display: block;
+  content: '';
+  margin-top: 10px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0;
+  padding: 5px 0;
+  line-height: 1.1;
+}
+
+.footer-links a {
+  font-size: 14px;
+  color: var(--color-text-white-muted);
+  transition: var(--transition-fast);
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+.footer-logo {
+  margin-bottom: 20px;
+}
+
+.footer-logo img {
+  height: 23px;
+}
+
+.footer-contacts li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.footer-contact-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.footer-contacts a,
+.footer-contacts span:not(.footer-contact-icon) {
+  font-size: 14px;
+  color: var(--color-text-white-muted);
+  transition: var(--transition-fast);
+}
+
+.footer-contacts a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ===== Breadcrumbs ===== */
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 0;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  flex-wrap: wrap;
+}
+
+.breadcrumbs a {
+  color: var(--color-text-muted);
+  transition: var(--transition-fast);
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-primary);
+}
+
+.breadcrumbs .separator {
+  color: var(--color-border);
+  user-select: none;
+}
+
+.breadcrumbs .current {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+/* ===== Page Header (inner pages) ===== */
+
+.page-header {
+  padding: 120px 0 48px;
+  text-align: center;
+}
+
+.page-header h1 {
+  margin-bottom: 12px;
+}
+
+.page-header p {
+  font-size: 18px;
+  color: var(--color-text-body);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ===================================================================
+   Responsive: Desktop (>1024px)
+   =================================================================== */
+
+@media (min-width: 1025px) {
+  .mobile-menu {
+    display: none;
+  }
+}
+
+/* ===================================================================
+   Responsive: Tablet (max-width: 1024px)
+   =================================================================== */
+
+@media (max-width: 1024px) {
+  .header-nav,
+  .header-email,
+  .header-cta {
+    display: none;
+  }
+
+  .header-burger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 28px;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+/* ===================================================================
+   Responsive: Mobile (max-width: 640px)
+   =================================================================== */
+
+@media (max-width: 640px) {
+  .header-inner {
+    padding: 0 16px;
+  }
+
+  .footer {
+    padding: 48px 0 24px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .page-header {
+    padding: 100px 0 32px;
+  }
+
+  .page-header p {
+    font-size: 16px;
+  }
+}

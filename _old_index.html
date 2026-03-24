@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LEADTENDER</title>
+<link rel="icon" href="image/short-logo.png" type="image/png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #FAFAFA; color: #333333; line-height: 1.5; font-size: 16px; }
+.max-w { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+/* Header */
+.header { border-bottom: 1px solid #E5E5E5; background: #fff; position: sticky; top: 0; z-index: 50; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1400px; margin: 0 auto; }
+.logo { display: flex; align-items: center; gap: 14px; cursor: pointer; }
+.logo-icon { width: 48px; height: 48px; background: #D0D0D0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #555555; font-weight: 700; }
+.logo-text { font-weight: 700; color: #1A1A1A; font-size: 17px; line-height: 1.2; }
+.logo-sub { font-size: 14px; color: #888888; }
+.nav { display: flex; align-items: center; gap: 6px; }
+.nav-btn { padding: 10px 16px; font-size: 16px; border-radius: 8px; border: none; background: none; cursor: pointer; color: #555555; transition: all .2s; }
+.nav-btn:hover { background: #F0F0F0; color: #1A1A1A; }
+.nav-btn.active { background: #F0F0F0; color: #1A1A1A; font-weight: 600; }
+.nav-dropdown { position: absolute; top: 100%; left: 0; background: #fff; border: 1px solid #E5E5E5; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,.08); padding: 6px 0; min-width: 200px; z-index: 50; }
+.nav-dropdown button { display: block; width: 100%; text-align: left; padding: 10px 20px; font-size: 16px; color: #555555; border: none; background: none; cursor: pointer; }
+.nav-dropdown button:hover { background: #F0F0F0; color: #1A1A1A; }
+.header-contacts { display: flex; align-items: center; gap: 20px; font-size: 16px; color: #555555; }
+.header-contacts .label { font-size: 13px; color: #888888; }
+.header-contacts .value { font-weight: 500; color: #333333; font-size: 16px; }
+.burger { display: none; padding: 10px; border: none; background: none; cursor: pointer; }
+.mobile-actions { display: none; align-items: center; gap: 10px; }
+.mobile-cart { display: none; }
+.burger span { display: block; width: 28px; height: 3px; background: #555555; margin: 6px 0; transition: all .3s; }
+.mobile-menu { display: none; border-top: 1px solid #E5E5E5; background: #fff; padding: 10px 20px; position: absolute; top: 100%; left: 0; right: 0; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,.12); max-height: 80vh; overflow-y: auto; }
+.mobile-menu button { display: block; width: 100%; text-align: left; padding: 12px 0; font-size: 17px; color: #555555; border: none; background: none; cursor: pointer; font-weight: 500; }
+.mobile-menu .sub { padding-left: 28px; color: #888888; font-weight: 400; }
+
+/* Page map */
+.pagemap { background: #FAFAFA; border-bottom: 1px solid #E5E5E5; overflow-x: auto; }
+.pagemap-inner { display: flex; align-items: center; gap: 6px; padding: 10px 24px; max-width: 1400px; margin: 0 auto; flex-wrap: nowrap; }
+.pagemap-label { font-size: 14px; color: #888888; font-weight: 500; white-space: nowrap; margin-right: 6px; }
+.pagemap-btn { padding: 6px 10px; font-size: 13px; border-radius: 6px; border: none; background: none; cursor: pointer; white-space: nowrap; color: #888888; transition: all .2s; }
+.pagemap-btn:hover { background: #E5E5E5; color: #333333; }
+.pagemap-btn.active { background: #1A1A1A; color: #fff; }
+
+/* Breadcrumb */
+.breadcrumb { font-size: 14px; color: #888888; padding: 14px 0; }
+.breadcrumb span { cursor: pointer; }
+.breadcrumb span:hover { color: #E02020; }
+
+/* Wire blocks */
+.wire { border: 1px solid #E5E5E5; background: #FFFFFF; border-radius: 10px; padding: 20px; margin-bottom: 0; }
+.wire.dashed { border-style: dashed; border-color: #D0D0D0; }
+.wire.clickable { cursor: pointer; transition: all .2s; }
+.wire.clickable:hover { background: #FAFAFA; border-color: #D0D0D0; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+.wire-label { font-size: 13px; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
+
+/* Placeholder image */
+.ph-img { background: #E5E5E5; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #888888; font-size: 13px; }
+
+/* Buttons */
+.btn { padding: 12px 24px; font-size: 16px; border-radius: 8px; font-weight: 500; cursor: pointer; transition: all .2s; border: none; }
+.btn.sm { padding: 8px 16px; font-size: 14px; }
+.btn.primary { background: #E02020; color: #fff; }
+.btn.primary:hover { background: #C41818; }
+.btn.secondary { background: #F5F5F5; border: 2px solid #D0D0D0; color: #555555; }
+.btn.secondary:hover { border-color: #888888; }
+
+/* Form fields */
+.form-field label { font-size: 14px; color: #555555; display: block; margin-bottom: 6px; }
+.form-field input, .form-field textarea { width: 100%; border: 1px solid #E5E5E5; border-radius: 8px; padding: 10px 12px; font-size: 16px; background: #fff; transition: border-color .2s; }
+.form-field input:focus, .form-field textarea:focus { outline: none; border-color: #E02020; }
+.form-field textarea { height: 100px; resize: vertical; }
+
+/* Badge */
+.badge { display: inline-block; background: #FEF2F2; color: #E02020; font-size: 13px; padding: 3px 10px; border-radius: 99px; }
+
+/* Grid helpers */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.gap-sm { gap: 16px; }
+.gap-lg { gap: 28px; }
+.stack { display: flex; flex-direction: column; gap: 28px; }
+.row { display: flex; gap: 14px; align-items: center; }
+.text-center { text-align: center; }
+.text-xs { font-size: 14px; }
+.text-sm { font-size: 16px; }
+.text-lg { font-size: 22px; }
+.text-xl { font-size: 24px; }
+.text-2xl { font-size: 28px; }
+.text-gray { color: #888888; }
+.text-dark { color: #1A1A1A; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.italic { font-style: italic; }
+.mt-1 { margin-top: 6px; }
+.mt-2 { margin-top: 10px; }
+.mt-3 { margin-top: 16px; }
+.mb-1 { margin-bottom: 6px; }
+.mb-2 { margin-bottom: 10px; }
+.mb-4 { margin-bottom: 20px; }
+
+/* Skeleton lines */
+.skel { height: 10px; background: #E5E5E5; border-radius: 5px; margin-bottom: 8px; }
+.skel.title { height: 14px; background: #D0D0D0; }
+.skel.thin { height: 8px; background: #F0F0F0; }
+
+/* Footer */
+.footer { border-top: none; background: #111111; margin-top: 56px; padding: 40px 0; }
+.footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; font-size: 16px; }
+.footer-title { font-size: 13px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
+.footer a, .footer button { color: #AAAAAA; font-size: 14px; text-decoration: none; display: block; margin-bottom: 6px; border: none; background: none; cursor: pointer; padding: 0; text-align: left; }
+.footer a:hover, .footer button:hover { color: #FFFFFF; }
+.footer-bottom { border-top: 1px solid #333333; margin-top: 28px; padding-top: 20px; text-align: center; font-size: 14px; color: #666666; }
+
+/* Filter pills */
+.pill { padding: 8px 16px; font-size: 14px; border-radius: 99px; border: 2px solid #E5E5E5; background: none; cursor: pointer; color: #888888; transition: all .2s; }
+.pill.active { border-color: #E02020; background: #FEF2F2; color: #E02020; font-weight: 600; }
+.pill:hover { border-color: #D0D0D0; }
+
+/* Checkbox placeholder */
+.checkbox { display: flex; align-items: center; gap: 10px; }
+.checkbox-box { width: 20px; height: 20px; border: 2px solid #D0D0D0; border-radius: 5px; flex-shrink: 0; }
+
+/* Table */
+.spec-table { width: 100%; font-size: 16px; border-collapse: collapse; }
+.spec-table tr:nth-child(even) { background: #FAFAFA; }
+.spec-table td { padding: 8px 10px; }
+.spec-table td:first-child { color: #555555; }
+.spec-table td:last-child { font-weight: 500; color: #333333; }
+
+/* Quantity control */
+.qty { display: inline-flex; align-items: center; border: 2px solid #E5E5E5; border-radius: 8px; overflow: hidden; }
+.qty button { width: 40px; height: 40px; border: none; background: none; cursor: pointer; font-size: 18px; color: #888888; }
+.qty span { width: 40px; text-align: center; font-size: 16px; }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; }
+
+
+/* Product card in catalog */
+.product-card .product-info { cursor: pointer; }
+.product-card .product-info:hover .product-name { color: #E02020; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav, .header-contacts { display: none; }
+  .burger { display: block; }
+  .mobile-actions { display: flex; }
+  .mobile-cart { display: block; }
+  .mobile-menu.open { display: block; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+  .grid-2.md-only { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+}
+
+/* Scrollbar for pagemap */
+.pagemap::-webkit-scrollbar { height: 4px; }
+.pagemap::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 2px; }
+
+/* Hero */
+.hero { text-align: center; padding: 40px 20px; }
+
+/* Partner card */
+.partner-card { border: 1px solid #E5E5E5; border-radius: 10px; padding: 20px; text-align: center; transition: all .2s; background: #FFFFFF; }
+.partner-card.clickable { cursor: pointer; }
+.partner-card.clickable:hover { border-color: #D0D0D0; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+
+/* Review card */
+.review-card { border: 1px solid #E5E5E5; border-radius: 10px; padding: 20px; background: #FFFFFF; }
+.review-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+
+/* News item */
+.news-item { display: flex; gap: 20px; }
+
+/* Contact grid */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+@media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+
+/* Play button overlay */
+.video-thumb { position: relative; }
+.play-btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #888888; }
+
+/* Advantage item */
+.advantage { text-align: center; padding: 16px; }
+.advantage-icon { width: 68px; height: 68px; background: #FEF2F2; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #E02020; }
+
+/* Category card */
+.cat-card { cursor: pointer; }
+.cat-card:hover .cat-name { color: #E02020; }
+.cat-name { font-size: 16px; font-weight: 500; color: #555555; margin-top: 10px; transition: color .2s; }
+.info-list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 768px) { .info-list { grid-template-columns: 1fr; } }
+/* Manufacturer card */
+.manufacturer-card { border: 1px solid #E5E5E5; border-radius: 10px; padding: 18px 20px; background: #FAFAFA; transition: all .2s; margin-top: 6px; }
+.manufacturer-card:hover { border-color: #D0D0D0; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+
+/* Docs card */
+.docs-card { border: 1px solid #E5E5E5; border-radius: 10px; padding: 18px 20px; background: #fff; margin-top: 6px; }
+.doc-link { display: flex; align-items: center; gap: 10px; font-size: 15px; color: #333; text-decoration: none; padding: 6px 0; transition: color .15s; }
+.doc-link:hover { color: #E02020; }
+
+/* Catalog breadcrumb */
+.catalog-breadcrumb { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding: 12px 20px; background: #F5F5F5; border-radius: 10px; border: 1px solid #E5E5E5; min-height: 52px; }
+.catalog-breadcrumb-home { font-size: 15px; color: #E02020; cursor: pointer; transition: color .15s; }
+.catalog-breadcrumb-home:hover { color: #C41818; text-decoration: underline; }
+.catalog-breadcrumb-sep { font-size: 13px; color: #CCCCCC; }
+.catalog-breadcrumb-current { font-size: 15px; font-weight: 600; color: #1A1A1A; }
+.catalog-breadcrumb-reset { margin-left: auto; width: 28px; height: 28px; border-radius: 50%; border: 1px solid #D0D0D0; background: #fff; cursor: pointer; font-size: 13px; color: #888; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.catalog-breadcrumb-reset:hover { background: #FEF2F2; border-color: #E02020; color: #E02020; }
+
+/* Catalog sidebar */
+.catalog-sidebar { width: 300px; flex-shrink: 0; border: 1px solid #E5E5E5; border-radius: 10px; background: #fff; overflow: hidden; min-height: 600px; align-self: flex-start; position: sticky; top: 70px; }
+.catalog-cat-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 20px; font-size: 16px; font-weight: 500; color: #333; border: none; background: none; cursor: pointer; text-align: left; transition: all .15s; border-bottom: 1px solid #F0F0F0; }
+.catalog-cat-btn:last-child { border-bottom: none; }
+.catalog-cat-btn:hover { background: #F5F5F5; }
+.catalog-cat-btn.active { background: #FEF2F2; color: #E02020; }
+.catalog-cat-icon { width: 38px; height: 38px; background: #F5F5F5; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #888; flex-shrink: 0; transition: all .15s; }
+.catalog-cat-btn.active .catalog-cat-icon { background: rgba(224,32,32,.1); color: #E02020; }
+.catalog-sub-list { border-bottom: 1px solid #F0F0F0; }
+.catalog-sub-btn { display: block; width: 100%; padding: 10px 20px 10px 58px; font-size: 15px; color: #666; border: none; background: none; cursor: pointer; text-align: left; transition: all .15s; }
+.catalog-sub-btn:hover { background: #F5F5F5; color: #333; }
+.catalog-sub-btn.active { color: #E02020; font-weight: 500; background: #FEF2F2; }
+@media (max-width: 768px) {
+  .catalog-sidebar { width: 100%; }
+  .catalog-sidebar + div .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+
+/* Section blocks */
+.section-block { background: #fff; border-radius: 14px; padding: 40px; border: 1px solid #E5E5E5; }
+.section-header { margin-bottom: 28px; }
+.section-title { font-size: 26px; font-weight: 800; color: #1A1A1A; margin: 0 0 6px; }
+.section-subtitle { font-size: 16px; color: #888; margin: 0; }
+
+/* Advantage cards */
+.advantage-card { padding: 24px; border-radius: 12px; background: #FAFAFA; border: 1px solid #F0F0F0; transition: all .2s; }
+.advantage-card:hover { border-color: #E5E5E5; box-shadow: 0 2px 12px rgba(0,0,0,.04); }
+.advantage-card-icon { width: 52px; height: 52px; background: #FEF2F2; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #E02020; margin-bottom: 14px; }
+
+/* Category cards */
+.category-card { display: flex; align-items: center; gap: 16px; padding: 20px; border-radius: 12px; border: 1px solid #E5E5E5; background: #fff; cursor: pointer; transition: all .2s; }
+.category-card:hover { border-color: #D0D0D0; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.category-card:hover .category-card-icon { background: #FEF2F2; color: #E02020; }
+.category-card-icon { width: 52px; height: 52px; background: #F5F5F5; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #888; flex-shrink: 0; transition: all .2s; }
+
+/* Hero stats strip */
+.hero-stats { display: flex; justify-content: space-around; padding: 48px 0; }
+.hero-stat { text-align: center; }
+.hero-stat-num { display: block; font-size: 56px; font-weight: 800; color: #E02020; line-height: 1; }
+.hero-stat-label { display: block; font-size: 18px; color: #555; margin-top: 10px; font-weight: 500; }
+@media (max-width: 768px) {
+  .hero-stats { flex-wrap: wrap; gap: 24px; padding: 24px 0; }
+  .hero-stat { width: 45%; }
+  .hero-stat-num { font-size: 32px; }
+}
+
+/* CTA banner */
+.cta-banner { background: linear-gradient(135deg, #E02020 0%, #C41818 100%); border-radius: 14px; padding: 48px 40px; display: flex; align-items: center; justify-content: space-between; }
+
+@media (max-width: 768px) {
+  .section-block { padding: 24px; }
+  .cta-banner { padding: 28px 24px; }
+}
+
+/* Dark Hero */
+.hero-dark {
+  position: relative; overflow: hidden; border-radius: 12px;
+  background: url('image/hero_banner.png?v=2') 70% center / cover no-repeat, #0A0A0A;
+  padding: 40px 56px; text-align: left; min-height: 400px;
+  display: flex; align-items: center; justify-content: flex-start;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,.85) 0%, rgba(0,0,0,.7) 35%, rgba(0,0,0,.3) 65%, transparent 100%);
+}
+.hero-particles { position: absolute; inset: 0; pointer-events: none; }
+.hero-spark {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,140,50,.9) 0%, rgba(224,32,32,.6) 50%, transparent 100%);
+  animation: sparkle ease-in-out infinite alternate;
+}
+@keyframes sparkle {
+  0% { transform: scale(0.5); opacity: 0.2; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+.hero-content { position: relative; z-index: 2; max-width: 680px; margin: 0; }
+.hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+.hero-tag { padding: 8px 20px; border-radius: 99px; border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.08); color: rgba(255,255,255,.9); font-size: 14px; font-weight: 500; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.hero-badge {
+  display: inline-block; padding: 6px 20px; border-radius: 99px;
+  border: 1px solid rgba(224,32,32,.5); background: rgba(224,32,32,.2);
+  color: #FFFFFF; font-size: 13px; font-weight: 700; letter-spacing: .1em; margin-bottom: 24px;
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+}
+.hero-title {
+  font-size: 42px; font-weight: 800; color: #FFFFFF; line-height: 1.2; margin: 0 0 18px;
+  text-shadow: 0 2px 8px rgba(0,0,0,.8), 0 4px 24px rgba(0,0,0,.5);
+}
+.hero-sub {
+  font-size: 18px; color: rgba(255,255,255,.85); line-height: 1.6; margin: 0;
+  text-shadow: 0 1px 6px rgba(0,0,0,.8), 0 2px 16px rgba(0,0,0,.5);
+}
+.btn-hero { padding: 16px 32px; font-size: 17px; border-radius: 10px; box-shadow: 0 4px 20px rgba(224,32,32,.3); }
+.btn-hero:hover { box-shadow: 0 6px 28px rgba(224,32,32,.5); }
+.btn-hero-outline {
+  padding: 16px 32px; font-size: 17px; border-radius: 10px;
+  background: transparent; border: 1px solid rgba(255,255,255,.25); color: rgba(255,255,255,.8);
+  cursor: pointer; transition: all .2s;
+}
+.btn-hero-outline:hover { border-color: rgba(255,255,255,.5); color: #fff; background: rgba(255,255,255,.05); }
+.hero-line {
+  position: absolute; background: linear-gradient(90deg, transparent, rgba(224,32,32,.15), transparent);
+  height: 1px; pointer-events: none;
+}
+.hero-line-1 { bottom: 30%; left: 0; right: 0; transform: rotate(-3deg); }
+.hero-line-2 { top: 25%; left: 0; right: 0; transform: rotate(2deg); opacity: .5; }
+
+@media (max-width: 768px) {
+  .hero-dark { padding: 40px 24px; min-height: 280px; }
+  .hero-title { font-size: 28px; }
+  .hero-sub { font-size: 16px; }
+  .btn-hero, .btn-hero-outline { padding: 14px 24px; font-size: 15px; }
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+// ── Helpers ──
+const PhImg = ({ w = "100%", h = 120, label = "IMG", style = {} }) => (
+  <div className="ph-img" style={{ width: w, height: h, ...style }}>{label}</div>
+);
+
+const WireBlock = ({ label, dashed, clickable, onClick, children }) => (
+  <div className={`wire${dashed ? " dashed" : ""}${clickable || onClick ? " clickable" : ""}`} onClick={onClick}>
+    {label && <div className="wire-label">{label}</div>}
+    {children}
+  </div>
+);
+
+const Skel = ({ w = "100%", title, thin }) => (
+  <div className={`skel${title ? " title" : ""}${thin ? " thin" : ""}`} style={{ width: w }} />
+);
+
+const ContactForm = () => (
+  <WireBlock label="Форма обратной связи">
+    <div className="grid-2 gap-sm" style={{ maxWidth: 500 }}>
+      <div className="form-field"><label>Имя</label><input disabled /></div>
+      <div className="form-field"><label>Телефон</label><input disabled /></div>
+      <div className="form-field"><label>Email</label><input disabled /></div>
+      <div className="form-field"><label>Компания</label><input disabled /></div>
+      <div className="form-field" style={{ gridColumn: "1 / -1" }}><label>Сообщение</label><textarea disabled /></div>
+    </div>
+    <div className="checkbox mt-2">
+      <div className="checkbox-box" />
+      <span className="text-xs text-gray">Согласие на обработку персональных данных</span>
+    </div>
+    <div className="mt-3"><button className="btn primary">Отправить заявку</button></div>
+    <div className="text-xs text-gray italic mt-2">→ Письмо на email менеджера + автоответ «Заявка принята»</div>
+  </WireBlock>
+);
+
+// ── Header ──
+const Header = ({ navigate, page, menuOpen, setMenuOpen }) => {
+  const [openSub, setOpenSub] = useState(null);
+  const items = [
+    { id: "home", label: "Главная", sub: [
+      { id: "about", label: "О компании" },
+      { id: "partners", label: "Партнёры" },
+      { id: "reviews", label: "Отзывы" },
+    ]},
+    { id: "catalog", label: "Продукция" },
+    { id: "info", label: "Информация" },
+    { id: "news", label: "Новости" },
+    { id: "contacts", label: "Контакты" },
+  ];
+
+  return (
+    <header className="header">
+      <div className="header-inner">
+        <div className="logo" onClick={() => navigate("home")}>
+          <img src="image/long-logo.png" alt="Leadtender" style={{ height: 30, objectFit: "contain" }} />
+        </div>
+        <nav className="nav">
+          {items.map(item => (
+            <div key={item.id} style={{ position: "relative" }}
+              onMouseEnter={() => item.sub && setOpenSub(item.id)}
+              onMouseLeave={() => setOpenSub(null)}>
+              <button className={`nav-btn${page === item.id || (item.sub && item.sub.some(s => s.id === page)) ? " active" : ""}`}
+                onClick={() => navigate(item.id)}>
+                {item.label}{item.sub ? " ▾" : ""}
+              </button>
+              {item.sub && openSub === item.id && (
+                <div className="nav-dropdown">
+                  {item.sub.map(s => (
+                    <button key={s.id} onClick={() => { navigate(s.id); setOpenSub(null); }}>{s.label}</button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+        <div className="header-contacts">
+          <div><div className="label">Email</div><div className="value">info@leadtender.ru</div></div>
+        </div>
+        <div className="mobile-actions">
+          <button className="burger" onClick={() => setMenuOpen(!menuOpen)}>
+          <span /><span /><span />
+        </button>
+        </div>
+      </div>
+      <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
+        {items.map(item => (
+          <div key={item.id}>
+            <button onClick={() => { navigate(item.id); setMenuOpen(false); }}>{item.label}</button>
+            {item.sub && item.sub.map(s => (
+              <button key={s.id} className="sub" onClick={() => { navigate(s.id); setMenuOpen(false); }}>{s.label}</button>
+            ))}
+          </div>
+        ))}
+      </div>
+    </header>
+  );
+};
+
+// ── Footer ──
+const Footer = ({ navigate }) => (
+  <footer className="footer">
+    <div className="max-w">
+      <div className="footer-grid">
+        <div>
+          <div style={{ fontWeight: 700, color: "#FFFFFF", marginBottom: 8 }}>ЛИДТЕНДЕР</div>
+          <div className="text-xs text-gray">ООО «Лидтендер»<br />ИНН: 5919031967<br />ОГРН: 1235900000874<br />КПП: 591901001<br />ОКПО: 56777597</div>
+        </div>
+        <div>
+          <div className="footer-title">Разделы</div>
+          {[["home","Главная"],["catalog","Продукция"],["info","Информация"],["news","Новости"],["contacts","Контакты"]].map(([id, l]) => (
+            <button key={id} onClick={() => navigate(id)}>{l}</button>
+          ))}
+        </div>
+        <div>
+          <div className="footer-title">Контакты</div>
+          <div className="text-xs text-gray">info@leadtender.ru<br />г. Соликамск, ул. Черняховского, д. 8А, пом. 9</div>
+        </div>
+        <div>
+          <div className="footer-title">Документы</div>
+          <button onClick={() => navigate("privacy")}>Политика конфиденциальности</button>
+          <span className="text-xs text-gray">Согласие на обработку ПД</span>
+        </div>
+      </div>
+      <div className="footer-bottom">© 2026 ООО «Лидтендер». Все права защищены.</div>
+    </div>
+  </footer>
+);
+
+// ── PAGES ──
+
+const PageHome = ({ navigate }) => (
+  <div className="stack">
+    <div className="hero-dark">
+      <div className="hero-overlay" />
+      <div className="hero-content">
+        <div className="hero-tags">
+          <span className="hero-tag">Участвуем в тендерах</span>
+          <span className="hero-tag">Опт и розница</span>
+          <span className="hero-tag">Доставка по всей РФ</span>
+        </div>
+        <h1 className="hero-title">Промышленные поставки<br />без посредников</h1>
+        <p className="hero-sub">Надёжное снабжение вашего предприятия по всей России.<br />Работаем напрямую с заводами-производителями.</p>
+        <div className="row" style={{ justifyContent: "flex-start", gap: 16, marginTop: 24 }}>
+          <button className="btn primary btn-hero" onClick={() => navigate("contacts")}>Связаться с нами</button>
+          <button className="btn btn-hero-outline" onClick={() => navigate("catalog")}>Смотреть каталог</button>
+        </div>
+      </div>
+      <div className="hero-line hero-line-1" />
+      <div className="hero-line hero-line-2" />
+    </div>
+
+    {/* Продукция — горизонтальные плашки */}
+    <div style={{ padding: "1px 0" }}>
+        <div className="grid-3" style={{ gap: 20 }}>
+          {[
+            { name: "Абразивный инструмент", desc: "Отрезные, шлифовальные и лепестковые круги для обработки металла и камня", img: "image/abrasive_tools.png" },
+            { name: "Электроинструмент", desc: "УШМ, дрели, перфораторы и пилы для профессиональных задач", img: "image/power_tools_v3.png" },
+            { name: "Ручной инструмент", desc: "Ключи, плоскогубцы, измерительный и слесарный инструмент", img: "image/hand_tools.png" },
+          ].map((c, i) => (
+            <div key={i} onClick={() => navigate("catalog")} style={{
+              background: "#fff", borderRadius: 12, border: "1px solid #E5E5E5",
+              display: "flex", alignItems: "center", gap: 24, padding: "24px 24px",
+              cursor: "pointer", transition: "all .25s"
+            }}
+            onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,.08)"; e.currentTarget.style.borderColor = "#D0D0D0"; }}
+            onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "#E5E5E5"; }}>
+              <img src={c.img} alt={c.name} style={{ width: 85, height: 85, objectFit: "contain", flexShrink: 0 }} />
+              <div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: "#222", marginBottom: 6 }}>{c.name}</div>
+                <div style={{ fontSize: 14, color: "#777", lineHeight: 1.5 }}>{c.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="text-center" style={{ marginTop: 28 }}>
+          <button className="btn primary" onClick={() => navigate("catalog")} style={{ padding: "14px 40px", fontSize: 16 }}>Смотреть весь каталог</button>
+        </div>
+    </div>
+
+    {/* О компании */}
+    <div className="section-block">
+      <div className="grid-2 md-only gap-lg" style={{ alignItems: "stretch" }}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <h2 className="section-title" style={{ textAlign: "left" }}>О компании</h2>
+          <p className="section-subtitle" style={{ textAlign: "left", marginBottom: 20 }}>LEADTENDER — надёжный партнёр в сфере промышленного снабжения</p>
+          <p className="text-sm" style={{ color: "#555", lineHeight: 1.8 }}>
+            Мы специализируемся на комплексных поставках промышленного оборудования, инструмента и расходных материалов для предприятий по всей России. Работаем напрямую с заводами-производителями, что гарантирует подлинность продукции и лучшие цены.
+          </p>
+          <p className="text-sm mt-3" style={{ color: "#555", lineHeight: 1.8 }}>
+            Участвуем в государственных и коммерческих тендерах, обеспечиваем полный документооборот и логистику. Наша цель — сделать процесс закупки максимально простым и прозрачным для вашего бизнеса.
+          </p>
+        </div>
+        <div style={{ overflow: "hidden", borderRadius: 14, maxHeight: 300 }}>
+          <img src="image/about_us.png" alt="О компании" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+        </div>
+      </div>
+    </div>
+
+    {/* Цифры */}
+    <div className="hero-stats">
+      {[["20+", "Поставщиков"], ["100+", "Позиций в каталоге"], ["5", "Лет на рынке"], ["700+", "Выполненных заказов"]].map(([num, label], i) => (
+        <div key={i} className="hero-stat">
+          <span className="hero-stat-num">{num}</span>
+          <span className="hero-stat-label">{label}</span>
+        </div>
+      ))}
+    </div>
+
+    {/* Преимущества */}
+    <div className="section-block">
+      <div className="section-header">
+        <h2 className="section-title">Почему выбирают нас</h2>
+      </div>
+      <div className="grid-4">
+        {[
+          { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>, title: "Гарантия качества", desc: "Вся продукция сертифицирована и поставляется напрямую от производителей" },
+          { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>, title: "Работа по тендерам", desc: "Полное сопровождение тендерных закупок, подготовка документации" },
+          { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>, title: "Доставка по РФ", desc: "Оперативная отгрузка и доставка в любой регион России" },
+          { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, title: "Персональный менеджер", desc: "Индивидуальный подход к каждому клиенту, оперативное решение задач" },
+        ].map((item, i) => (
+          <div key={i} className="advantage-card">
+            <div className="advantage-card-icon">{item.icon}</div>
+            <div className="text-sm font-bold text-dark" style={{ marginBottom: 4 }}>{item.title}</div>
+            <div className="text-xs text-gray">{item.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* CTA-баннер */}
+    <div className="cta-banner">
+      <div style={{ maxWidth: 500 }}>
+        <div className="text-xl font-bold" style={{ color: "#fff", marginBottom: 8 }}>Нужна консультация?</div>
+        <p className="text-sm" style={{ color: "rgba(255,255,255,.8)", lineHeight: 1.6, marginBottom: 16 }}>
+          Оставьте заявку и наш менеджер свяжется с вами в течение рабочего дня. Поможем подобрать оборудование и подготовить коммерческое предложение.
+        </p>
+        <button className="btn" style={{ background: "#fff", color: "#E02020", fontWeight: 600 }} onClick={() => navigate("contacts")}>Оставить заявку</button>
+      </div>
+    </div>
+
+    <ContactForm />
+  </div>
+);
+
+const PagePartners = ({ navigate }) => (
+  <div className="stack">
+    <div><div className="text-xl font-bold text-dark">Партнёры</div><div className="text-sm text-gray">Организации, которые нас выбрали</div></div>
+    <WireBlock label="Сетка карточек партнёров">
+      <div className="grid-3">
+        {["Завод ВКН","Партнёр 2","Партнёр 3","Партнёр 4","Партнёр 5","Партнёр 6"].map((n, i) => (
+          <div key={i} className={`partner-card${i === 0 ? " clickable" : ""}`} onClick={() => i === 0 && navigate("partner-vkn")}>
+            <PhImg h={60} label="ЛОГОТИП" />
+            <div className="text-sm font-medium text-dark mt-2">{n}</div>
+            {i === 0 && <div className="text-xs text-gray mt-1">→ Нажмите для перехода</div>}
+          </div>
+        ))}
+      </div>
+    </WireBlock>
+    <WireBlock label="Официальное письмо / Диплом ВКН">
+      <div className="row" style={{ alignItems: "flex-start", gap: 16 }}>
+        <PhImg w={200} h={260} label="PDF / СКАН ДОКУМЕНТА" />
+        <div>
+          <div className="text-sm font-medium text-dark mb-2">Официальное письмо о партнёрстве</div>
+          <div className="text-xs text-gray italic">Подтверждение права использования товарного знака ВКН</div>
+          <div className="text-xs text-gray mt-2">Формат: изображение или PDF-вставка с возможностью увеличения</div>
+        </div>
+      </div>
+    </WireBlock>
+  </div>
+);
+
+const PageReviews = ({ navigate }) => (
+  <div className="stack">
+    <div><div className="text-xl font-bold text-dark">Отзывы</div><div className="text-sm text-gray">Что говорят наши клиенты и партнёры</div></div>
+    <WireBlock label="Галерея благодарственных писем">
+      <div className="grid-4 gap-sm">
+        {[1,2,3,4].map(i => (
+          <div key={i}><PhImg h={140} label={`СКАН ПИСЬМА ${i}`} /><div className="text-xs text-gray text-center mt-1">Увеличение по клику</div></div>
+        ))}
+      </div>
+    </WireBlock>
+    <WireBlock label="Текстовые отзывы">
+      <div className="grid-2">
+        {[1,2,3,4].map(i => (
+          <div key={i} className="review-card">
+            <div className="review-header">
+              <PhImg w={40} h={40} label="ЛОГО" />
+              <div><div className="text-sm font-medium text-dark">ФИО Подписанта</div><div className="text-xs text-gray">Должность, Компания</div></div>
+            </div>
+            <Skel /><Skel w="85%" /><Skel w="70%" />
+          </div>
+        ))}
+      </div>
+    </WireBlock>
+    <div className="text-center">
+      <button className="btn primary">Оставить отзыв</button>
+      <div className="text-xs text-gray italic mt-1">→ Всплывающее окно или переход к форме</div>
+    </div>
+  </div>
+);
+
+const PagePartnerVKN = ({ navigate }) => (
+  <div className="stack">
+    <button onClick={() => navigate("partners")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#888888", textAlign: "left" }}>← Назад к партнёрам</button>
+    <WireBlock label="Заголовок партнёра">
+      <div className="row" style={{ gap: 16 }}>
+        <PhImg w={80} h={80} label="ЛОГОТИП ВКН" />
+        <div>
+          <div className="text-xl font-bold text-dark">Завод ВКН</div>
+          <div className="text-sm text-gray">Производитель абразивной продукции</div>
+          <div className="mt-1"><span className="badge">Официальный партнёр</span></div>
+        </div>
+      </div>
+    </WireBlock>
+    <WireBlock label="Описание завода">
+      {[1,2,3,4,5,6].map(i => <Skel key={i} w={`${80 + Math.random() * 20}%`} />)}
+      <div className="text-xs text-gray italic mt-2">Полный текст: история, мощности, ассортимент, география</div>
+    </WireBlock>
+    <WireBlock label="Фотогалерея производства">
+      <div className="grid-4 gap-sm">{[1,2,3,4,5,6,7,8].map(i => <PhImg key={i} h={100} label={`ФОТО ${i}`} />)}</div>
+      <div className="text-xs text-gray italic mt-2">Слайдер или сетка фотографий</div>
+    </WireBlock>
+    <WireBlock label="Видео">
+      <PhImg h={300} label="ВИДЕО YOUTUBE / VK VIDEO (EMBED)" />
+    </WireBlock>
+    <WireBlock label="Дипломы и сертификаты">
+      <div className="grid-3 gap-sm">
+        {[1,2,3].map(i => <div key={i}><PhImg h={180} label={`СЕРТИФИКАТ ${i}`} /><div className="text-xs text-gray text-center mt-1">Увеличение по клику</div></div>)}
+      </div>
+    </WireBlock>
+    <WireBlock label="Официальное письмо о партнёрстве">
+      <PhImg h={300} label="СКАН / ФОТО ПИСЬМА О ПРАВЕ ИСПОЛЬЗОВАНИЯ ТОВАРНОГО ЗНАКА" />
+    </WireBlock>
+    <WireBlock label="Ссылка на сайт завода" dashed>
+      <div className="text-sm text-gray">🔗 https://vkn-zavod.ru <span className="text-xs">(внешняя ссылка)</span></div>
+    </WireBlock>
+  </div>
+);
+
+const CatIcon = ({ type }) => {
+  const icons = {
+    abrasive: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>,
+    power: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>,
+    hand: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>,
+    fasteners: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>,
+    safety: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+    welding: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-2-3.92-2-6.5 0 2.58-.93 4.36-2 6.5-.5 1-.5 1.62-.5 3a2.5 2.5 0 0 0 2.5 2.5z"/><path d="M15.5 19.5A2.5 2.5 0 0 0 18 17c0-1.38-.5-2-1-3-1.07-2.14-2-3.92-2-6.5 0 2.58-.93 4.36-2 6.5-.5 1-.5 1.62-.5 3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>,
+  };
+  return <span className="catalog-cat-icon">{icons[type]}</span>;
+};
+
+const ChevronIcon = ({ open }) => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: "auto", transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }}>
+    <polyline points="6 9 12 15 18 9"/>
+  </svg>
+);
+
+const catalogData = [
+  { id: "abrasive", name: "Абразивный инструмент", sub: [
+    { id: "cut", name: "Отрезные диски" },
+    { id: "grind", name: "Шлифовальные диски" },
+    { id: "flap", name: "Лепестковые круги" },
+    { id: "polish", name: "Полировальные круги" },
+  ]},
+  { id: "power", name: "Электроинструмент", sub: [
+    { id: "angle", name: "Болгарки (УШМ)" },
+    { id: "drill", name: "Дрели и перфораторы" },
+    { id: "saw", name: "Пилы" },
+  ]},
+  { id: "hand", name: "Ручной инструмент", sub: [
+    { id: "wrench", name: "Ключи" },
+    { id: "pliers", name: "Плоскогубцы и клещи" },
+    { id: "measure", name: "Измерительный инструмент" },
+  ]},
+  { id: "fasteners", name: "Крепёж и метизы", sub: [
+    { id: "bolts", name: "Болты и гайки" },
+    { id: "anchors", name: "Анкеры и дюбели" },
+    { id: "screws", name: "Саморезы и шурупы" },
+  ]},
+  { id: "safety", name: "Средства защиты (СИЗ)", sub: [
+    { id: "gloves", name: "Перчатки" },
+    { id: "glasses", name: "Очки и маски" },
+    { id: "clothing", name: "Спецодежда" },
+  ]},
+  { id: "welding", name: "Сварочное оборудование", sub: [
+    { id: "machines", name: "Сварочные аппараты" },
+    { id: "electrodes", name: "Электроды" },
+    { id: "accessories", name: "Аксессуары для сварки" },
+  ]},
+];
+
+const products = [
+  // Абразивный инструмент
+  { id: 1, name: "Круг отрезной 125×1.0×22 A60", cat: "cut", catParent: "abrasive" },
+  { id: 2, name: "Круг отрезной 230×2.0×22 A46", cat: "cut", catParent: "abrasive" },
+  { id: 3, name: "Круг отрезной 150×1.6×22 A54", cat: "cut", catParent: "abrasive" },
+  { id: 4, name: "Круг шлифовальный 125×6×22 A24", cat: "grind", catParent: "abrasive" },
+  { id: 5, name: "Круг шлифовальный 180×6×22 A30", cat: "grind", catParent: "abrasive" },
+  { id: 6, name: "Круг лепестковый 125×22 P60", cat: "flap", catParent: "abrasive" },
+  { id: 7, name: "Круг лепестковый 150×22 P80", cat: "flap", catParent: "abrasive" },
+  { id: 8, name: "Круг полировальный войлочный 125 мм", cat: "polish", catParent: "abrasive" },
+  { id: 9, name: "Круг полировальный фетровый 150 мм", cat: "polish", catParent: "abrasive" },
+  // Электроинструмент
+  { id: 10, name: "УШМ 125 мм 1200 Вт", cat: "angle", catParent: "power" },
+  { id: 11, name: "УШМ 230 мм 2400 Вт", cat: "angle", catParent: "power" },
+  { id: 12, name: "Дрель-шуруповёрт аккумуляторная 18 В", cat: "drill", catParent: "power" },
+  { id: 13, name: "Перфоратор SDS-plus 800 Вт", cat: "drill", catParent: "power" },
+  { id: 14, name: "Пила дисковая 190 мм 1500 Вт", cat: "saw", catParent: "power" },
+  { id: 15, name: "Пила сабельная 1100 Вт", cat: "saw", catParent: "power" },
+  // Ручной инструмент
+  { id: 16, name: "Набор рожковых ключей 6–32 мм", cat: "wrench", catParent: "hand" },
+  { id: 17, name: "Ключ разводной 250 мм", cat: "wrench", catParent: "hand" },
+  { id: 18, name: "Плоскогубцы комбинированные 200 мм", cat: "pliers", catParent: "hand" },
+  { id: 19, name: "Клещи переставные 250 мм", cat: "pliers", catParent: "hand" },
+  { id: 20, name: "Рулетка 5 м с магнитом", cat: "measure", catParent: "hand" },
+  { id: 21, name: "Уровень пузырьковый 600 мм", cat: "measure", catParent: "hand" },
+  // Крепёж и метизы
+  { id: 22, name: "Болт М10×60 DIN 933 (50 шт.)", cat: "bolts", catParent: "fasteners" },
+  { id: 23, name: "Гайка М10 DIN 934 (100 шт.)", cat: "bolts", catParent: "fasteners" },
+  { id: 24, name: "Анкер клиновой 10×100 мм (25 шт.)", cat: "anchors", catParent: "fasteners" },
+  { id: 25, name: "Дюбель распорный 8×50 мм (100 шт.)", cat: "anchors", catParent: "fasteners" },
+  { id: 26, name: "Саморез по металлу 4.2×19 (500 шт.)", cat: "screws", catParent: "fasteners" },
+  { id: 27, name: "Шуруп по дереву 5×70 (200 шт.)", cat: "screws", catParent: "fasteners" },
+  // Средства защиты
+  { id: 28, name: "Перчатки нитриловые маслобензостойкие", cat: "gloves", catParent: "safety" },
+  { id: 29, name: "Перчатки кожаные сварочные (краги)", cat: "gloves", catParent: "safety" },
+  { id: 30, name: "Очки защитные открытые", cat: "glasses", catParent: "safety" },
+  { id: 31, name: "Маска сварщика хамелеон", cat: "glasses", catParent: "safety" },
+  { id: 32, name: "Костюм рабочий летний", cat: "clothing", catParent: "safety" },
+  { id: 33, name: "Ботинки рабочие с металлоподноском", cat: "clothing", catParent: "safety" },
+  // Сварочное оборудование
+  { id: 34, name: "Сварочный инвертор MMA 200 А", cat: "machines", catParent: "welding" },
+  { id: 35, name: "Полуавтомат MIG/MAG 250 А", cat: "machines", catParent: "welding" },
+  { id: 36, name: "Электроды МР-3 3.0 мм (5 кг)", cat: "electrodes", catParent: "welding" },
+  { id: 37, name: "Электроды УОНИ 13/55 4.0 мм (5 кг)", cat: "electrodes", catParent: "welding" },
+  { id: 38, name: "Горелка MIG 250A 3м", cat: "accessories", catParent: "welding" },
+  { id: 39, name: "Проволока сварочная 0.8 мм (5 кг)", cat: "accessories", catParent: "welding" },
+];
+
+const PageCatalog = ({ navigate }) => {
+  const [openCat, setOpenCat] = useState(null);
+  const [activeSub, setActiveSub] = useState(null);
+
+  const filtered = activeSub
+    ? products.filter(p => p.cat === activeSub)
+    : openCat
+      ? products.filter(p => p.catParent === openCat)
+      : products;
+
+  const activeSubName = activeSub
+    ? catalogData.flatMap(c => c.sub).find(s => s.id === activeSub)?.name
+    : openCat
+      ? catalogData.find(c => c.id === openCat)?.name
+      : null;
+
+  return (
+    <div className="stack">
+      <div><div className="text-xl font-bold text-dark">Каталог продукции</div><div className="text-sm text-gray">Промышленное оборудование и материалы</div></div>
+      <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
+        <div className="catalog-sidebar">
+          {catalogData.map(cat => (
+            <div key={cat.id}>
+              <button
+                className={`catalog-cat-btn${openCat === cat.id ? " active" : ""}`}
+                onClick={() => { setOpenCat(openCat === cat.id ? null : cat.id); setActiveSub(null); }}>
+                <CatIcon type={cat.id} />
+                {cat.name}
+                <ChevronIcon open={openCat === cat.id} />
+              </button>
+              {openCat === cat.id && (
+                <div className="catalog-sub-list">
+                  {cat.sub.map(sub => (
+                    <button key={sub.id}
+                      className={`catalog-sub-btn${activeSub === sub.id ? " active" : ""}`}
+                      onClick={() => setActiveSub(activeSub === sub.id ? null : sub.id)}>
+                      {sub.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <div style={{ flex: 1 }}>
+          <div className="catalog-breadcrumb">
+            {!openCat && !activeSub ? (
+              <span className="catalog-breadcrumb-current">Все категории</span>
+            ) : (
+              <>
+                <span className="catalog-breadcrumb-home" onClick={() => { setOpenCat(null); setActiveSub(null); }}>Все категории</span>
+                {openCat && (
+                  <>
+                    <span className="catalog-breadcrumb-sep">/</span>
+                    {activeSub ? (
+                      <span className="catalog-breadcrumb-home" onClick={() => setActiveSub(null)}>{catalogData.find(c => c.id === openCat)?.name}</span>
+                    ) : (
+                      <span className="catalog-breadcrumb-current">{catalogData.find(c => c.id === openCat)?.name}</span>
+                    )}
+                  </>
+                )}
+                {activeSub && (
+                  <>
+                    <span className="catalog-breadcrumb-sep">/</span>
+                    <span className="catalog-breadcrumb-current">{catalogData.flatMap(c => c.sub).find(s => s.id === activeSub)?.name}</span>
+                  </>
+                )}
+                <button className="catalog-breadcrumb-reset" onClick={() => { setOpenCat(null); setActiveSub(null); }}>&#x2715;</button>
+              </>
+            )}
+          </div>
+          {filtered.length > 0 ? (
+            <div className="grid-3">
+              {filtered.map(p => {
+                const subName = catalogData.flatMap(c => c.sub).find(s => s.id === p.cat)?.name || "";
+                return (
+                  <div key={p.id} className="wire product-card">
+                    <div className="product-info" onClick={() => navigate("product-detail")}>
+                      <PhImg h={120} label="ФОТО ТОВАРА" />
+                      <div className="mt-1"><span className="badge">{subName}</span></div>
+                      <div className="text-sm font-medium text-dark product-name mt-1">{p.name}</div>
+                      <Skel w="75%" /><Skel w="50%" thin />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="wire text-center" style={{ padding: "40px 16px", color: "#888" }}>
+              <div className="text-sm">Товары в этой категории скоро появятся</div>
+              <div className="text-xs text-gray mt-1">Свяжитесь с нами для уточнения наличия</div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const PageProductDetail = ({ navigate }) => (
+  <div className="stack">
+    <button onClick={() => navigate("catalog")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#888888", textAlign: "left" }}>← Назад в каталог</button>
+    <div className="grid-2 gap-lg md-only">
+      <WireBlock label="Фотографии товара">
+        <PhImg h={250} label="ОСНОВНОЕ ФОТО" />
+        <div className="grid-3 gap-sm mt-2">{[1,2,3].map(i => <PhImg key={i} h={60} label={`${i}`} />)}</div>
+      </WireBlock>
+      <div className="stack" style={{ gap: 16 }}>
+        <div>
+          <span className="badge">Отрезные диски</span>
+          <div className="text-xl font-bold text-dark mt-2">Круг отрезной 125×1.0×22 A60</div>
+        </div>
+        <WireBlock label="Краткое описание">
+          <Skel /><Skel w="85%" /><Skel w="70%" />
+          <div className="text-xs text-gray italic mt-1">2–4 строки описания</div>
+        </WireBlock>
+        <WireBlock label="Характеристики">
+          <table className="spec-table">
+            <tbody>
+              {[["Диаметр","125 мм"],["Толщина","1.0 мм"],["Посадочный диаметр","22.23 мм"],["Материал обработки","Металл"],["Макс. скорость","80 м/с"],["Зернистость","A60"]].map(([k, v], i) => (
+                <tr key={i}><td>{k}</td><td>{v}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </WireBlock>
+
+        <WireBlock label="Производитель" clickable onClick={() => navigate("partner-vkn")}>
+          <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+            <PhImg w={56} h={56} label="ЛОГОТИП" style={{ borderRadius: 8, flexShrink: 0 }} />
+            <div>
+              <div className="text-sm font-bold text-dark">Завод ВКН</div>
+              <div className="text-xs" style={{ color: "#555", marginTop: 2 }}>Россия, г. Волжский</div>
+            </div>
+          </div>
+          <div style={{ marginTop: 10, borderTop: "1px solid #E5E5E5", paddingTop: 8 }}>
+            <span className="text-xs" style={{ color: "#E02020" }}>Подробнее о производителе →</span>
+          </div>
+        </WireBlock>
+
+        <WireBlock label="Документация">
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <a href="#" className="doc-link" onClick={e => e.preventDefault()}>
+              <span style={{ fontSize: 14 }}>📋</span>
+              <span>Декларация соответствия</span>
+            </a>
+            <a href="#" className="doc-link" onClick={e => e.preventDefault()}>
+              <span style={{ fontSize: 14 }}>📄</span>
+              <span>Сертификат качества</span>
+            </a>
+            <a href="#" className="doc-link" onClick={e => e.preventDefault()}>
+              <span style={{ fontSize: 14 }}>📑</span>
+              <span>Инструкция к товару</span>
+            </a>
+          </div>
+        </WireBlock>
+      </div>
+    </div>
+  </div>
+);
+
+
+const PageInfo = ({ navigate }) => (
+  <div className="stack">
+    <div><div className="text-xl font-bold text-dark">Полезная информация</div><div className="text-sm text-gray">Статьи и справочные материалы об абразивной продукции</div></div>
+    <div className="info-list">
+      {[
+        "Расшифровка маркировки отрезных дисков",
+        "Расшифровка маркировки шлифовальных дисков",
+        "Виды отрезных дисков и сферы применения",
+        "Виды шлифовальных дисков и сферы применения",
+        "Как выбрать диск для конкретной задачи",
+        "Техника безопасности при работе с дисками",
+      ].map((title, i) => (
+        <WireBlock key={i} onClick={() => navigate("article")}>
+          <div className="news-item">
+            <PhImg w={80} h={80} label="IMG" />
+            <div><div className="text-sm font-medium text-dark">{title}</div><Skel /><Skel w="75%" /><div className="text-xs text-gray mt-2">Читать →</div></div>
+          </div>
+        </WireBlock>
+      ))}
+    </div>
+  </div>
+);
+
+const PageArticle = ({ navigate }) => (
+  <div className="stack" style={{ maxWidth: 768 }}>
+    <button onClick={() => navigate("info")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#888888", textAlign: "left" }}>← Назад к статьям</button>
+    <div className="text-xl font-bold text-dark">Расшифровка маркировки отрезных дисков</div>
+    <div className="text-xs text-gray">Обновлено: 15.05.2025</div>
+    <WireBlock label="Содержание статьи">
+      <PhImg h={200} label="ИЗОБРАЖЕНИЕ / ИЛЛЮСТРАЦИЯ" />
+      <div className="mt-3">{[1,2,3,4,5,6,7,8,9,10].map(i => <Skel key={i} w={`${70 + Math.random() * 30}%`} />)}</div>
+      <Skel title w="33%" />
+      <div className="mt-2">{[1,2,3,4,5].map(i => <Skel key={`b${i}`} w={`${75 + Math.random() * 25}%`} />)}</div>
+    </WireBlock>
+  </div>
+);
+
+const PageNews = ({ navigate }) => (
+  <div className="stack">
+    <div><div className="text-xl font-bold text-dark">Новости компании</div><div className="text-sm text-gray">Участие в тендерах, партнёрства, расширение ассортимента</div></div>
+    {[
+      { date: "10.05.2025", title: "Расширение ассортимента шлифовальных дисков" },
+      { date: "28.04.2025", title: "Новое партнёрство с заводом ВКН" },
+      { date: "15.04.2025", title: "Успешное участие в тендере на поставку абразивов" },
+      { date: "01.04.2025", title: "Запуск нового сайта компании Лидтендер" },
+    ].map((item, i) => (
+      <WireBlock key={i} onClick={() => navigate("news-detail")}>
+        <div className="news-item">
+          <PhImg w={120} h={80} label="ФОТО" />
+          <div>
+            <div className="text-xs text-gray mb-1">{item.date}</div>
+            <div className="text-sm font-medium text-dark">{item.title}</div>
+            <Skel /><Skel w="66%" />
+            <div className="text-xs text-gray mt-2">Читать подробнее →</div>
+          </div>
+        </div>
+      </WireBlock>
+    ))}
+  </div>
+);
+
+const PageNewsDetail = ({ navigate }) => (
+  <div className="stack" style={{ maxWidth: 768 }}>
+    <button onClick={() => navigate("news")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 14, color: "#888888", textAlign: "left" }}>← Назад к новостям</button>
+    <div className="text-xs text-gray">28.04.2025</div>
+    <div className="text-xl font-bold text-dark">Новое партнёрство с заводом ВКН</div>
+    <PhImg h={250} label="ФОТО НОВОСТИ" />
+    <WireBlock label="Текст новости">
+      {[1,2,3,4,5,6,7,8].map(i => <Skel key={i} w={`${70 + Math.random() * 30}%`} />)}
+    </WireBlock>
+  </div>
+);
+
+const PageContacts = ({ navigate }) => (
+  <div className="stack">
+    <div className="text-xl font-bold text-dark">Контакты</div>
+    <div className="contact-grid">
+      <div className="stack" style={{ gap: 16 }}>
+        <WireBlock label="Данные компании">
+          <div className="text-sm" style={{ lineHeight: 2, color: "#555555" }}>
+            <span className="text-xs text-gray">Адрес:</span><br />618548, Пермский край, г. Соликамск, ул. Черняховского, д. 8А, пом. 9<br />
+            <span className="text-xs text-gray">Email:</span><br />info@leadtender.ru
+          </div>
+        </WireBlock>
+        <WireBlock label="Реквизиты ООО «Лидтендер»">
+          <table className="spec-table" style={{ fontSize: 13 }}>
+            <tbody>
+              <tr><td>ИНН</td><td>5919031967</td></tr>
+              <tr><td>ОГРН</td><td>1235900000874</td></tr>
+              <tr><td>КПП</td><td>591901001</td></tr>
+              <tr><td>ОКПО</td><td>56777597</td></tr>
+              <tr><td>Юр. адрес</td><td>618548, Пермский край, г. Соликамск, ул. Черняховского, д. 8А, помещ. 9</td></tr>
+            </tbody>
+          </table>
+        </WireBlock>
+      </div>
+      <WireBlock label="Карта">
+        <PhImg h={280} label="ЯНДЕКС.КАРТЫ" />
+      </WireBlock>
+    </div>
+    <ContactForm />
+  </div>
+);
+
+const Page404 = ({ navigate }) => (
+  <div className="text-center" style={{ padding: "64px 0" }}>
+    <div style={{ fontSize: 60, fontWeight: 700, color: "#E5E5E5" }}>404</div>
+    <div className="text-lg text-dark mb-2">Страница не найдена</div>
+    <div className="text-sm text-gray mb-4">Запрашиваемая страница не существует или была удалена</div>
+    <button className="btn primary" onClick={() => navigate("home")}>На главную</button>
+  </div>
+);
+
+const PagePrivacy = () => (
+  <div className="stack" style={{ maxWidth: 768 }}>
+    <div className="text-xl font-bold text-dark">Политика конфиденциальности</div>
+    <WireBlock label="Текст политики (152-ФЗ)">
+      {Array.from({ length: 20 }, (_, i) => <Skel key={i} w={`${70 + Math.random() * 30}%`} />)}
+      <div className="text-xs text-gray italic mt-3">Обязательна при наличии форм сбора данных (требование 152-ФЗ)</div>
+    </WireBlock>
+  </div>
+);
+
+// ── MAIN APP ──
+const App = () => {
+  const [page, setPage] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = (p) => { setPage(p); setMenuOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); };
+
+  const pageNames = {
+    home: "Главная → О компании", about: "Главная → О компании",
+    partners: "Главная → Партнёры", reviews: "Главная → Отзывы",
+    "partner-vkn": "Страница партнёра (ВКН)", catalog: "Каталог продукции",
+    "product-detail": "Карточка товара",
+    info: "Информация", article: "Статья", news: "Новости",
+    "news-detail": "Новость (детально)", contacts: "Контакты",
+    privacy: "Политика конфиденциальности", "404": "Страница 404",
+  };
+
+  const pages = {
+    home: <PageHome navigate={navigate} />,
+    about: <PageHome navigate={navigate} />,
+    partners: <PagePartners navigate={navigate} />,
+    reviews: <PageReviews navigate={navigate} />,
+    "partner-vkn": <PagePartnerVKN navigate={navigate} />,
+    catalog: <PageCatalog navigate={navigate} />,
+    "product-detail": <PageProductDetail navigate={navigate} />,
+    info: <PageInfo navigate={navigate} />,
+    article: <PageArticle navigate={navigate} />,
+    news: <PageNews navigate={navigate} />,
+    "news-detail": <PageNewsDetail navigate={navigate} />,
+    contacts: <PageContacts navigate={navigate} />,
+    privacy: <PagePrivacy />,
+    "404": <Page404 navigate={navigate} />,
+  };
+
+  return (
+    <div>
+      <Header navigate={navigate} page={page} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+
+
+
+      <div className="max-w">
+        <div className="breadcrumb">
+          <span onClick={() => navigate("home")}>Главная</span>
+          {page !== "home" && page !== "about" && <span> / {pageNames[page]}</span>}
+        </div>
+        <main style={{ paddingBottom: 32 }}>
+          {pages[page] || <Page404 navigate={navigate} />}
+        </main>
+      </div>
+
+      <Footer navigate={navigate} />
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById("root"));
+</script>
+</body>
+</html>
