@@ -78,15 +78,56 @@
     }
 
     /* === DESCRIPTION === */
+    .partner-about {
+      display: grid;
+      grid-template-columns: 1fr 520px;
+      gap: 36px;
+      align-items: start;
+      margin-bottom: 48px;
+    }
     .partner-desc {
       font-size: 16px;
       color: var(--color-text-body);
       line-height: 1.8;
-      max-width: 800px;
-      margin-bottom: 48px;
     }
     .partner-desc p {
       margin-bottom: 16px;
+    }
+    .partner-about-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-border-light);
+    }
+    .partner-about-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .partner-catalog-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+      border-radius: 50px;
+      background: none;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .partner-catalog-btn:hover {
+      background: var(--color-primary);
+      color: #fff;
+    }
+    @media (max-width: 768px) {
+      .partner-about {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
     }
 
     /* === WEBSITE LINK === */
@@ -179,6 +220,144 @@
       margin-bottom: 24px;
     }
 
+    /* === CERTIFICATES === */
+    .partner-certs-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 24px;
+    }
+    .partner-certs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .partner-cert-card {
+      background: var(--color-bg-white);
+      border: 1px solid var(--color-border-light);
+      border-radius: 14px;
+      padding: 24px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+    .partner-cert-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .partner-cert-card.cert-green::before { background: #16A34A; }
+    .partner-cert-card.cert-blue::before { background: #2563EB; }
+    .partner-cert-card.cert-amber::before { background: #D97706; }
+    .partner-cert-card.cert-slate::before { background: #64748B; }
+    .partner-cert-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .partner-cert-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .partner-cert-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .partner-cert-icon.icon-green { background: #F0FDF4; color: #16A34A; }
+    .partner-cert-icon.icon-blue { background: #EFF6FF; color: #2563EB; }
+    .partner-cert-icon.icon-amber { background: #FFFBEB; color: #D97706; }
+    .partner-cert-icon.icon-slate { background: #F1F5F9; color: #64748B; }
+    .partner-cert-date {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .partner-cert-date.date-green { background: #F0FDF4; color: #16A34A; }
+    .partner-cert-date.date-blue { background: #EFF6FF; color: #2563EB; }
+    .partner-cert-date.date-amber { background: #FFFBEB; color: #D97706; }
+    .partner-cert-date.date-slate { background: #F1F5F9; color: #64748B; }
+    .partner-cert-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      line-height: 1.2;
+    }
+    .partner-cert-desc {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    .partner-cert-images {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .partner-cert-img-wrap {
+      border: 1px solid var(--color-border-light);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+    .partner-cert-img-wrap:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card-hover);
+    }
+    .partner-cert-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .cert-label {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      padding: 8px 0 0;
+    }
+    /* Fullscreen overlay */
+    .cert-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+    .cert-overlay.active { display: flex; }
+    .cert-overlay img {
+      max-width: 92%;
+      max-height: 92%;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+    @media (max-width: 768px) {
+      .partner-certs-grid { grid-template-columns: repeat(2, 1fr); }
+      .partner-cert-images { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .partner-certs-grid { grid-template-columns: 1fr; }
+      .partner-cert-images { grid-template-columns: 1fr; }
+    }
+
     /* === NOT FOUND === */
     .partner-not-found {
       text-align: center;
@@ -243,7 +422,7 @@
 
   <script>
     var PARTNER_COLORS = {
-      'vkn': '#DC2626', 'interskol': '#2563EB', 'zubr': '#059669',
+      'bkh': '#DC2626', 'interskol': '#2563EB', 'zubr': '#059669',
       'krepex': '#475569', 'sts': '#D97706', 'resanta': '#7C3AED'
     };
     var GRADIENTS = {
@@ -315,11 +494,12 @@
       if (products.length > 0) {
         var cardsHTML = '';
         products.forEach(function(p) {
-          var gradient = GRADIENTS[p.catParent] || GRADIENTS['abrasive'];
-          var icon = CAT_ICONS_SM[p.catParent] || CAT_ICONS_SM['abrasive'];
+          var imgContent = p.image
+            ? '<img src="' + p.image + '" alt="' + p.name + '" style="width:100%; height:100%; object-fit:contain; padding:12px;">'
+            : (CAT_ICONS_SM[p.catParent] || CAT_ICONS_SM['abrasive']);
           cardsHTML +=
             '<a href="product.html?id=' + p.id + '" class="partner-product-card">' +
-              '<div class="partner-product-card-img" style="background: ' + gradient + ';">' + icon + '</div>' +
+              '<div class="partner-product-card-img" style="background: #fff; border-bottom: 1px solid #f0f0f0;">' + imgContent + '</div>' +
               '<div class="partner-product-card-body">' +
                 '<div class="partner-product-card-name">' + p.name + '</div>' +
               '</div>' +
@@ -330,22 +510,143 @@
           '<div class="partner-products-grid" data-aos="fade-up">' + cardsHTML + '</div>';
       }
 
-      container.innerHTML =
-        '<div class="partner-hero" data-aos="fade-up">' +
-          '<div class="partner-hero-avatar" style="background: ' + color + ';">' + initial + '</div>' +
-          '<div class="partner-hero-info">' +
-            '<div class="partner-hero-name">' + partner.name + '</div>' +
-            '<div class="partner-hero-sub">' +
-              '<span class="partner-hero-location">' +
-                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
-                partner.location +
-              '</span>' +
-              badgeHTML +
+      // Certificates block (only for BKH)
+      var certsHTML = '';
+      if (partner.id === 'bkh') {
+        var shieldIcon = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
+        var checkIcon = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+        var starIcon = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+
+        certsHTML =
+          '<div class="partner-certs-title" data-aos="fade-up">Сертификаты и испытания</div>' +
+          '<div class="partner-certs-grid" data-aos="fade-up">' +
+
+            '<div class="partner-cert-card cert-slate">' +
+              '<div class="partner-cert-top">' +
+                '<div class="partner-cert-icon icon-slate">' + shieldIcon + '</div>' +
+                '<span class="partner-cert-date date-slate">тест от 07.11.2024</span>' +
+              '</div>' +
+              '<div class="partner-cert-name">EN 12413:2019</div>' +
+              '<div class="partner-cert-desc">Протокол испытаний MPA Hannover (Германия). Тест на разрыв пройден.</div>' +
+            '</div>' +
+
+            '<div class="partner-cert-card cert-slate">' +
+              '<div class="partner-cert-top">' +
+                '<div class="partner-cert-icon icon-slate"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg></div>' +
+                '<span class="partner-cert-date date-slate">до 08.03.2031</span>' +
+              '</div>' +
+              '<div class="partner-cert-name">ТР ТС 010/2011</div>' +
+              '<div class="partner-cert-desc">Декларация соответствия ЕАЭС. Безопасность машин и оборудования.</div>' +
+            '</div>' +
+
+            '<div class="partner-cert-card cert-slate">' +
+              '<div class="partner-cert-top">' +
+                '<div class="partner-cert-icon icon-slate">' + starIcon + '</div>' +
+                '<span class="partner-cert-date date-slate">до 13.06.2029</span>' +
+              '</div>' +
+              '<div class="partner-cert-name">Zhejiang Made</div>' +
+              '<div class="partner-cert-desc">Региональный знак качества провинции Чжэцзян (浙江制造).</div>' +
+            '</div>' +
+
+            '<div class="partner-cert-card cert-blue">' +
+              '<div class="partner-cert-top">' +
+                '<div class="partner-cert-icon icon-blue">' + checkIcon + '</div>' +
+                '<span class="partner-cert-date date-blue">до 25.12.2027</span>' +
+              '</div>' +
+              '<div class="partner-cert-name">ISO 9001:2015</div>' +
+              '<div class="partner-cert-desc">Система менеджмента качества. Аккредитация CNAS/IAF.</div>' +
+            '</div>' +
+
+            '<div class="partner-cert-card cert-green">' +
+              '<div class="partner-cert-top">' +
+                '<div class="partner-cert-icon icon-green">' + checkIcon + '</div>' +
+                '<span class="partner-cert-date date-green">до 25.12.2027</span>' +
+              '</div>' +
+              '<div class="partner-cert-name">ISO 14001:2015</div>' +
+              '<div class="partner-cert-desc">Экологический менеджмент производства.</div>' +
+            '</div>' +
+
+            '<div class="partner-cert-card cert-amber">' +
+              '<div class="partner-cert-top">' +
+                '<div class="partner-cert-icon icon-amber">' + checkIcon + '</div>' +
+                '<span class="partner-cert-date date-amber">до 25.12.2027</span>' +
+              '</div>' +
+              '<div class="partner-cert-name">ISO 45001:2018</div>' +
+              '<div class="partner-cert-desc">Охрана труда и безопасность на производстве.</div>' +
+            '</div>' +
+
+          '</div>' +
+          '<div class="partner-cert-images" data-aos="fade-up">' +
+            '<div>' +
+              '<div class="partner-cert-img-wrap" onclick="openCert(this.querySelector(\'img\').src)"><img src="docs/cert-iso9001-huazhong.jpg" alt="ISO 9001:2015" loading="lazy"></div>' +
+              '<div class="cert-label">ISO 9001:2015 — Менеджмент качества</div>' +
+            '</div>' +
+            '<div>' +
+              '<div class="partner-cert-img-wrap" onclick="openCert(this.querySelector(\'img\').src)"><img src="docs/cert-iso14001-huazhong.jpg" alt="ISO 14001:2015" loading="lazy"></div>' +
+              '<div class="cert-label">ISO 14001:2015 — Экологический менеджмент</div>' +
+            '</div>' +
+            '<div>' +
+              '<div class="partner-cert-img-wrap" onclick="openCert(this.querySelector(\'img\').src)"><img src="docs/cert-iso45001-huazhong.jpg" alt="ISO 45001:2018" loading="lazy"></div>' +
+              '<div class="cert-label">ISO 45001:2018 — Охрана труда</div>' +
             '</div>' +
           '</div>' +
-        '</div>' +
-        (descHTML ? '<div class="partner-desc" data-aos="fade-up">' + descHTML + '</div>' : '') +
+          '<div class="cert-overlay" id="cert-overlay" onclick="this.classList.remove(\'active\')">' +
+            '<img id="cert-overlay-img" src="" alt="Сертификат">' +
+          '</div>';
+      }
+
+      var aboutImgHTML = partner.id === 'bkh'
+        ? '<div class="partner-about-img" style="cursor:pointer;" onclick="openCert(this.querySelector(\'img\').src)"><img src="image/bkh-family.png" alt="BKH Family" loading="lazy"></div>'
+        : '';
+
+      var catalogBtnHTML = partner.id === 'bkh'
+        ? '<a href="docs/catalog-bkh.pdf" target="_blank" class="partner-catalog-btn">' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
+            'Каталог BKH (PDF)' +
+          '</a>'
+        : '';
+
+      container.innerHTML =
+        (aboutImgHTML
+          ? '<div class="partner-about" data-aos="fade-up">' +
+              '<div>' +
+                '<div class="partner-hero">' +
+                  '<div class="partner-hero-avatar" style="background: ' + (partner.logo ? '#fff; border: 1px solid #e5e5e5' : color) + ';">' +
+                    (partner.logo ? '<img src="' + partner.logo + '" alt="' + partner.name + '" style="width:80%; height:80%; object-fit:contain;">' : initial) +
+                  '</div>' +
+                  '<div class="partner-hero-info">' +
+                    '<div class="partner-hero-name">' + partner.name + '</div>' +
+                    '<div class="partner-hero-sub">' +
+                      '<span class="partner-hero-location">' +
+                        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+                        partner.location +
+                      '</span>' +
+                      badgeHTML +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
+                (descHTML ? '<div class="partner-desc">' + descHTML + '</div>' : '') +
+                catalogBtnHTML +
+              '</div>' +
+              aboutImgHTML +
+            '</div>'
+          : '<div class="partner-hero" data-aos="fade-up">' +
+              '<div class="partner-hero-avatar" style="background: ' + color + ';">' + initial + '</div>' +
+              '<div class="partner-hero-info">' +
+                '<div class="partner-hero-name">' + partner.name + '</div>' +
+                '<div class="partner-hero-sub">' +
+                  '<span class="partner-hero-location">' +
+                    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+                    partner.location +
+                  '</span>' +
+                  badgeHTML +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            (descHTML ? '<div class="partner-desc" data-aos="fade-up">' + descHTML + '</div>' : '')
+        ) +
         (websiteHTML ? '<div data-aos="fade-up">' + websiteHTML + '</div>' : '') +
+        certsHTML +
         productsHTML +
         '<div class="partner-cta" data-aos="fade-up">' +
           '<p>Нужна продукция ' + partner.name + '?</p>' +
@@ -355,6 +656,12 @@
 
       if (typeof AOS !== 'undefined') AOS.refresh();
     });
+
+    function openCert(src) {
+      var overlay = document.getElementById('cert-overlay');
+      document.getElementById('cert-overlay-img').src = src;
+      overlay.classList.add('active');
+    }
   </script>
 </body>
 </html>

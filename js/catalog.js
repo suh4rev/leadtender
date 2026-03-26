@@ -145,9 +145,13 @@ function renderProductGrid() {
     var gradient = getCategoryGradient(product.catParent);
     var delay = (index % 9) * 50;
 
+    var imageContent = product.image
+      ? '<img src="' + product.image + '" alt="' + product.name + '" style="width:100%; height:100%; object-fit:contain; padding:16px;">'
+      : '<span class="product-card-icon">' + getCategoryIcon(product.catParent, 40) + '</span>';
+
     html += '<a href="product.html?id=' + product.id + '" class="product-card" data-aos="fade-up" data-aos-delay="' + delay + '">' +
-      '<div class="product-card-image" style="background: ' + gradient + ';">' +
-        '<span class="product-card-icon">' + getCategoryIcon(product.catParent, 40) + '</span>' +
+      '<div class="product-card-image" style="background: #fff; border-bottom: 1px solid #f0f0f0;">' +
+        imageContent +
       '</div>' +
       '<div class="product-card-body">' +
         '<span class="badge badge-primary">' + subName + '</span>' +

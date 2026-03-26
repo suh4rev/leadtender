@@ -150,7 +150,7 @@
 
   <script>
     var PARTNER_COLORS = {
-      'vkn': '#DC2626', 'interskol': '#2563EB', 'zubr': '#059669',
+      'bkh': '#DC2626', 'interskol': '#2563EB', 'zubr': '#059669',
       'krepex': '#475569', 'sts': '#D97706', 'resanta': '#7C3AED'
     };
 
@@ -165,7 +165,9 @@
 
         html +=
           '<a href="partner-detail.html?id=' + p.id + '" class="partner-card" data-aos="fade-up" data-aos-delay="' + (i * 50) + '">' +
-            '<div class="partner-card-avatar" style="background: ' + color + ';">' + initial + '</div>' +
+            '<div class="partner-card-avatar" style="background: ' + (p.logo ? '#fff; border: 1px solid #e5e5e5' : color) + ';">' +
+              (p.logo ? '<img src="' + p.logo + '" alt="' + p.name + '" style="width:80%; height:80%; object-fit:contain;">' : initial) +
+            '</div>' +
             '<div class="partner-card-name">' + p.name + '</div>' +
             '<div class="partner-card-subtitle">' + p.subtitle + '</div>' +
             '<div class="partner-card-location">' +

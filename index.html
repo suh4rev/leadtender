@@ -309,6 +309,86 @@
       .bento-card-accent { min-height: 240px; }
     }
 
+    /* === HOW WE WORK === */
+    .hw-section {
+      background: #fff;
+    }
+    .hw-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .hw-grid::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-primary) 30%, #E2E8F0 30%, #E2E8F0 70%, var(--color-primary) 70%);
+      z-index: 0;
+    }
+    .hw-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      padding: 0 16px;
+    }
+    .hw-num {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hw-step:hover .hw-num {
+      transform: scale(1.1);
+    }
+    .hw-num-filled {
+      background: var(--color-primary);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+    }
+    .hw-num-outline {
+      background: #fff;
+      color: var(--color-primary);
+      border: 2.5px solid var(--color-primary);
+    }
+    .hw-step:hover .hw-num-outline {
+      background: var(--color-primary-light);
+    }
+    .hw-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 8px;
+    }
+    .hw-desc {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      max-width: 220px;
+    }
+    @media (max-width: 768px) {
+      .hw-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 0;
+      }
+      .hw-grid::before { display: none; }
+    }
+    @media (max-width: 480px) {
+      .hw-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+
     /* === ABOUT === */
     .about-grid {
       display: grid;
@@ -582,6 +662,64 @@
     @keyframes marqueeScroll {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
+    }
+
+    /* === TRUST BAR === */
+    .trust-bar {
+      padding: 48px 0;
+      background: #fff;
+      border-top: 1px solid var(--color-border-light);
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .trust-bar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 32px;
+      border-right: 1px solid var(--color-border-light);
+    }
+    .trust-item:last-child {
+      border-right: none;
+    }
+    .trust-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #F1F5F9;
+      color: #64748B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .trust-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .trust-label {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      line-height: 1.2;
+    }
+    .trust-sub {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+    @media (max-width: 1024px) {
+      .trust-bar-inner { flex-wrap: wrap; gap: 0; justify-content: center; }
+      .trust-item { padding: 12px 24px; border-right: none; }
+    }
+    @media (max-width: 768px) {
+      .trust-bar { padding: 32px 0; }
+      .trust-item { flex: 0 0 50%; }
     }
 
     /* === CTA BANNER === */
@@ -867,7 +1005,7 @@
 /* Section blocks */
 .section-block { background: #fff; border-radius: 14px; padding: 40px; border: 1px solid #E5E5E5; }
 .section-header { margin-bottom: 28px; }
-.section-title { font-size: 26px; font-weight: 800; color: #1A1A1A; margin: 0 0 6px; }
+.section-title { font-size: 36px; font-weight: 800; color: #1A1A1A; margin: 0 0 6px; }
 .section-subtitle { font-size: 16px; color: #888; margin: 0; }
 
 /* Advantage cards */
@@ -1111,64 +1249,63 @@
           <div>
             <div class="bento-card-title" style="font-size:26px;">
               Абразивный инструмент
-              <span class="bento-card-count">9</span>
+              <span class="bento-card-count">6</span>
             </div>
             <div class="bento-card-desc" style="color:rgba(255,255,255,0.75);">Отрезные, шлифовальные и лепестковые круги</div>
           </div>
           <span class="bento-card-link">Смотреть товары →</span>
-          <img src="image/abrasive_tools_final.png" alt="Абразивный инструмент" class="bento-card-img" style="width:65%; height:75%;" loading="lazy">
+          <img src="image/Все_диски.png" alt="Абразивный инструмент" class="bento-card-img" style="width:70%; height:85%; bottom:19%; right:6%;" loading="lazy">
         </a>
 
-        <!-- 2. Электроинструмент -->
-        <a href="catalog.html?cat=power" class="bento-card bento-card-light" data-aos="fade-up" data-aos-delay="100">
+        <!-- 2. Отрезные диски -->
+        <a href="catalog.html?cat=abrasive&sub=cut" class="bento-card bento-card-light" data-aos="fade-up" data-aos-delay="100">
           <div>
             <div class="bento-card-title">
-              Электроинструмент
-              <span class="bento-card-count">6</span>
+              Отрезные диски
+              <span class="bento-card-count">3</span>
             </div>
-            <div class="bento-card-desc">УШМ, дрели, перфораторы и пилы</div>
+            <div class="bento-card-desc">Для резки металла и нержавеющей стали</div>
           </div>
           <span class="bento-card-link">Смотреть →</span>
-          <img src="image/power_tools_v3_nobg.png" alt="Электроинструмент" class="bento-card-img" style="width:50%; height:65%;" loading="lazy">
+          <img src="image/Отрезные_диски_BKH-001.png" alt="Отрезные диски" class="bento-card-img" style="width:50%; height:65%;" loading="lazy">
         </a>
 
-        <!-- 3. Ручной инструмент -->
-        <a href="catalog.html?cat=hand" class="bento-card bento-card-light" data-aos="fade-up" data-aos-delay="200">
+        <!-- 3. Шлифовальные диски -->
+        <a href="catalog.html?cat=abrasive&sub=grind" class="bento-card bento-card-light" data-aos="fade-up" data-aos-delay="200">
           <div>
             <div class="bento-card-title">
-              Ручной инструмент
-              <span class="bento-card-count">6</span>
+              Шлифовальные диски
+              <span class="bento-card-count">1</span>
             </div>
-            <div class="bento-card-desc">Ключи, плоскогубцы, измерительный</div>
+            <div class="bento-card-desc">Зачистка швов, снятие фасок, выравнивание</div>
           </div>
           <span class="bento-card-link">Смотреть →</span>
-          <img src="image/hand_tools_nobg.png" alt="Ручной инструмент" class="bento-card-img" style="width:55%; height:70%; top:32%;" loading="lazy">
+          <img src="image/Шлифовальные диски BKH-002.png" alt="Шлифовальные диски" class="bento-card-img" style="width:50%; height:65%;" loading="lazy">
         </a>
 
-        <!-- 4. Крепёж -->
-        <a href="catalog.html?cat=fasteners" class="bento-card bento-card-light" data-aos="fade-up" data-aos-delay="100">
+        <!-- 4. Лепестковые диски -->
+        <a href="catalog.html?cat=abrasive&sub=flap" class="bento-card bento-card-light" data-aos="fade-up" data-aos-delay="100">
           <div>
             <div class="bento-card-title">
-              Крепёж и метизы
-              <span class="bento-card-count">6</span>
+              Лепестковые диски
+              <span class="bento-card-count">2</span>
             </div>
-            <div class="bento-card-desc">Болты, гайки, анкеры, саморезы</div>
+            <div class="bento-card-desc">Финишная шлифовка и обработка поверхностей</div>
           </div>
           <span class="bento-card-link">Смотреть →</span>
-          <img src="image/fasteners_final.png" alt="Крепёж и метизы" class="bento-card-img" style="width:45%; height:60%; right:5%; bottom:5%;" loading="lazy">
+          <img src="image/Диски шлифовальные лепестковые BKH-031 (red).png" alt="Лепестковые диски" class="bento-card-img" style="width:45%; height:60%;" loading="lazy">
         </a>
 
-        <!-- 5. СИЗ -->
-        <a href="catalog.html?cat=safety" class="bento-card bento-card-light" data-aos="fade-up" data-aos-delay="200">
+        <!-- 5. Сертификаты -->
+        <a href="partner-detail.html?id=bkh" class="bento-card bento-card-light" data-aos="fade-up" data-aos-delay="200">
           <div>
             <div class="bento-card-title">
-              Средства защиты
-              <span class="bento-card-count">6</span>
+              Сертификаты
             </div>
-            <div class="bento-card-desc">Перчатки, очки, маски, спецодежда</div>
+            <div class="bento-card-desc">EN 12413, ISO 9001, ТР ТС 010/2011</div>
           </div>
-          <span class="bento-card-link">Смотреть →</span>
-          <img src="image/safety_helmet.png" alt="Средства защиты" class="bento-card-img" style="width:50%; height:70%; top:35%;" loading="lazy">
+          <span class="bento-card-link">Подробнее →</span>
+          <img src="image/Сертификаты.png" alt="Сертификаты" class="bento-card-img" style="width:50%; height:65%;" loading="lazy">
         </a>
 
       </div>
@@ -1201,6 +1338,61 @@
   </div>
 
   <!-- ============================================
+       TRUST BAR: СЕРТИФИКАТЫ
+       ============================================ -->
+  <section class="trust-bar" data-aos="fade-up">
+    <div class="container">
+      <div class="trust-bar-inner">
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>
+          </div>
+          <div class="trust-text">
+            <span class="trust-label">ТР ТС 010/2011</span>
+            <span class="trust-sub">Декларация ЕАЭС</span>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="trust-text">
+            <span class="trust-label">EN 12413</span>
+            <span class="trust-sub">MPA Hannover</span>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="trust-text">
+            <span class="trust-label">ISO 9001</span>
+            <span class="trust-sub">Менеджмент качества</span>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="trust-text">
+            <span class="trust-label">ISO 14001</span>
+            <span class="trust-sub">Экология</span>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="trust-text">
+            <span class="trust-label">ISO 45001</span>
+            <span class="trust-sub">Охрана труда</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
        СЕКЦИЯ 3: О КОМПАНИИ
        ============================================ -->
   <section class="section" id="about" style="background: var(--color-bg-white);">
@@ -1217,7 +1409,7 @@
           </p>
 
           <div style="display: flex; justify-content: flex-end; margin-top: 32px;">
-            <a href="partners.html" class="btn btn-outline">Подробнее о компании →</a>
+            <a href="contacts.html" class="btn btn-outline">Связаться с нами →</a>
           </div>
         </div>
 
@@ -1286,6 +1478,40 @@
             <div class="adv-panel-title">ПЕРСОНАЛЬНЫЙ<br>МЕНЕДЖЕР</div>
             <div class="adv-panel-desc">За каждым клиентом закреплён персональный менеджер. Оперативные ответы, индивидуальные условия, помощь в подборе аналогов и формировании заказа.</div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       СЕКЦИЯ: КАК МЫ РАБОТАЕМ
+       ============================================ -->
+  <section class="section hw-section">
+    <div class="container">
+      <div class="section-header text-center" data-aos="fade-up">
+        <div class="section-label">ПРОЦЕСС</div>
+        <h2 class="section-title">Как мы работаем</h2>
+      </div>
+      <div class="hw-grid" data-aos="fade-up" data-aos-delay="100">
+        <div class="hw-step">
+          <div class="hw-num hw-num-filled">1</div>
+          <div class="hw-title">Заявка</div>
+          <div class="hw-desc">Оставляете заявку на сайте или связываетесь с менеджером</div>
+        </div>
+        <div class="hw-step">
+          <div class="hw-num hw-num-outline">2</div>
+          <div class="hw-title">Подбор</div>
+          <div class="hw-desc">Подбираем продукцию и формируем коммерческое предложение</div>
+        </div>
+        <div class="hw-step">
+          <div class="hw-num hw-num-outline">3</div>
+          <div class="hw-title">Документы</div>
+          <div class="hw-desc">Готовим договор, счёт, сертификаты и тендерную документацию</div>
+        </div>
+        <div class="hw-step">
+          <div class="hw-num hw-num-filled">4</div>
+          <div class="hw-title">Доставка</div>
+          <div class="hw-desc">Отгружаем и доставляем в любой регион России</div>
         </div>
       </div>
     </div>
