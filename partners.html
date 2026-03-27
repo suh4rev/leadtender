@@ -40,8 +40,9 @@
     /* === PARTNER CARDS === */
     .partners-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr;
       gap: 24px;
+      max-width: 480px;
     }
     .partner-card {
       background: var(--color-bg-white);
@@ -58,8 +59,8 @@
       box-shadow: var(--shadow-card-hover);
     }
     .partner-card-avatar {
-      width: 56px;
-      height: 56px;
+      width: 80px;
+      height: 80px;
       border-radius: var(--radius-md);
       display: flex;
       align-items: center;
@@ -164,7 +165,7 @@
         var badgeHTML = p.badge ? '<span class="partner-card-badge">' + p.badge + '</span>' : '';
 
         html +=
-          '<a href="partner-detail.html?id=' + p.id + '" class="partner-card" data-aos="fade-up" data-aos-delay="' + (i * 50) + '">' +
+          '<a href="partner-detail.html?id=' + p.id + '" class="partner-card">' +
             '<div class="partner-card-avatar" style="background: ' + (p.logo ? '#fff; border: 1px solid #e5e5e5' : color) + ';">' +
               (p.logo ? '<img src="' + p.logo + '" alt="' + p.name + '" style="width:80%; height:80%; object-fit:contain;">' : initial) +
             '</div>' +

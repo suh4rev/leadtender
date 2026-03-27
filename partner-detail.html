@@ -380,9 +380,21 @@
       .partner-hero { flex-direction: column; align-items: flex-start; gap: 16px; }
       .partner-hero-name { font-size: 26px; }
       .partner-products-grid { grid-template-columns: repeat(2, 1fr); }
+      .partner-about { grid-template-columns: 1fr; }
+      .partner-about-img { max-width: 100%; }
+      .partner-desc { font-size: 15px; }
+      .partner-certs-title { font-size: 20px; }
+      .partner-cert-name { font-size: 14px; }
+      .partner-cert-desc { font-size: 12px; }
+      .partner-cta { padding: 32px 20px; }
+      .partner-cta p { font-size: 16px; }
     }
-    @media (max-width: 640px) {
+    @media (max-width: 480px) {
       .partner-products-grid { grid-template-columns: 1fr; }
+      .partner-hero-name { font-size: 22px; }
+      .partner-cert-card { padding: 20px 16px 16px; }
+      .partner-cert-images { grid-template-columns: 1fr; }
+      .cert-label { font-size: 11px; }
     }
   </style>
 </head>
@@ -506,8 +518,8 @@
             '</a>';
         });
         productsHTML =
-          '<div class="partner-products-title" data-aos="fade-up">Продукция ' + partner.name + '</div>' +
-          '<div class="partner-products-grid" data-aos="fade-up">' + cardsHTML + '</div>';
+          '<div class="partner-products-title">Продукция ' + partner.name + '</div>' +
+          '<div class="partner-products-grid">' + cardsHTML + '</div>';
       }
 
       // Certificates block (only for BKH)
@@ -518,8 +530,8 @@
         var starIcon = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
 
         certsHTML =
-          '<div class="partner-certs-title" data-aos="fade-up">Сертификаты и испытания</div>' +
-          '<div class="partner-certs-grid" data-aos="fade-up">' +
+          '<div class="partner-certs-title">Сертификаты и испытания</div>' +
+          '<div class="partner-certs-grid">' +
 
             '<div class="partner-cert-card cert-slate">' +
               '<div class="partner-cert-top">' +
@@ -576,7 +588,7 @@
             '</div>' +
 
           '</div>' +
-          '<div class="partner-cert-images" data-aos="fade-up">' +
+          '<div class="partner-cert-images">' +
             '<div>' +
               '<div class="partner-cert-img-wrap" onclick="openCert(this.querySelector(\'img\').src)"><img src="docs/cert-iso9001-huazhong.jpg" alt="ISO 9001:2015" loading="lazy"></div>' +
               '<div class="cert-label">ISO 9001:2015 — Менеджмент качества</div>' +
@@ -608,7 +620,7 @@
 
       container.innerHTML =
         (aboutImgHTML
-          ? '<div class="partner-about" data-aos="fade-up">' +
+          ? '<div class="partner-about">' +
               '<div>' +
                 '<div class="partner-hero">' +
                   '<div class="partner-hero-avatar" style="background: ' + (partner.logo ? '#fff; border: 1px solid #e5e5e5' : color) + ';">' +
@@ -630,7 +642,7 @@
               '</div>' +
               aboutImgHTML +
             '</div>'
-          : '<div class="partner-hero" data-aos="fade-up">' +
+          : '<div class="partner-hero">' +
               '<div class="partner-hero-avatar" style="background: ' + color + ';">' + initial + '</div>' +
               '<div class="partner-hero-info">' +
                 '<div class="partner-hero-name">' + partner.name + '</div>' +
@@ -643,12 +655,12 @@
                 '</div>' +
               '</div>' +
             '</div>' +
-            (descHTML ? '<div class="partner-desc" data-aos="fade-up">' + descHTML + '</div>' : '')
+            (descHTML ? '<div class="partner-desc">' + descHTML + '</div>' : '')
         ) +
-        (websiteHTML ? '<div data-aos="fade-up">' + websiteHTML + '</div>' : '') +
+        (websiteHTML ? '<div>' + websiteHTML + '</div>' : '') +
         certsHTML +
         productsHTML +
-        '<div class="partner-cta" data-aos="fade-up">' +
+        '<div class="partner-cta">' +
           '<p>Нужна продукция ' + partner.name + '?</p>' +
           '<span>Поможем подобрать и рассчитаем стоимость</span>' +
           '<a href="contacts.html#form" class="btn btn-primary btn-lg" style="border-radius:50px;">Оставить заявку</a>' +

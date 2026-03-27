@@ -42,7 +42,7 @@
     }
     .preloader-logo {
       width: 420px;
-      max-width: 420px;
+      max-width: 80vw;
       opacity: 0;
       transform: scale(0.9);
       animation: preloaderIn 1s ease 0.2s forwards;
@@ -185,10 +185,7 @@
       .hero-layout { padding: 120px 0 60px; }
     }
     @media (max-width: 640px) {
-      .hero { min-height: auto; }
       .hero-layout { padding: 100px 0 50px; }
-      .hero-content h1 { font-size: 36px; }
-      .hero-desc { font-size: 15px; }
     }
 
     /* Fix horizontal overflow from decorative elements (clip preserves sticky) */
@@ -1178,12 +1175,187 @@
       .reviews-row .review-card:last-child { display: flex; }
       .reviews-header { flex-direction: column; gap: 12px; }
     }
+
+    /* Mobile-only elements (hidden on desktop) */
+    .mobile-btn-after { display: none; }
+    .mobile-br { display: none; }
+
+    /* =============================================
+       MOBILE FIXES (768px and below)
+       ============================================= */
+
+    @media (max-width: 768px) {
+      /* Hero — taller on mobile, tags above h1 */
+      .hero { min-height: 100vh; }
+      .hero-layout { padding: 130px 0 60px; }
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+      }
+      .hero-content .hero-tags { order: -1; margin-bottom: 24px; margin-top: 0; flex-direction: column; align-items: flex-start; gap: 8px; }
+      .hero-tag { padding: 5px 14px; font-size: 12px; }
+      .hero-content h1 { font-size: 36px; }
+      .hero-content .hero-desc { order: 1; font-size: 17px; }
+      .hero-content .hero-buttons { order: 2; }
+      .hero-buttons { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .hero-buttons .btn { text-align: center; }
+      .hero-line, .hero-sphere { display: none; }
+
+      /* Labels & titles — left align, same size as "Есть вопросы?" */
+      .section-header, .section-header.text-center { text-align: left; }
+      .section-label { text-align: left; }
+      .section-title { font-size: 32px; text-align: left; }
+
+      /* Buttons — left align */
+      .text-center.mt-6 { text-align: left; }
+
+      /* News — move button after cards */
+      .news-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+      }
+      .news-header .btn { display: none; }
+
+      /* Reviews — move button after cards */
+      .reviews-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+      }
+      .reviews-header .btn { display: none; }
+
+      /* Show duplicate buttons after content (added via CSS pseudo won't work, use hidden elements) */
+
+      /* Submit button in form — smaller, left-aligned */
+      .btn.btn-secondary.btn-lg.w-full {
+        width: auto;
+        padding: 14px 32px;
+        font-size: 15px;
+      }
+
+      /* Show mobile buttons after news/reviews */
+      .mobile-btn-after {
+        display: block;
+        margin-top: 20px;
+      }
+      .mobile-br { display: block; }
+
+      /* Form section title — match other titles */
+      #form h2 { font-size: 32px !important; }
+
+      /* Trust bar — compact 2 columns */
+      .trust-bar { padding: 24px 0; }
+      .trust-bar-inner { flex-wrap: wrap; justify-content: flex-start; gap: 0; }
+      .trust-item {
+        flex: 0 0 50%;
+        padding: 8px 12px;
+        border-right: none;
+        border-bottom: none;
+      }
+      .trust-icon { width: 32px; height: 32px; }
+      .trust-icon svg { width: 16px; height: 16px; }
+      .trust-label { font-size: 13px; }
+      .trust-sub { font-size: 11px; }
+
+      /* Bento — hide accent card, 1 column for subcategories */
+      .bento-card-accent { display: none; }
+      .bento-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .bento-grid .bento-card:nth-child(4),
+      .bento-grid .bento-card:nth-child(5) { grid-column: auto; }
+      .bento-card {
+        min-height: auto;
+        padding: 20px;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+      }
+      .bento-card-img {
+        position: relative !important;
+        width: 80px !important;
+        height: 80px !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        flex-shrink: 0;
+        order: -1;
+        object-fit: contain;
+        opacity: 1;
+      }
+      .bento-card > div { flex: 1; min-width: 0; }
+      .bento-card-link {
+        font-size: 12px;
+        padding: 5px 12px;
+        margin-top: 8px;
+      }
+      .bento-card-title { font-size: 16px; }
+      .bento-card-count { display: none; }
+      .bento-card-desc { font-size: 12px; }
+
+      /* About overlay stats */
+      .about-overlay { padding: 16px; }
+      .about-stat-grid { gap: 12px; }
+
+      /* Advantages — smaller panels with spacing */
+      .adv-section h2 { font-size: 32px !important; }
+      .adv-panel { padding: 24px 20px; margin-bottom: 12px; }
+      .adv-panel-title { font-size: 20px; }
+      .adv-panel-desc { font-size: 13px; }
+
+      /* How we work — compact 2x2 */
+      .hw-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px 24px;
+      }
+      .hw-grid::before { display: none; }
+      .hw-num { width: 56px; height: 56px; font-size: 22px; }
+      .hw-title { font-size: 15px; }
+      .hw-desc { font-size: 12px; max-width: none; }
+
+      /* CTA button — left align */
+      .about-cta, .partner-cta { text-align: left; }
+      #form .contact-layout .btn { width: auto; }
+      #about .about-grid div[style*="flex-end"] { justify-content: flex-start !important; }
+      #about .about-image-wrap { display: none; }
+
+      /* News cards */
+      .news-grid { grid-template-columns: 1fr; }
+
+      /* Reviews */
+      .review-card { padding: 20px; }
+
+    }
+
+    @media (max-width: 480px) {
+      /* Hero — keep 40px title on small screens too */
+      .hero-tags { flex-wrap: wrap; }
+
+      /* Trust bar — keep 2 cols on small */
+
+      /* Bento — even smaller on tiny screens */
+      .bento-card-img { width: 60px !important; height: 60px !important; }
+      .bento-card-title { font-size: 14px; }
+
+      /* Section titles — keep 32px same as 768px */
+      .section-title { font-size: 32px; }
+
+      /* Advantages */
+      .adv-panel-title { font-size: 18px; }
+      .adv-panel-desc { font-size: 13px; }
+
+      /* How we work */
+      .hw-num { width: 56px; height: 56px; font-size: 20px; }
+      .hw-title { font-size: 15px; }
+    }
   </style>
 </head>
 <body>
   <!-- Preloader -->
   <div class="preloader" id="preloader">
-    <img src="image/long-logo-white.png" alt="LEADTENDER" class="preloader-logo" style="width:420px!important;max-width:420px!important;height:auto!important;">
+    <img src="image/long-logo-white.png" alt="LEADTENDER" class="preloader-logo">
   </div>
 
   <!-- Scroll Progress -->
@@ -1571,6 +1743,9 @@
           </div>
         </a>
       </div>
+      <div class="mobile-btn-after">
+        <a href="news.html" class="btn btn-outline">Все новости →</a>
+      </div>
     </div>
   </section>
 
@@ -1643,6 +1818,9 @@
           </div>
         </div>
       </div>
+      <div class="mobile-btn-after">
+        <a href="reviews.html" class="btn btn-outline">Все отзывы →</a>
+      </div>
     </div>
   </section>
 
@@ -1671,7 +1849,7 @@
             <div class="form-grid">
               <div class="form-group">
                 <label class="form-label" for="name">Ваше имя *</label>
-                <input type="text" class="form-input" id="name" name="name" placeholder="Иван Иванов" required>
+                <input type="text" class="form-input" id="name" name="name" placeholder="Имя Фамилия" required>
               </div>
               <div class="form-group">
                 <label class="form-label" for="phone">Ваш телефон *</label>
@@ -1693,7 +1871,7 @@
             <div class="form-group">
               <div class="form-checkbox">
                 <input type="checkbox" id="privacy" name="privacy" required>
-                <label for="privacy">Даю согласие на <a href="privacy.html" target="_blank">обработку персональных данных</a></label>
+                <label for="privacy">Даю согласие на<br class="mobile-br"> <a href="privacy.html" target="_blank">обработку персональных данных</a></label>
               </div>
             </div>
             <button type="submit" class="btn btn-secondary btn-lg w-full" style="border-radius: 50px;">Отправить заявку</button>

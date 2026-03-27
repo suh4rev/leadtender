@@ -104,7 +104,11 @@ function renderHeader() {
       '</div>' +
     '</header>' +
 
+    '<div class="mobile-menu-overlay" id="mobile-overlay"></div>' +
     '<div class="mobile-menu" id="mobile-menu">' +
+      '<button class="mobile-menu-close" id="mobile-close" aria-label="Закрыть меню">' +
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+      '</button>' +
       mobileNavHTML +
       '<div class="mobile-menu-cta">' +
         '<a href="contacts.html#form" class="btn btn-primary w-full">\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0437\u0430\u044F\u0432\u043A\u0443</a>' +
@@ -265,28 +269,35 @@ function setActiveNavItem() {
 function initMobileMenu() {
   var burger = document.getElementById('burger');
   var mobileMenu = document.getElementById('mobile-menu');
+  var overlay = document.getElementById('mobile-overlay');
+  var closeBtn = document.getElementById('mobile-close');
   if (!burger || !mobileMenu) return;
 
-  function toggleMenu() {
-    var isActive = burger.classList.toggle('active');
-    mobileMenu.classList.toggle('active');
-
-    if (isActive) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+  function openMenu() {
+    burger.classList.add('active');
+    mobileMenu.classList.add('active');
+    if (overlay) overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
 
   function closeMenu() {
     burger.classList.remove('active');
     mobileMenu.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
     document.body.style.overflow = '';
   }
 
-  burger.addEventListener('click', toggleMenu);
+  burger.addEventListener('click', function() {
+    if (mobileMenu.classList.contains('active')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
 
-  // Close mobile menu when any link inside it is clicked
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
+
   var menuLinks = mobileMenu.querySelectorAll('a');
   menuLinks.forEach(function (link) {
     link.addEventListener('click', closeMenu);
