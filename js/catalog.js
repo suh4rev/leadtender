@@ -9,7 +9,8 @@
 
 var catalogState = {
   openCat: null,   // currently expanded category id
-  activeSub: null  // currently selected subcategory id
+  activeSub: null, // currently selected subcategory id
+  searchQuery: ''  // search input text
 };
 
 /* ---------- Category SVG Icons ---------- */
@@ -100,13 +101,23 @@ function renderMobilePills() {
 /* ---------- Filter Products ---------- */
 
 function getFilteredProducts() {
+  var result;
   if (catalogState.activeSub) {
-    return PRODUCTS.filter(function (p) { return p.cat === catalogState.activeSub; });
+    result = PRODUCTS.filter(function (p) { return p.cat === catalogState.activeSub; });
+  } else if (catalogState.openCat) {
+    result = PRODUCTS.filter(function (p) { return p.catParent === catalogState.openCat; });
+  } else {
+    result = PRODUCTS.slice();
   }
-  if (catalogState.openCat) {
-    return PRODUCTS.filter(function (p) { return p.catParent === catalogState.openCat; });
-  }
-  return PRODUCTS;
+
+  var q = catalogState.searchQuery.trim().toLowerCase();
+  if (!q) return result;
+
+  var words = q.split(/\s+/);
+  return result.filter(function (p) {
+    var haystack = (p.name + ' ' + (p.description || '') + ' ' + Object.values(p.specs || {}).join(' ')).toLowerCase();
+    return words.every(function (w) { return haystack.indexOf(w) !== -1; });
+  });
 }
 
 /* ---------- Find subcategory name ---------- */
@@ -132,7 +143,15 @@ function renderProductGrid() {
 
   if (filtered.length === 0) {
     grid.style.display = 'none';
-    if (empty) empty.style.display = '';
+    if (empty) {
+      empty.style.display = '';
+      var emptyText = empty.querySelector('p');
+      if (emptyText) {
+        emptyText.textContent = catalogState.searchQuery.trim()
+          ? 'По запросу «' + catalogState.searchQuery.trim() + '» ничего не найдено'
+          : 'Товары в этой категории скоро появятся';
+      }
+    }
     return;
   }
 
@@ -215,8 +234,12 @@ function renderToolbar() {
   var count = filtered.length;
   var word = pluralize(count, 'товар', 'товара', 'товаров');
 
+  var searchInfo = catalogState.searchQuery.trim()
+    ? ' <span style="font-size:14px;font-weight:400;color:var(--color-text-muted);">по запросу «' + catalogState.searchQuery.trim() + '»</span>'
+    : '';
+
   toolbar.innerHTML =
-    '<div class="catalog-toolbar-title">' + title + '</div>' +
+    '<div class="catalog-toolbar-title">' + title + searchInfo + '</div>' +
     '<div class="catalog-toolbar-count">' + count + ' ' + word + '</div>';
 }
 
@@ -337,10 +360,42 @@ function initCatalogEvents() {
     }
   });
 
+  // Search input
+  var searchInput = document.getElementById('catalog-search');
+  var searchClear = document.getElementById('catalog-search-clear');
+  var searchTimer;
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var val = searchInput.value;
+      if (searchClear) searchClear.classList.toggle('visible', val.length > 0);
+      searchTimer = setTimeout(function () {
+        catalogState.searchQuery = val;
+        renderProductGrid();
+        renderToolbar();
+      }, 200);
+    });
+  }
+
+  if (searchClear) {
+    searchClear.addEventListener('click', function () {
+      searchInput.value = '';
+      searchClear.classList.remove('visible');
+      catalogState.searchQuery = '';
+      renderProductGrid();
+      renderToolbar();
+      searchInput.focus();
+    });
+  }
+
   // Browser back/forward
   window.addEventListener('popstate', function () {
     catalogState.openCat = null;
     catalogState.activeSub = null;
+    catalogState.searchQuery = '';
+    if (searchInput) { searchInput.value = ''; }
+    if (searchClear) { searchClear.classList.remove('visible'); }
     parseURLParams();
     updateCatalog();
   });
