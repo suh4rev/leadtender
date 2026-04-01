@@ -1235,7 +1235,7 @@
         display: flex;
         flex-direction: column;
       }
-      .hero-content .hero-tags { order: -1; margin-bottom: 24px; margin-top: 0; flex-direction: column; align-items: flex-start; gap: 8px; }
+      .hero-content .hero-tags { order: -1; margin-bottom: 40px; margin-top: 0; flex-direction: column; align-items: flex-start; gap: 8px; }
       .hero-tag { padding: 5px 14px; font-size: 12px; }
       .hero-content h1 { font-size: 36px; white-space: normal !important; }
       .mobile-br { display: block; }
@@ -1386,6 +1386,20 @@
       /* How we work */
       .hw-num { width: 56px; height: 56px; font-size: 20px; }
       .hw-title { font-size: 15px; }
+    }
+
+    /* Вытянутые экраны (iPhone 12 Pro, Samsung и подобные) */
+    @media (max-width: 480px) and (min-height: 800px) {
+      .hero { min-height: 95vh !important; }
+      .hero-content h1 { font-size: 36px; }
+      .hero-content .hero-desc { font-size: 17px; }
+      .desktop-br { display: inline !important; }
+    }
+
+    /* Очень вытянутые экраны (Samsung S20 Ultra и подобные, ratio > 2) */
+    @media (max-width: 480px) and (min-height: 900px) {
+      .hero { min-height: 85vh !important; }
+      .hero-layout { padding: 30px 0 60px; }
     }
   </style>
 </head>
