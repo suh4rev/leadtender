@@ -1240,6 +1240,7 @@
       .hero-content .hero-desc { order: 1; font-size: 17px; }
       .hero-content .hero-buttons { order: 2; }
       .hero-buttons { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .hero-buttons .btn-lg { padding: 14px 28px; font-size: 16px; }
       .hero-buttons .btn { text-align: center; }
       .hero-line, .hero-sphere { display: none; }
 
@@ -1866,15 +1867,26 @@
       grid.scrollBy({ left: scrollAmt, behavior: 'smooth' });
     });
 
-    // Touch swipe for mobile only
-    var startX, scrollLeft;
+    // Touch swipe for mobile — snap to card on short swipe
+    var startX, startScrollLeft, isSwiping = false;
     grid.addEventListener('touchstart', function(e) {
       startX = e.touches[0].pageX;
-      scrollLeft = grid.scrollLeft;
+      startScrollLeft = grid.scrollLeft;
+      isSwiping = true;
     }, { passive: true });
     grid.addEventListener('touchmove', function(e) {
+      if (!isSwiping) return;
       var x = e.touches[0].pageX;
-      grid.scrollLeft = scrollLeft - (x - startX);
+      grid.scrollLeft = startScrollLeft - (x - startX);
+    }, { passive: true });
+    grid.addEventListener('touchend', function(e) {
+      if (!isSwiping) return;
+      isSwiping = false;
+      var diff = startScrollLeft - grid.scrollLeft;
+      // Swipe threshold — 40px is enough to trigger
+      if (Math.abs(diff) > 40) {
+        grid.scrollBy({ left: diff < 0 ? scrollAmt : -scrollAmt, behavior: 'smooth' });
+      }
     }, { passive: true });
   })();
   </script>
