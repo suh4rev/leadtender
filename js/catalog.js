@@ -165,11 +165,11 @@ function renderProductGrid() {
     var delay = (index % 9) * 50;
 
     var imageContent = product.image
-      ? '<img src="' + product.image + '" alt="' + product.name + '" style="width:100%; height:100%; object-fit:contain; padding:16px;">'
+      ? '<img src="' + product.image + '" alt="' + product.name + '" style="width:100%; height:100%; object-fit:cover;">'
       : '<span class="product-card-icon">' + getCategoryIcon(product.catParent, 40) + '</span>';
 
     html += '<a href="product.html?id=' + product.id + '" class="product-card">' +
-      '<div class="product-card-image" style="background: #fff; border-bottom: 1px solid #f0f0f0;">' +
+      '<div class="product-card-image" style="background: #fff;">' +
         imageContent +
       '</div>' +
       '<div class="product-card-body">' +

@@ -279,9 +279,9 @@
     /* Product Card */
     .product-card {
       background: var(--color-bg-white);
-      border: 1px solid var(--color-border-light);
       border-radius: 14px;
       overflow: hidden;
+      box-shadow: var(--shadow-card);
       transition: transform var(--transition-base), box-shadow var(--transition-base);
       text-decoration: none;
       color: inherit;
@@ -292,10 +292,11 @@
       box-shadow: var(--shadow-card-hover);
     }
     .product-card-image {
-      height: 160px;
+      height: 200px;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
     .product-card-icon {
       color: rgba(255, 255, 255, 0.25);
