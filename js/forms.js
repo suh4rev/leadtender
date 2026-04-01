@@ -209,9 +209,70 @@ function initContactForm(form) {
     e.preventDefault();
 
     if (validateForm(form)) {
-      showSuccessState(form);
+      submitForm(form);
     }
   });
+}
+
+/* --------------------------------------------------------
+   Submit form data to server
+   ------------------------------------------------------ */
+function submitForm(form) {
+  const btn = form.querySelector('button[type="submit"]');
+  const btnText = btn.textContent;
+
+  // Состояние загрузки
+  btn.disabled = true;
+  btn.textContent = 'Отправка...';
+
+  // Собираем данные
+  const data = {
+    name:    form.querySelector('input[name="name"]')?.value.trim() || '',
+    phone:   form.querySelector('input[name="phone"]')?.value.trim() || '',
+    email:   form.querySelector('input[name="email"]')?.value.trim() || '',
+    company: form.querySelector('input[name="company"]')?.value.trim() || '',
+    message: form.querySelector('textarea[name="message"]')?.value.trim() || ''
+  };
+
+  fetch('api/send.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(result) {
+    if (result.success) {
+      showSuccessState(form);
+    } else {
+      showFormError(form, result.error || 'Ошибка отправки');
+      btn.disabled = false;
+      btn.textContent = btnText;
+    }
+  })
+  .catch(function() {
+    showFormError(form, 'Ошибка сети. Попробуйте позже или напишите на info@leadtender.ru');
+    btn.disabled = false;
+    btn.textContent = btnText;
+  });
+}
+
+/* --------------------------------------------------------
+   Form-level error message
+   ------------------------------------------------------ */
+function showFormError(form, message) {
+  let errorEl = form.querySelector('.form-submit-error');
+  if (!errorEl) {
+    errorEl = document.createElement('div');
+    errorEl.className = 'form-submit-error';
+    errorEl.style.cssText = 'color: #E02020; font-size: 14px; margin-top: 12px; text-align: center;';
+    const btn = form.querySelector('button[type="submit"]');
+    btn.parentElement.appendChild(errorEl);
+  }
+  errorEl.textContent = message;
+
+  setTimeout(function() {
+    if (errorEl.parentElement) errorEl.remove();
+  }, 8000);
 }
 
 /* --------------------------------------------------------

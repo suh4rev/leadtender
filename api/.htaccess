@@ -1,0 +1,14 @@
+# Запретить листинг директории
+Options -Indexes
+
+# Запретить прямой доступ к tmp
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^tmp/ - [F,L]
+</IfModule>
+
+# Запретить доступ к .htaccess
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>

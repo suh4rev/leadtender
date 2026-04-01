@@ -1225,6 +1225,10 @@
 
     @media (max-width: 768px) {
       /* Hero — taller on mobile, tags above h1 */
+      .hero-overlay {
+        background: linear-gradient(to bottom, transparent 65%, #0A0A0A 100%), linear-gradient(to right, rgba(0,0,0,.9) 0%, rgba(0,0,0,.7) 50%, rgba(0,0,0,.45) 100%);
+      }
+      .hero-bg { background-position: 70% center !important; }
       .hero { min-height: 110vh; }
       .hero-layout { padding: 50px 0 60px; }
       .hero-content {
@@ -1361,13 +1365,15 @@
     }
 
     @media (max-width: 480px) {
-      /* Hero — keep 40px title on small screens too */
+      .hero-content h1 { font-size: 32px; }
+      .hero-content .hero-desc { font-size: 15px; }
+      .hero-buttons .btn-lg { font-size: 15px; }
       .hero-tags { flex-wrap: wrap; }
 
       /* Trust bar — keep 2 cols on small */
 
       /* Bento — even smaller on tiny screens */
-      .bento-card-img { width: 60px !important; height: 60px !important; }
+      .bento-card-img { width: 90px !important; height: 90px !important; }
       .bento-card-title { font-size: 14px; }
 
       /* Section titles — keep 32px same as 768px */
@@ -1536,10 +1542,10 @@
           <div class="section-label">О КОМПАНИИ</div>
           <h2 class="section-title">LEADTENDER —<br><span style="font-size: 0.72em; font-weight: 600;">надёжный партнёр в сфере промышленного снабжения</span></h2>
           <p class="mt-3" style="color: var(--color-text-body); line-height: 1.8;">
-            Мы специализируемся на комплексных поставках промышленного оборудования,<br>инструмента и расходных материалов для предприятий по всей России. Работаем напрямую<br>с заводами-производителями, что гарантирует подлинность продукции и лучшие цены.
+            Мы специализируемся на комплексных поставках промышленного оборудования,<br class="desktop-br"> инструмента и расходных материалов для предприятий по всей России. Работаем напрямую<br class="desktop-br"> с заводами-производителями, что гарантирует подлинность продукции и лучшие цены.
           </p>
           <p class="mt-2" style="color: var(--color-text-body); line-height: 1.8;">
-            Участвуем в государственных и коммерческих тендерах, обеспечиваем полный<br>документооборот и логистику. Наша цель — сделать процесс закупки максимально<br>простым и прозрачным.
+            Участвуем в государственных и коммерческих тендерах, обеспечиваем полный<br class="desktop-br"> документооборот и логистику. Наша цель — сделать процесс закупки максимально<br class="desktop-br"> простым и прозрачным.
           </p>
 
           <div style="display: flex; justify-content: flex-end; margin-top: 32px;">
