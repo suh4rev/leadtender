@@ -812,7 +812,6 @@
       gap: 24px;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       padding: 8px 0 8px;
@@ -1352,7 +1351,9 @@
       #about .about-grid div[style*="flex-end"] { justify-content: flex-start !important; }
       #about .about-image-wrap { display: none; }
 
-      /* News carousel — slightly smaller cards on mobile */
+      /* News carousel — free scroll on mobile */
+      .news-grid { scroll-snap-type: none; }
+      .news-card { scroll-snap-align: none; flex: 0 0 280px; }
 
       /* Reviews */
       .review-card { padding: 20px; }
@@ -1471,7 +1472,7 @@
             <div class="bento-card-desc">Для резки металла и нержавеющей стали</div>
           </div>
           <span class="bento-card-link">Смотреть →</span>
-          <img src="image/Отрезные.png" alt="Отрезные диски" class="bento-card-img" style="width:50%; height:65%;" loading="lazy">
+          <img src="image/Отрезные.webp" alt="Отрезные диски" class="bento-card-img" style="width:50%; height:65%;" loading="lazy">
         </a>
 
         <!-- 3. Шлифовальные диски -->
@@ -1484,7 +1485,7 @@
             <div class="bento-card-desc">Зачистка швов, снятие фасок, выравнивание</div>
           </div>
           <span class="bento-card-link">Смотреть →</span>
-          <img src="image/Шлифовальные.png" alt="Шлифовальные диски" class="bento-card-img" style="width:50%; height:65%;" loading="lazy">
+          <img src="image/Шлифовальные.webp" alt="Шлифовальные диски" class="bento-card-img" style="width:50%; height:65%;" loading="lazy">
         </a>
 
         <!-- 4. Лепестковые диски -->
@@ -1497,7 +1498,7 @@
             <div class="bento-card-desc">Финишная шлифовка и обработка поверхностей</div>
           </div>
           <span class="bento-card-link">Смотреть →</span>
-          <img src="image/Лепестковые.png" alt="Лепестковые диски" class="bento-card-img" style="width:45%; height:60%;" loading="lazy">
+          <img src="image/Лепестковые.webp" alt="Лепестковые диски" class="bento-card-img" style="width:45%; height:60%;" loading="lazy">
         </a>
 
       </div>
@@ -1710,7 +1711,7 @@
       <div class="news-grid" id="news-carousel">
         <a href="news-detail.html?id=6" class="news-card">
           <div class="news-card-img">
-            <img src="image/bkh_news.png" alt="Партнёрство с BKH" style="width:100%;height:100%;object-fit:cover;">
+            <img src="image/bkh_news.webp" alt="Партнёрство с BKH" style="width:100%;height:100%;object-fit:cover;">
           </div>
           <div class="news-card-body">
             <h3>Официальное партнёрство с заводом BKH</h3>
@@ -1720,7 +1721,7 @@
 
         <a href="news-detail.html?id=1" class="news-card">
           <div class="news-card-img">
-            <img src="image/disk_news.png" alt="Шлифовальные диски" style="width:100%;height:100%;object-fit:cover;">
+            <img src="image/disk_news.webp" alt="Шлифовальные диски" style="width:100%;height:100%;object-fit:cover;">
           </div>
           <div class="news-card-body">
             <h3>Расширение ассортимента шлифовальных дисков</h3>
@@ -1730,7 +1731,7 @@
 
         <a href="news-detail.html?id=5" class="news-card">
           <div class="news-card-img">
-            <img src="image/isoserts_news.png" alt="Сертификаты ISO" style="width:100%;height:100%;object-fit:cover;">
+            <img src="image/isoserts_news.webp" alt="Сертификаты ISO" style="width:100%;height:100%;object-fit:cover;">
           </div>
           <div class="news-card-body">
             <h3>Обновлены сертификаты ISO производителя BKH</h3>
@@ -1740,7 +1741,7 @@
 
         <a href="news-detail.html?id=2" class="news-card">
           <div class="news-card-img">
-            <img src="image/tp_tc_news.png" alt="Декларация ТР ТС" style="width:100%;height:100%;object-fit:cover;">
+            <img src="image/tp_tc_news.webp" alt="Декларация ТР ТС" style="width:100%;height:100%;object-fit:cover;">
           </div>
           <div class="news-card-body">
             <h3>Получена декларация соответствия ТР ТС</h3>
@@ -1750,7 +1751,7 @@
 
         <a href="news-detail.html?id=3" class="news-card">
           <div class="news-card-img">
-            <img src="image/mpa_news.png" alt="Испытания MPA Hannover" style="width:100%;height:100%;object-fit:cover;">
+            <img src="image/mpa_news.webp" alt="Испытания MPA Hannover" style="width:100%;height:100%;object-fit:cover;">
           </div>
           <div class="news-card-body">
             <h3>Диски BKH прошли испытания MPA Hannover</h3>
@@ -1760,7 +1761,7 @@
 
         <a href="news-detail.html?id=4" class="news-card">
           <div class="news-card-img">
-            <img src="image/site_news.png" alt="Новый сайт LEADTENDER" style="width:100%;height:100%;object-fit:cover;">
+            <img src="image/site_news.webp" alt="Новый сайт LEADTENDER" style="width:100%;height:100%;object-fit:cover;">
           </div>
           <div class="news-card-body">
             <h3>Запуск нового сайта компании LEADTENDER</h3>
@@ -1867,27 +1868,7 @@
       grid.scrollBy({ left: scrollAmt, behavior: 'smooth' });
     });
 
-    // Touch swipe for mobile — snap to card on short swipe
-    var startX, startScrollLeft, isSwiping = false;
-    grid.addEventListener('touchstart', function(e) {
-      startX = e.touches[0].pageX;
-      startScrollLeft = grid.scrollLeft;
-      isSwiping = true;
-    }, { passive: true });
-    grid.addEventListener('touchmove', function(e) {
-      if (!isSwiping) return;
-      var x = e.touches[0].pageX;
-      grid.scrollLeft = startScrollLeft - (x - startX);
-    }, { passive: true });
-    grid.addEventListener('touchend', function(e) {
-      if (!isSwiping) return;
-      isSwiping = false;
-      var diff = startScrollLeft - grid.scrollLeft;
-      // Swipe threshold — 40px is enough to trigger
-      if (Math.abs(diff) > 40) {
-        grid.scrollBy({ left: diff < 0 ? scrollAmt : -scrollAmt, behavior: 'smooth' });
-      }
-    }, { passive: true });
+    // Mobile uses native scroll (no custom touch handling)
   })();
   </script>
 </body>
