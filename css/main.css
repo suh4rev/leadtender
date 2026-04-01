@@ -426,3 +426,13 @@ html {
     padding: 0 40px;
   }
 }
+
+/* ===== AOS fix for mobile (disabled at ≤640px) ===== */
+
+@media (max-width: 640px) {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

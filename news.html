@@ -38,130 +38,46 @@
       margin-top: 12px;
     }
 
-    /* === FEATURED CARD === */
-    .news-featured {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      background: var(--color-bg-white);
-      border: 1px solid var(--color-border-light);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      transition: transform var(--transition-base), box-shadow var(--transition-base);
-    }
-    .news-featured:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-card-hover);
-    }
-    .news-featured-img {
-      min-height: 320px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .news-featured-img svg {
-      color: rgba(255,255,255,0.2);
-      transition: transform var(--transition-base);
-    }
-    .news-featured:hover .news-featured-img svg {
-      transform: scale(1.1);
-    }
-    .news-featured-body {
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 16px;
-    }
-    .news-featured-date {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--color-text-muted);
-      background: var(--color-bg);
-      padding: 6px 14px;
-      border-radius: 50px;
-      width: fit-content;
-    }
-    .news-featured-title {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--color-text-primary);
-      line-height: 1.25;
-      transition: color var(--transition-fast);
-    }
-    .news-featured:hover .news-featured-title {
-      color: var(--color-primary);
-    }
-    .news-featured-preview {
-      font-size: 16px;
-      color: var(--color-text-body);
-      line-height: 1.6;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .news-featured-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--color-primary);
-      margin-top: 8px;
-      transition: gap var(--transition-fast);
-    }
-    .news-featured:hover .news-featured-btn {
-      gap: 10px;
-    }
-
     /* === NEWS LIST === */
-    .news-list-title {
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--color-text-primary);
-      margin-bottom: 24px;
-    }
     .news-list {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, 340px);
+      gap: 32px;
+      justify-content: center;
     }
     .news-list-card {
-      background: var(--color-bg-white);
-      border: 1px solid var(--color-border-light);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
       text-decoration: none;
       color: inherit;
       display: block;
-      transition: transform var(--transition-base), box-shadow var(--transition-base);
+      transition: transform var(--transition-base);
     }
     .news-list-card:hover {
       transform: translateY(-4px);
-      box-shadow: var(--shadow-card-hover);
     }
     .news-list-card-img {
-      height: 180px;
+      width: 100%;
+      height: 200px;
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: box-shadow var(--transition-base);
+    }
+    .news-list-card:hover .news-list-card-img {
+      box-shadow: var(--shadow-card-hover);
+    }
+    .news-list-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .news-list-card-img svg {
-      color: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.3);
     }
     .news-list-card-body {
-      padding: 20px;
-    }
-    .news-list-card-date {
-      font-size: 13px;
-      color: var(--color-text-muted);
-      margin-bottom: 8px;
+      padding: 0;
     }
     .news-list-card-title {
       font-size: 16px;
@@ -174,10 +90,15 @@
     .news-list-card:hover .news-list-card-title {
       color: var(--color-primary);
     }
+    .news-list-card-date {
+      font-size: 14px;
+      color: var(--color-text-muted);
+    }
     .news-list-card-preview {
       font-size: 14px;
       color: var(--color-text-muted);
       line-height: 1.5;
+      margin-top: 8px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -185,14 +106,7 @@
     }
 
     /* === RESPONSIVE === */
-    @media (max-width: 1024px) {
-      .news-list { grid-template-columns: repeat(2, 1fr); }
-    }
     @media (max-width: 768px) {
-      .news-featured { grid-template-columns: 1fr; }
-      .news-featured-img { min-height: 220px; }
-      .news-featured-body { padding: 28px; }
-      .news-featured-title { font-size: 22px; }
       .news-page-header h1 { font-size: 32px; }
     }
     @media (max-width: 640px) {
@@ -217,73 +131,67 @@
     </div>
   </div>
 
-  <!-- Featured News -->
   <section class="section" style="padding-top: 0;">
     <div class="container">
-      <a href="news-detail.html?id=1" class="news-featured" data-aos="fade-up">
-        <div class="news-featured-img" style="background: linear-gradient(135deg, #DC2626, #991B1B);">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        </div>
-        <div class="news-featured-body">
-          <span class="news-featured-date">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-            01.04.2026
-          </span>
-          <div class="news-featured-title">Расширение ассортимента шлифовальных дисков</div>
-          <div class="news-featured-preview">Мы расширили линейку шлифовальных дисков, добавив новые типоразмеры и зернистости для удовлетворения потребностей профессионалов.</div>
-          <span class="news-featured-btn">Читать подробнее <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-    </div>
-  </section>
+      <div class="news-list" data-aos="fade-up">
 
-  <!-- Other News -->
-  <section class="section" style="padding-top: 0;">
-    <div class="container">
-      <div class="news-list-title" data-aos="fade-up">Ранее</div>
-      <div class="news-list" data-aos="fade-up" data-aos-delay="100">
-
-        <a href="news-detail.html?id=2" class="news-list-card">
-          <div class="news-list-card-img" style="background: linear-gradient(135deg, #16A34A, #15803D);">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>
+        <a href="news-detail.html?id=6" class="news-list-card">
+          <div class="news-list-card-img">
+            <img src="image/bkh_news.png" alt="Партнёрство с BKH">
           </div>
           <div class="news-list-card-body">
-            <div class="news-list-card-date">01.04.2026</div>
-            <div class="news-list-card-title">Получена декларация соответствия ТР ТС</div>
-            <div class="news-list-card-preview">Продукция BKH прошла декларирование по ТР ТС 010/2011. Декларация действительна до 2031 года.</div>
+            <div class="news-list-card-title">Официальное партнёрство с заводом BKH</div>
+            <span class="news-list-card-date">01.04.2026</span>
           </div>
         </a>
 
-        <a href="news-detail.html?id=3" class="news-list-card">
-          <div class="news-list-card-img" style="background: linear-gradient(135deg, #2563EB, #1D4ED8);">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <a href="news-detail.html?id=1" class="news-list-card">
+          <div class="news-list-card-img">
+            <img src="image/disk_news.png" alt="Шлифовальные диски">
           </div>
           <div class="news-list-card-body">
-            <div class="news-list-card-date">01.04.2026</div>
-            <div class="news-list-card-title">Диски BKH прошли испытания MPA Hannover</div>
-            <div class="news-list-card-preview">Отрезные диски BKH успешно прошли тест на разрыв в немецкой аккредитованной лаборатории MPA Hannover.</div>
+            <div class="news-list-card-title">Расширение ассортимента шлифовальных дисков</div>
+            <span class="news-list-card-date">01.04.2026</span>
           </div>
         </a>
 
         <a href="news-detail.html?id=5" class="news-list-card">
-          <div class="news-list-card-img" style="background: linear-gradient(135deg, #7C3AED, #6D28D9);">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <div class="news-list-card-img">
+            <img src="image/isoserts_news.png" alt="Сертификаты ISO">
           </div>
           <div class="news-list-card-body">
-            <div class="news-list-card-date">01.04.2026</div>
             <div class="news-list-card-title">Обновлены сертификаты ISO производителя BKH</div>
-            <div class="news-list-card-preview">Завод WUYI HONGSHENG ABRASIVES получил обновлённые сертификаты ISO 9001, ISO 14001 и ISO 45001.</div>
+            <span class="news-list-card-date">01.04.2026</span>
+          </div>
+        </a>
+
+        <a href="news-detail.html?id=2" class="news-list-card">
+          <div class="news-list-card-img">
+            <img src="image/tp_tc_news.png" alt="Декларация ТР ТС">
+          </div>
+          <div class="news-list-card-body">
+            <div class="news-list-card-title">Получена декларация соответствия ТР ТС</div>
+            <span class="news-list-card-date">01.04.2026</span>
+          </div>
+        </a>
+
+        <a href="news-detail.html?id=3" class="news-list-card">
+          <div class="news-list-card-img">
+            <img src="image/mpa_news.png" alt="Испытания MPA Hannover">
+          </div>
+          <div class="news-list-card-body">
+            <div class="news-list-card-title">Диски BKH прошли испытания MPA Hannover</div>
+            <span class="news-list-card-date">01.04.2026</span>
           </div>
         </a>
 
         <a href="news-detail.html?id=4" class="news-list-card">
-          <div class="news-list-card-img" style="background: linear-gradient(135deg, #374151, #4B5563);">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <div class="news-list-card-img">
+            <img src="image/site_news.png" alt="Новый сайт LEADTENDER">
           </div>
           <div class="news-list-card-body">
-            <div class="news-list-card-date">01.04.2026</div>
             <div class="news-list-card-title">Запуск нового сайта компании LEADTENDER</div>
-            <div class="news-list-card-preview">Мы обновили наш сайт, чтобы сделать взаимодействие с клиентами ещё удобнее — новый каталог, удобная навигация и актуальная информация.</div>
+            <span class="news-list-card-date">01.04.2026</span>
           </div>
         </a>
 

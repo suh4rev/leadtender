@@ -60,6 +60,12 @@
     .detail-cover svg {
       color: rgba(255,255,255,0.2);
     }
+    .detail-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: var(--radius-xl);
+    }
 
     /* === ARTICLE CONTENT === */
     .article-content {
@@ -114,49 +120,58 @@
     }
     .detail-more-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, 340px);
+      gap: 32px;
+      justify-content: center;
     }
     .detail-more-card {
-      background: var(--color-bg-white);
-      border: 1px solid var(--color-border-light);
-      border-radius: var(--radius-md);
-      overflow: hidden;
       text-decoration: none;
       color: inherit;
       display: block;
-      transition: transform var(--transition-base), box-shadow var(--transition-base);
+      transition: transform var(--transition-base);
     }
     .detail-more-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-4px);
     }
     .detail-more-card-img {
-      height: 120px;
+      width: 100%;
+      height: 200px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: box-shadow var(--transition-base);
+    }
+    .detail-more-card:hover .detail-more-card-img {
+      box-shadow: var(--shadow-card-hover);
     }
     .detail-more-card-img svg {
-      color: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.3);
+    }
+    .detail-more-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .detail-more-card-body {
-      padding: 16px;
-    }
-    .detail-more-card-date {
-      font-size: 12px;
-      color: var(--color-text-muted);
-      margin-bottom: 6px;
+      padding: 0;
     }
     .detail-more-card-title {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: var(--color-text-primary);
       line-height: 1.4;
+      margin-bottom: 8px;
       transition: color var(--transition-fast);
     }
     .detail-more-card:hover .detail-more-card-title {
       color: var(--color-primary);
+    }
+    .detail-more-card-date {
+      font-size: 14px;
+      color: var(--color-text-muted);
     }
 
     /* === NOT FOUND === */
@@ -178,6 +193,8 @@
     @media (max-width: 768px) {
       .detail-title { font-size: 28px; }
       .detail-cover { height: 240px; }
+    }
+    @media (max-width: 640px) {
       .detail-more-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -209,6 +226,12 @@
     </div>
   </section>
 
+  <section class="section" style="padding-top: 0;" id="detail-more-section" hidden>
+    <div class="container" id="detail-more-container">
+      <!-- Other news rendered by JS -->
+    </div>
+  </section>
+
   <div id="footer"></div>
 
   <button class="back-to-top" id="back-to-top" aria-label="Наверх">
@@ -221,18 +244,16 @@
   <script src="js/main.js"></script>
 
   <script>
-    var NEWS_GRADIENTS = {
-      1: 'linear-gradient(135deg, #DC2626, #991B1B)',
-      2: 'linear-gradient(135deg, #1E293B, #334155)',
-      3: 'linear-gradient(135deg, #0F172A, #1E293B)',
-      4: 'linear-gradient(135deg, #374151, #4B5563)'
+    var NEWS_IMAGES = {
+      1: 'image/disk_news.png',
+      2: 'image/tp_tc_news.png',
+      3: 'image/mpa_news.png',
+      4: 'image/site_news.png',
+      5: 'image/isoserts_news.png',
+      6: 'image/bkh_news.png'
     };
-    var NEWS_ICONS = {
-      1: '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
-      2: '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-      3: '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>',
-      4: '<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>'
-    };
+    var NEWS_GRADIENTS = {};
+    var NEWS_ICONS = {};
 
     document.addEventListener('DOMContentLoaded', function() {
       var params = new URLSearchParams(window.location.search);
@@ -255,21 +276,34 @@
       document.title = 'LEADTENDER — ' + item.title;
       bcTitle.textContent = item.title;
 
-      var gradient = NEWS_GRADIENTS[item.id] || NEWS_GRADIENTS[1];
-      var icon = NEWS_ICONS[item.id] || NEWS_ICONS[1];
+      // Build cover
+      var coverHTML = '';
+      if (NEWS_IMAGES[item.id]) {
+        coverHTML = '<img src="' + NEWS_IMAGES[item.id] + '" alt="' + item.title + '">';
+      } else {
+        var icon = NEWS_ICONS[item.id] || '';
+        coverHTML = icon;
+      }
+      var gradient = NEWS_GRADIENTS[item.id] || '';
 
       // Build other news
       var others = NEWS.filter(function(n) { return n.id !== item.id; });
       var othersHTML = '';
       others.forEach(function(n) {
-        var g = NEWS_GRADIENTS[n.id] || NEWS_GRADIENTS[1];
-        var ic = NEWS_ICONS[n.id] || NEWS_ICONS[1];
+        var cardImgHTML = '';
+        if (NEWS_IMAGES[n.id]) {
+          cardImgHTML = '<div class="detail-more-card-img"><img src="' + NEWS_IMAGES[n.id] + '" alt="' + n.title + '"></div>';
+        } else {
+          var g = NEWS_GRADIENTS[n.id] || '';
+          var ic = NEWS_ICONS[n.id] || '';
+          cardImgHTML = '<div class="detail-more-card-img" style="' + (g ? 'background:' + g + ';' : '') + '">' + ic.replace(/56/g, '40') + '</div>';
+        }
         othersHTML +=
           '<a href="news-detail.html?id=' + n.id + '" class="detail-more-card">' +
-            '<div class="detail-more-card-img" style="background: ' + g + ';">' + ic.replace(/56/g, '32') + '</div>' +
+            cardImgHTML +
             '<div class="detail-more-card-body">' +
-              '<div class="detail-more-card-date">' + n.date + '</div>' +
               '<div class="detail-more-card-title">' + n.title + '</div>' +
+              '<span class="detail-more-card-date">' + n.date + '</span>' +
             '</div>' +
           '</a>';
       });
@@ -280,12 +314,18 @@
           item.date +
         '</div>' +
         '<h1 class="detail-title" data-aos="fade-up">' + item.title + '</h1>' +
-        '<div class="detail-cover" style="background: ' + gradient + ';" data-aos="fade-up">' + icon + '</div>' +
+        '<div class="detail-cover" style="' + (gradient ? 'background:' + gradient + ';' : '') + '" data-aos="fade-up">' + coverHTML + '</div>' +
         '<div class="article-content" data-aos="fade-up">' + item.content + '</div>' +
         '<a href="news.html" class="detail-back">' +
           '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>' +
           'Все новости' +
-        '</a>' +
+        '</a>';
+
+      // Render other news in separate wide container
+      var moreSection = document.getElementById('detail-more-section');
+      var moreContainer = document.getElementById('detail-more-container');
+      moreSection.hidden = false;
+      moreContainer.innerHTML =
         '<div class="detail-more" data-aos="fade-up">' +
           '<div class="detail-more-title">Другие новости</div>' +
           '<div class="detail-more-grid">' + othersHTML + '</div>' +
